@@ -1,7 +1,8 @@
+import 'package:earn_store/Controllers/Splash%20&%20Auth%20Controllers/login_controller.dart';
 import 'package:earn_store/Statics/colors.dart';
+import 'package:earn_store/Utils/button_loading.dart';
 import 'package:earn_store/Views/Common%20Widgets/auth_top_logo.dart';
 import 'package:earn_store/Views/Common%20Widgets/non_glass_morphism_card.dart';
-import 'package:earn_store/Views/Pages/Home%20Pages/root_page.dart';
 import 'package:earn_store/Views/Pages/Splash%20&%20Auth%20Pages/root_design.dart';
 import 'package:earn_store/Views/Styles/buttons.dart';
 import 'package:earn_store/Views/Styles/fields.dart';
@@ -37,44 +38,49 @@ class LoginPage extends StatelessWidget {
   }
 
   Widget loginBox() {
-    return NonGlassMorphismCard(
-      boxHeight: 320.h,
-      borderColor: TextColors.textColor1,
-      horizontalPadding: 20.w,
-      isCenter: true,
-      child: Column(
-        children: [
-          SizedBox(height: 30.h),
-          CustomField(
-            hintText: "Email",
-            controller: TextEditingController(),
+    LoginController loginController = Get.put(LoginController());
+    return Obx(
+      () {
+        return NonGlassMorphismCard(
+          boxHeight: 320.h,
+          borderColor: TextColors.textColor1,
+          horizontalPadding: 20.w,
+          isCenter: true,
+          child: Column(
+            children: [
+              SizedBox(height: 30.h),
+              CustomField(
+                hintText: "Email",
+                controller: loginController.emailController,
+              ),
+              SizedBox(height: 20.h),
+              CustomField(
+                isPassword: true,
+                hintText: "Password",
+                controller: loginController.passwordController,
+              ),
+              SizedBox(height: 15.h),
+              Align(
+                alignment: Alignment.centerRight,
+                child: TextStyles.customText(
+                  title: "Forgot password?",
+                  fontSize: 13.sp,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              SizedBox(height: 30.h),
+              loginController.loginLoading.value
+                  ? const ButtonLoading()
+                  : CustomButton(
+                      onPressed: () async {
+                        await loginController.getUserLogin();
+                      },
+                      buttonText: "Log In",
+                    )
+            ],
           ),
-          SizedBox(height: 20.h),
-          CustomField(
-            isPassword: true,
-            hintText: "Password",
-            controller: TextEditingController(),
-          ),
-          SizedBox(height: 15.h),
-          Align(
-            alignment: Alignment.centerRight,
-            child: TextStyles.customText(
-              title: "Forgot password?",
-              fontSize: 13.sp,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-          SizedBox(height: 30.h),
-          CustomButton(
-            onPressed: () {
-              Get.offAll(
-                const RootScreen(),
-              );
-            },
-            buttonText: "Log In",
-          )
-        ],
-      ),
+        );
+      },
     );
   }
 

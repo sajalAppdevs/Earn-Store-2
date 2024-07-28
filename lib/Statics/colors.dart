@@ -28,4 +28,6 @@ class GeneralColors {
   static const shadowColor1 = Color(0xffEDFAFF);
   static const blackColor = Color(0xff000000);
   static const indicatorColor = Color(0xfff3925f);
+  static const successBarColor = Color(0xff03623D);
+  static const unSuccessBarColor = Color(0xffBA0021);
 }
