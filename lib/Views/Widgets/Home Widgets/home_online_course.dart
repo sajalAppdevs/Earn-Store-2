@@ -1,4 +1,8 @@
-import 'package:earn_store/Statics/paths.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:earn_store/Controllers/Home%20Controllers/online_course_controller.dart';
+import 'package:earn_store/Models/Home%20Models/online_course_model.dart';
+import 'package:earn_store/Statics/colors.dart';
+import 'package:earn_store/Utils/button_loading.dart';
 import 'package:earn_store/Views/Common%20Widgets/glass_morphism_card.dart';
 import 'package:earn_store/Views/Pages/Home%20Details%20Page/all_course_page.dart';
 import 'package:earn_store/Views/Styles/textstyles.dart';
@@ -12,53 +16,103 @@ class HomeOnlineCourse extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(top: 20.h, bottom: 10.h),
-      child: GlassmorphismCard(
-        boxHeight: 160.h,
-        verticalPadding: 20.h,
-        horizontalPadding: 20.w,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            TitleText(
-              title: "Online Course",
-              fontSize: 18.sp,
-              onPressed: () {
-                Get.to(
-                  const AllCoursePage(),
-                );
-              },
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                courseBox(),
-                courseBox(),
-              ],
-            )
-          ],
-        ),
-      ),
+    OnlineCourseController controller = Get.put(
+      OnlineCourseController(),
+    );
+    return Obx(
+      () {
+        return controller.courseLoading.value
+            ? ButtonLoading(
+                verticalPadding: 60.h,
+              )
+            : Padding(
+                padding: EdgeInsets.only(top: 20.h, bottom: 10.h),
+                child: GlassmorphismCard(
+                  boxHeight: 160.h,
+                  verticalPadding: 20.h,
+                  horizontalPadding: 20.w,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TitleText(
+                        title: "Online Course",
+                        fontSize: 18.sp,
+                        onPressed: () {
+                          Get.to(
+                            const AllCoursePage(),
+                          );
+                        },
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: List.generate(
+                          controller.courses.value!.onlineCourses!.length > 1
+                              ? 2
+                              : controller.courses.value!.onlineCourses!.length,
+                          (index) => courseBox(index: index),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              );
+      },
     );
   }
 
-  Widget courseBox() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Image.asset(
-          "${Paths.iconPath}ten_minutes.png",
-          height: 33.h,
-          width: 100.w,
-        ),
-        SizedBox(height: 10.h),
-        TextStyles.customText(
-          title: "Ten Minute School",
-          fontSize: 13.sp,
-          fontWeight: FontWeight.w400,
-        )
-      ],
+  Widget courseBox({required int index}) {
+    OnlineCourseController controller = Get.put(
+      OnlineCourseController(),
+    );
+    return Obx(
+      () {
+        OnlineCourseModel courses = controller.courses.value!;
+        String name = courses.onlineCourses![index].appName.toString();
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            courseImage(index: index),
+            SizedBox(height: 10.h),
+            TextStyles.customText(
+              title: name,
+              fontSize: 13.sp,
+              fontWeight: FontWeight.w400,
+            )
+          ],
+        );
+      },
+    );
+  }
+
+  Widget courseImage({required int index}) {
+    OnlineCourseController controller = Get.put(
+      OnlineCourseController(),
+    );
+    return Obx(
+      () {
+        OnlineCourseModel courses = controller.courses.value!;
+        return CachedNetworkImage(
+          imageUrl: courses.onlineCourses![index].icon.toString(),
+          imageBuilder: (context, imageProvider) => Container(
+            height: 33.h,
+            width: 100.w,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: imageProvider,
+                fit: BoxFit.fill,
+              ),
+            ),
+          ),
+          placeholder: (context, url) => const ButtonLoading(
+            loadingColor: TextColors.textColor1,
+          ),
+          errorWidget: (context, url, error) => Container(
+            height: 33.h,
+            width: 100.w,
+            color: Colors.grey,
+          ),
+        );
+      },
     );
   }
 }

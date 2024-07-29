@@ -1,7 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:earn_store/Controllers/Home%20Controllers/home_advertise_controller.dart';
+import 'package:earn_store/Models/Home%20Models/banner_model.dart';
 import 'package:earn_store/Statics/colors.dart';
-import 'package:earn_store/Statics/paths.dart';
+import 'package:earn_store/Utils/button_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -16,37 +18,34 @@ class HomeAdvertisement extends StatelessWidget {
     );
     return Obx(
       () {
-        return Column(
-          children: [
-            CarouselSlider.builder(
-              itemCount: controller.sliderLength.value,
-              itemBuilder:
-                  (BuildContext context, int itemIndex, int pageViewIndex) =>
-                      Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10.r),
-                  image: const DecorationImage(
-                    image: AssetImage(
-                      "${Paths.imagePath}home_banner.jpg",
+        return controller.bannerLoading.value
+            ? ButtonLoading(
+                verticalPadding: 60.h,
+              )
+            : Column(
+                children: [
+                  CarouselSlider.builder(
+                    itemCount: controller.banners.value!.banner!.length,
+                    itemBuilder: (BuildContext context, int itemIndex,
+                            int pageViewIndex) =>
+                        bannerImage(
+                      index: itemIndex,
+                    ),
+                    options: CarouselOptions(
+                      height: 150.h,
+                      viewportFraction: 1,
+                      autoPlay: true,
+                      onPageChanged: (index, reason) {
+                        controller.setSliderIndex(value: index);
+                      },
                     ),
                   ),
-                ),
-              ),
-              options: CarouselOptions(
-                height: 150.h,
-                viewportFraction: 1,
-                autoPlay: true,
-                onPageChanged: (index, reason) {
-                  controller.setSliderIndex(value: index);
-                },
-              ),
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-            indexIndicator(),
-          ],
-        );
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  indexIndicator(),
+                ],
+              );
       },
     );
   }
@@ -61,7 +60,7 @@ class HomeAdvertisement extends StatelessWidget {
         return Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: List.generate(
-            controller.sliderLength.value,
+            controller.banners.value!.banner!.length,
             (index) {
               return currentIndex == index
                   ? Container(
@@ -90,6 +89,34 @@ class HomeAdvertisement extends StatelessWidget {
                       ),
                     );
             },
+          ),
+        );
+      },
+    );
+  }
+
+  Widget bannerImage({required int index}) {
+    final HomeAdvertiseController controller = Get.put(
+      HomeAdvertiseController(),
+    );
+    return Obx(
+      () {
+        BannerModel banners = controller.banners.value!;
+        return CachedNetworkImage(
+          imageUrl: banners.banner![index].bannerImageUrl.toString(),
+          imageBuilder: (context, imageProvider) => Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: imageProvider,
+                fit: BoxFit.fill,
+              ),
+            ),
+          ),
+          placeholder: (context, url) => const ButtonLoading(
+            loadingColor: TextColors.textColor1,
+          ),
+          errorWidget: (context, url, error) => Container(
+            color: Colors.grey,
           ),
         );
       },

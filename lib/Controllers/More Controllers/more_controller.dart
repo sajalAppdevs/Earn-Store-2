@@ -1,3 +1,4 @@
+import 'package:earn_store/Utils/local_storage.dart';
 import 'package:earn_store/Views/Pages/More%20Pages/change_pass_page.dart';
 import 'package:earn_store/Views/Pages/More%20Pages/leader_board_page.dart';
 import 'package:earn_store/Views/Pages/More%20Pages/level_page.dart';
@@ -8,7 +9,9 @@ import 'package:earn_store/Views/Pages/More%20Pages/profile_page.dart';
 import 'package:earn_store/Views/Pages/More%20Pages/refer_list_page.dart';
 import 'package:earn_store/Views/Pages/More%20Pages/spin_page.dart';
 import 'package:earn_store/Views/Pages/More%20Pages/total_earning_page.dart';
+import 'package:earn_store/Views/Pages/Splash%20&%20Auth%20Pages/splash_page.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class MoreController extends GetxController {
   void moreNavigator({required int index}) {
@@ -52,6 +55,21 @@ class MoreController extends GetxController {
       Get.to(
         const LiveChatPage(),
       );
+    } else if (index == 10) {
+      logOut();
     }
+  }
+
+  String todaysDate() {
+    final now = DateTime.now();
+    final formatter = DateFormat('dd MMMM yyyy');
+    return formatter.format(now);
+  }
+
+  Future<void> logOut() async {
+    await LocalStorage.setUserID(userID: 0);
+    Get.offAll(
+      const SplashPage(),
+    );
   }
 }

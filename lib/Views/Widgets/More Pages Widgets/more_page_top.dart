@@ -1,11 +1,33 @@
+import 'package:earn_store/Controllers/More%20Controllers/more_controller.dart';
+import 'package:earn_store/Controllers/User%20Controllers/user_profile_controller.dart';
 import 'package:earn_store/Statics/paths.dart';
 import 'package:earn_store/Views/Common%20Widgets/glass_morphism_card.dart';
 import 'package:earn_store/Views/Styles/textstyles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
-class MorePageTop extends StatelessWidget {
+class MorePageTop extends StatefulWidget {
   const MorePageTop({super.key});
+
+  @override
+  State<MorePageTop> createState() => _MorePageTopState();
+}
+
+class _MorePageTopState extends State<MorePageTop> {
+  String todayDate = "";
+  MoreController moreController = Get.put(MoreController());
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  void getData() {
+    todayDate = moreController.todaysDate();
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +46,7 @@ class MorePageTop extends StatelessWidget {
               levelAndWithdraw(),
               SizedBox(height: 10.h),
               TextStyles.customText(
-                title: "20 July 2024",
+                title: todayDate,
                 fontSize: 14.sp,
                 fontWeight: FontWeight.w400,
               )
@@ -36,24 +58,31 @@ class MorePageTop extends StatelessWidget {
   }
 
   Widget userInfo() {
-    return Row(
-      children: [
-        userImage(),
-        SizedBox(width: 10.w),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+    UserProfileController profileController = Get.put(UserProfileController());
+    return Obx(
+      () {
+        String name = profileController.userData.value!.user!.name.toString();
+        String email = profileController.userData.value!.user!.email.toString();
+        return Row(
           children: [
-            TextStyles.customText(
-              title: "Soykot Hosen",
-              fontSize: 14.sp,
-            ),
-            TextStyles.customText(
-              title: "soykot.ruet.cse@gmail.com",
-              fontSize: 14.sp,
-            ),
+            userImage(),
+            SizedBox(width: 10.w),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TextStyles.customText(
+                  title: name,
+                  fontSize: 14.sp,
+                ),
+                TextStyles.customText(
+                  title: email,
+                  fontSize: 14.sp,
+                ),
+              ],
+            )
           ],
-        )
-      ],
+        );
+      },
     );
   }
 

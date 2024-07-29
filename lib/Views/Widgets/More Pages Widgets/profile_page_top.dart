@@ -1,8 +1,10 @@
+import 'package:earn_store/Controllers/User%20Controllers/user_profile_controller.dart';
 import 'package:earn_store/Statics/paths.dart';
 import 'package:earn_store/Views/Common%20Widgets/glass_morphism_card.dart';
 import 'package:earn_store/Views/Styles/textstyles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class ProfilePageTop extends StatelessWidget {
   const ProfilePageTop({super.key});
@@ -40,22 +42,29 @@ class ProfilePageTop extends StatelessWidget {
   }
 
   Widget userInfo() {
-    return Align(
-      alignment: Alignment.centerLeft,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          TextStyles.customText(
-            title: "Rashidatul Kobra",
-            fontSize: 18.sp,
+    UserProfileController profileController = Get.put(UserProfileController());
+    return Obx(
+      () {
+        String name = profileController.userData.value!.user!.name.toString();
+        String title = profileController.userData.value!.user!.title.toString();
+        return Align(
+          alignment: Alignment.centerLeft,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextStyles.customText(
+                title: name,
+                fontSize: 18.sp,
+              ),
+              SizedBox(height: 5.h),
+              TextStyles.customText(
+                title: title,
+                fontSize: 14.sp,
+              ),
+            ],
           ),
-          SizedBox(height: 5.h),
-          TextStyles.customText(
-            title: "Be you be unique",
-            fontSize: 14.sp,
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

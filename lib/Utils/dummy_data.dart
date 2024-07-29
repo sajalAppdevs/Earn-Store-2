@@ -63,6 +63,12 @@ class DummyData {
       imagePath: "${Paths.iconPath}live_chat.png",
       name: "Live Chat with Us",
     ),
+    Methods(
+      height: 26.h,
+      width: 26.w,
+      imagePath: "${Paths.iconPath}logout.png",
+      name: "Logout",
+    ),
   ];
   static List<Methods> socialOptions = [
     Methods(
