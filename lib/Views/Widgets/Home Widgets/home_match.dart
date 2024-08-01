@@ -1,11 +1,11 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:earn_store/Controllers/Home%20Controllers/sport_update_controller.dart';
 import 'package:earn_store/Models/Home%20Models/sport_update_model.dart';
-import 'package:earn_store/Statics/colors.dart';
 import 'package:earn_store/Statics/paths.dart';
 import 'package:earn_store/Utils/button_loading.dart';
-import 'package:earn_store/Utils/date_formatter.dart';
+import 'package:earn_store/Utils/date_helpers.dart';
+
 import 'package:earn_store/Views/Common%20Widgets/glass_morphism_card.dart';
+import 'package:earn_store/Views/Common%20Widgets/network_image_widget.dart';
 import 'package:earn_store/Views/Pages/Match%20Pages/match_list_page.dart';
 import 'package:earn_store/Views/Styles/textstyles.dart';
 import 'package:earn_store/Views/Styles/title_text.dart';
@@ -39,7 +39,7 @@ class HomeMatch extends StatelessWidget {
                   SizedBox(height: 10.h),
                   ListView.builder(
                     itemCount:
-                        controller.sportUpdates.value!.sportUpdate!.length,
+                        controller.sportUpdates.value!.posts!.length,
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
@@ -57,18 +57,18 @@ class HomeMatch extends StatelessWidget {
     return Obx(
       () {
         SportUpdateModel sportUpdates = controller.sportUpdates.value!;
-        String date = DateFormatter.formatDate(
-          sportUpdates.sportUpdate![index].datetime.toString(),
+        String date = DateHelpers.formatDate(
+          sportUpdates.posts![index].datetime.toString(),
         );
-        String title = sportUpdates.sportUpdate![index].title.toString();
+        String title = sportUpdates.posts![index].title.toString();
         String countryFlag1 =
-            sportUpdates.sportUpdate![index].team1!.image.toString();
+            sportUpdates.posts![index].team1!.image.toString();
         String countryName1 =
-            sportUpdates.sportUpdate![index].team1!.name.toString();
+            sportUpdates.posts![index].team1!.name.toString();
         String countryFlag2 =
-            sportUpdates.sportUpdate![index].team2!.image.toString();
+            sportUpdates.posts![index].team2!.image.toString();
         String countryName2 =
-            sportUpdates.sportUpdate![index].team2!.name.toString();
+            sportUpdates.posts![index].team2!.name.toString();
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -145,27 +145,11 @@ class HomeMatch extends StatelessWidget {
   }
 
   Widget countryFlatImage({required String imagePath}) {
-    return CachedNetworkImage(
+    return NetworkImageWidget(
       imageUrl: imagePath,
-      imageBuilder: (context, imageProvider) => Container(
-        height: 30.h,
-        width: 35.w,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: imageProvider,
-            fit: BoxFit.fill,
-          ),
-        ),
-      ),
-      placeholder: (context, url) => ButtonLoading(
-        loadingColor: TextColors.textColor1,
-        loadingSize: 15.sp,
-      ),
-      errorWidget: (context, url, error) => Container(
-        height: 30.h,
-        width: 35.w,
-        color: Colors.grey,
-      ),
+      loadingSize: 15.sp,
+      height: 30.h,
+      width: 35.w,
     );
   }
 }

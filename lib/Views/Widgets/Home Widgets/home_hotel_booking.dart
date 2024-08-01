@@ -1,7 +1,6 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:earn_store/Controllers/Home%20Controllers/all_hotel_controller.dart';
-import 'package:earn_store/Statics/colors.dart';
 import 'package:earn_store/Utils/button_loading.dart';
+import 'package:earn_store/Views/Common%20Widgets/network_image_widget.dart';
 import 'package:earn_store/Views/Pages/Home%20Details%20Page/all_hotel_page.dart';
 import 'package:earn_store/Views/Pages/Home%20Details%20Page/hotel_details_page.dart';
 import 'package:earn_store/Views/Styles/title_text.dart';
@@ -53,13 +52,17 @@ class HomeHotelBooking extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           child: Row(
             children: List.generate(
-              controller.hotels.value!.hotel!.length,
+              controller.hotels.value!.hotels!.length,
               (index) => Padding(
                 padding: EdgeInsets.only(right: 15.w),
                 child: GestureDetector(
                   onTap: () {
+                    String hotelID =
+                        controller.hotels.value!.hotels![index].id.toString();
                     Get.to(
-                      const HotelDetailsPage(),
+                      HotelDetailsPage(
+                        hotelID: hotelID,
+                      ),
                     );
                   },
                   child: hotelImage(index: index),
@@ -76,27 +79,10 @@ class HomeHotelBooking extends StatelessWidget {
     AllHotelController controller = Get.put(AllHotelController());
     return Obx(
       () {
-        return CachedNetworkImage(
-          imageUrl: controller.hotels.value!.hotel![index].image.toString(),
-          imageBuilder: (context, imageProvider) => Container(
-            height: 128.h,
-            width: 227.w,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.r),
-              image: DecorationImage(
-                image: imageProvider,
-                fit: BoxFit.fill,
-              ),
-            ),
-          ),
-          placeholder: (context, url) => const ButtonLoading(
-            loadingColor: TextColors.textColor1,
-          ),
-          errorWidget: (context, url, error) => Container(
-            height: 128.h,
-            width: 227.w,
-            color: Colors.grey,
-          ),
+        return NetworkImageWidget(
+          imageUrl: controller.hotels.value!.hotels![index].image.toString(),
+          height: 128.h,
+          width: 227.w,
         );
       },
     );

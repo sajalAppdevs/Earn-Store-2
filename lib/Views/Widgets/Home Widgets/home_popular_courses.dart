@@ -1,8 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:earn_store/Controllers/Home%20Controllers/popular_courses_controller.dart';
-import 'package:earn_store/Statics/colors.dart';
 import 'package:earn_store/Utils/button_loading.dart';
 import 'package:earn_store/Views/Common%20Widgets/glass_morphism_card.dart';
+import 'package:earn_store/Views/Common%20Widgets/network_image_widget.dart';
+import 'package:earn_store/Views/Pages/Home%20Details%20Page/all_popular_courses.dart';
 import 'package:earn_store/Views/Styles/textstyles.dart';
 import 'package:earn_store/Views/Styles/title_text.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +27,14 @@ class HomePopularCources extends StatelessWidget {
                 padding: EdgeInsets.only(top: 5.h),
                 child: Column(
                   children: [
-                    const TitleText(title: "Popular Courses"),
+                    TitleText(
+                      title: "Popular Courses",
+                      onPressed: () {
+                        Get.to(
+                          const AllPopularCourses(),
+                        );
+                      },
+                    ),
                     SizedBox(height: 10.h),
                     cources(),
                   ],
@@ -97,26 +104,10 @@ class HomePopularCources extends StatelessWidget {
   }
 
   Widget courseImage({required String imagePath}) {
-    return CachedNetworkImage(
+    return NetworkImageWidget(
       imageUrl: imagePath,
-      imageBuilder: (context, imageProvider) => Container(
-        height: 75.h,
-        width: 130.w,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: imageProvider,
-            fit: BoxFit.fill,
-          ),
-        ),
-      ),
-      placeholder: (context, url) => const ButtonLoading(
-        loadingColor: TextColors.textColor1,
-      ),
-      errorWidget: (context, url, error) => Container(
-        height: 75.h,
-        width: 130.w,
-        color: Colors.grey,
-      ),
+      height: 75.h,
+      width: 130.w,
     );
   }
 }

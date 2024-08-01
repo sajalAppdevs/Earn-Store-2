@@ -1,9 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:earn_store/Controllers/Home%20Controllers/online_course_controller.dart';
 import 'package:earn_store/Models/Home%20Models/online_course_model.dart';
-import 'package:earn_store/Statics/colors.dart';
 import 'package:earn_store/Utils/button_loading.dart';
 import 'package:earn_store/Views/Common%20Widgets/glass_morphism_card.dart';
+import 'package:earn_store/Views/Common%20Widgets/network_image_widget.dart';
 import 'package:earn_store/Views/Pages/Home%20Details%20Page/all_course_page.dart';
 import 'package:earn_store/Views/Styles/textstyles.dart';
 import 'package:earn_store/Views/Styles/title_text.dart';
@@ -91,26 +90,10 @@ class HomeOnlineCourse extends StatelessWidget {
     return Obx(
       () {
         OnlineCourseModel courses = controller.courses.value!;
-        return CachedNetworkImage(
+        return NetworkImageWidget(
           imageUrl: courses.onlineCourses![index].icon.toString(),
-          imageBuilder: (context, imageProvider) => Container(
-            height: 33.h,
-            width: 100.w,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: imageProvider,
-                fit: BoxFit.fill,
-              ),
-            ),
-          ),
-          placeholder: (context, url) => const ButtonLoading(
-            loadingColor: TextColors.textColor1,
-          ),
-          errorWidget: (context, url, error) => Container(
-            height: 33.h,
-            width: 100.w,
-            color: Colors.grey,
-          ),
+          height: 33.h,
+          width: 100.w,
         );
       },
     );

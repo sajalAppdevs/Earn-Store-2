@@ -18,7 +18,7 @@ import 'package:earn_store/Views/Widgets/Home%20Widgets/home_match.dart';
 import 'package:earn_store/Views/Widgets/Home%20Widgets/home_online_course.dart';
 import 'package:earn_store/Views/Widgets/Home%20Widgets/home_options.dart';
 import 'package:earn_store/Views/Widgets/Home%20Widgets/home_pdf_resources.dart';
-import 'package:earn_store/Views/Widgets/Home%20Widgets/home_popular_cources.dart';
+import 'package:earn_store/Views/Widgets/Home%20Widgets/home_popular_courses.dart';
 import 'package:earn_store/Views/Widgets/Home%20Widgets/home_streaming_hub.dart';
 import 'package:earn_store/Views/Widgets/Home%20Widgets/home_top.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +39,9 @@ class _HomePageState extends State<HomePage> {
   OnlineCourseController onlineCourseController = Get.put(
     OnlineCourseController(),
   );
-  AllHotelController hotelController = Get.put(AllHotelController());
+  AllHotelController hotelController = Get.put(
+    AllHotelController(),
+  );
   SportUpdateController sportUpdateController = Get.put(
     SportUpdateController(),
   );

@@ -1,8 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:earn_store/Controllers/Home%20Controllers/all_agency_controller.dart';
-import 'package:earn_store/Statics/colors.dart';
 import 'package:earn_store/Utils/button_loading.dart';
 import 'package:earn_store/Views/Common%20Widgets/glass_morphism_card.dart';
+import 'package:earn_store/Views/Common%20Widgets/network_image_widget.dart';
 import 'package:earn_store/Views/Pages/Home%20Details%20Page/agency_details.dart';
 import 'package:earn_store/Views/Pages/Home%20Details%20Page/all_agency_page.dart';
 import 'package:earn_store/Views/Styles/title_text.dart';
@@ -75,26 +74,10 @@ class HomeAgency extends StatelessWidget {
   }
 
   Widget agencyImage({required String imagePath}) {
-    return CachedNetworkImage(
+    return NetworkImageWidget(
       imageUrl: imagePath,
-      imageBuilder: (context, imageProvider) => Container(
-        height: 130.h,
-        width: 285.w,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: imageProvider,
-            fit: BoxFit.fill,
-          ),
-        ),
-      ),
-      placeholder: (context, url) => const ButtonLoading(
-        loadingColor: TextColors.textColor1,
-      ),
-      errorWidget: (context, url, error) => Container(
-        height: 130.h,
-        width: 285.w,
-        color: Colors.grey,
-      ),
+      height: 130.h,
+      width: 285.w,
     );
   }
 }

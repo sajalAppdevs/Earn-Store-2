@@ -1,15 +1,15 @@
 class SportUpdateModel {
   bool? status;
-  List<SportUpdate>? sportUpdate;
+  List<Posts>? posts;
 
-  SportUpdateModel({this.status, this.sportUpdate});
+  SportUpdateModel({this.status, this.posts});
 
   SportUpdateModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
-    if (json['sport_update'] != null) {
-      sportUpdate = <SportUpdate>[];
-      json['sport_update'].forEach((v) {
-        sportUpdate!.add(SportUpdate.fromJson(v));
+    if (json['posts'] != null) {
+      posts = <Posts>[];
+      json['posts'].forEach((v) {
+        posts!.add(Posts.fromJson(v));
       });
     }
   }
@@ -17,14 +17,14 @@ class SportUpdateModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['status'] = status;
-    if (sportUpdate != null) {
-      data['sport_update'] = sportUpdate!.map((v) => v.toJson()).toList();
+    if (posts != null) {
+      data['posts'] = posts!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
-class SportUpdate {
+class Posts {
   int? id;
   int? team1Id;
   int? team2Id;
@@ -38,7 +38,7 @@ class SportUpdate {
   Team1? team1;
   Team1? team2;
 
-  SportUpdate(
+  Posts(
       {this.id,
       this.team1Id,
       this.team2Id,
@@ -52,7 +52,7 @@ class SportUpdate {
       this.team1,
       this.team2});
 
-  SportUpdate.fromJson(Map<String, dynamic> json) {
+  Posts.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     team1Id = json['team1_id'];
     team2Id = json['team2_id'];
@@ -62,8 +62,9 @@ class SportUpdate {
     description = json['description'];
     createdAt = json['created_at'];
     updated = json['updated'];
-    category =
-        json['category'] != null ? Category.fromJson(json['category']) : null;
+    category = json['category'] != null
+        ? Category.fromJson(json['category'])
+        : null;
     team1 = json['team1'] != null ? Team1.fromJson(json['team1']) : null;
     team2 = json['team2'] != null ? Team1.fromJson(json['team2']) : null;
   }

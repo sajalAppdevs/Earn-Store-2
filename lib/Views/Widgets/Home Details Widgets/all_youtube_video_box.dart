@@ -1,19 +1,19 @@
-import 'package:earn_store/Controllers/Home%20Controllers/all_video_controller.dart';
+import 'package:earn_store/Controllers/Home%20Controllers/all_youtube_video_controller.dart';
 import 'package:earn_store/Statics/paths.dart';
 import 'package:earn_store/Views/Common%20Widgets/glass_morphism_card.dart';
-import 'package:earn_store/Views/Pages/Home%20Details%20Page/general_video_details.dart';
+import 'package:earn_store/Views/Pages/Home%20Details%20Page/youtube_video_details.dart';
 import 'package:earn_store/Views/Styles/padding.dart';
 import 'package:earn_store/Views/Styles/textstyles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class AllWatchVideoBox extends StatelessWidget {
-  const AllWatchVideoBox({super.key});
+class AllYoutubeVideoBox extends StatelessWidget {
+  const AllYoutubeVideoBox({super.key});
 
   @override
   Widget build(BuildContext context) {
-    AllVideoController controller = Get.put(AllVideoController());
+    AllYoutubeVideoController controller = Get.put(AllYoutubeVideoController());
     return Obx(
       () {
         return PaddedScreen(
@@ -31,7 +31,7 @@ class AllWatchVideoBox extends StatelessWidget {
   }
 
   Widget videoBox({required int index}) {
-    AllVideoController controller = Get.put(AllVideoController());
+    AllYoutubeVideoController controller = Get.put(AllYoutubeVideoController());
     return Obx(
       () {
         String videoID =
@@ -39,15 +39,15 @@ class AllWatchVideoBox extends StatelessWidget {
         String videoUrl =
             controller.videos.value!.unseenVideos![index].videoUrl.toString();
         String point =
-            controller.videos.value!.unseenVideos![index].point.toString();
+            controller.videos.value!.unseenVideos![index].points.toString();
         return Padding(
           padding: EdgeInsets.symmetric(vertical: 10.h),
           child: GlassmorphismCard(
             onPressed: () {
               Get.to(
-                GeneralVideoDetails(
-                  videoID: videoID,
+                YoutubeVideoDetails(
                   videoUrl: videoUrl,
+                  videoID: videoID,
                 ),
               );
             },

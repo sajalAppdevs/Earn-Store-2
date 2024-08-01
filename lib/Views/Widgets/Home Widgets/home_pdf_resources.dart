@@ -1,8 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:earn_store/Controllers/Home%20Controllers/pdf_and_resources_controller.dart';
 import 'package:earn_store/Statics/colors.dart';
 import 'package:earn_store/Utils/button_loading.dart';
 import 'package:earn_store/Views/Common%20Widgets/glass_morphism_card.dart';
+import 'package:earn_store/Views/Common%20Widgets/network_image_widget.dart';
 import 'package:earn_store/Views/Pages/Home%20Details%20Page/all_pdf_resource.dart';
 import 'package:earn_store/Views/Pages/Home%20Details%20Page/pdf_resources_details.dart';
 import 'package:earn_store/Views/Styles/textstyles.dart';
@@ -91,7 +91,7 @@ class HomePDFResources extends StatelessWidget {
                           Row(
                             children: [
                               TextStyles.customText(
-                                title: price,
+                                title: "$price Taka",
                                 fontSize: 14.sp,
                                 color: TextColors.textColor3,
                               ),
@@ -125,26 +125,10 @@ class HomePDFResources extends StatelessWidget {
   }
 
   Widget resourceImage({required String imagePath}) {
-    return CachedNetworkImage(
+    return NetworkImageWidget(
       imageUrl: imagePath,
-      imageBuilder: (context, imageProvider) => Container(
-        height: 55.h,
-        width: 92.w,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: imageProvider,
-            fit: BoxFit.fill,
-          ),
-        ),
-      ),
-      placeholder: (context, url) => const ButtonLoading(
-        loadingColor: TextColors.textColor1,
-      ),
-      errorWidget: (context, url, error) => Container(
-        height: 55.h,
-        width: 92.w,
-        color: Colors.grey,
-      ),
+      height: 55.h,
+      width: 92.w,
     );
   }
 }

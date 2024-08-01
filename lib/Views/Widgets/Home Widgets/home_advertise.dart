@@ -1,9 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:earn_store/Controllers/Home%20Controllers/home_advertise_controller.dart';
-import 'package:earn_store/Models/Home%20Models/banner_model.dart';
 import 'package:earn_store/Statics/colors.dart';
 import 'package:earn_store/Utils/button_loading.dart';
+import 'package:earn_store/Views/Common%20Widgets/network_image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -28,8 +27,10 @@ class HomeAdvertisement extends StatelessWidget {
                     itemCount: controller.banners.value!.banner!.length,
                     itemBuilder: (BuildContext context, int itemIndex,
                             int pageViewIndex) =>
-                        bannerImage(
-                      index: itemIndex,
+                        NetworkImageWidget(
+                      imageUrl: controller
+                          .banners.value!.banner![itemIndex].bannerImageUrl
+                          .toString(),
                     ),
                     options: CarouselOptions(
                       height: 150.h,
@@ -89,34 +90,6 @@ class HomeAdvertisement extends StatelessWidget {
                       ),
                     );
             },
-          ),
-        );
-      },
-    );
-  }
-
-  Widget bannerImage({required int index}) {
-    final HomeAdvertiseController controller = Get.put(
-      HomeAdvertiseController(),
-    );
-    return Obx(
-      () {
-        BannerModel banners = controller.banners.value!;
-        return CachedNetworkImage(
-          imageUrl: banners.banner![index].bannerImageUrl.toString(),
-          imageBuilder: (context, imageProvider) => Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: imageProvider,
-                fit: BoxFit.fill,
-              ),
-            ),
-          ),
-          placeholder: (context, url) => const ButtonLoading(
-            loadingColor: TextColors.textColor1,
-          ),
-          errorWidget: (context, url, error) => Container(
-            color: Colors.grey,
           ),
         );
       },

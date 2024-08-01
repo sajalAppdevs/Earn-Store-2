@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class SelectDate {
+class DateHelpers {
+  static String formatDate(String inputDate) {
+    final dateTime = DateTime.parse(inputDate);
+    final formatter = DateFormat('EEE, dd MMM yyyy');
+    return formatter.format(dateTime);
+  }
+
   static Future<String> selectDate(BuildContext context) async {
     final DateTime? selectedDate = await showDatePicker(
       context: context,

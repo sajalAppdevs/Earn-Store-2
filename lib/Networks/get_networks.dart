@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-
 import 'package:earn_store/Statics/network_links.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:http/http.dart' as http;
