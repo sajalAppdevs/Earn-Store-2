@@ -1,7 +1,9 @@
+import 'package:earn_store/Controllers/Car%20Controllers/car_details_controller.dart';
 import 'package:earn_store/Statics/colors.dart';
-import 'package:earn_store/Statics/paths.dart';
+import 'package:earn_store/Utils/screen_loading.dart';
 import 'package:earn_store/Views/Common%20Widgets/custom_top.dart';
 import 'package:earn_store/Views/Common%20Widgets/glass_morphism_card.dart';
+import 'package:earn_store/Views/Common%20Widgets/network_image_widget.dart';
 import 'package:earn_store/Views/Pages/Splash%20&%20Auth%20Pages/root_design.dart';
 import 'package:earn_store/Views/Styles/buttons.dart';
 import 'package:earn_store/Views/Styles/fields.dart';
@@ -11,90 +13,137 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class RideVehicleDetails extends StatelessWidget {
-  const RideVehicleDetails({super.key});
+class RideVehicleDetails extends StatefulWidget {
+  final String carID;
+  const RideVehicleDetails({super.key, required this.carID});
+
+  @override
+  State<RideVehicleDetails> createState() => _RideVehicleDetailsState();
+}
+
+class _RideVehicleDetailsState extends State<RideVehicleDetails> {
+  CarDetailsController controller = Get.put(CarDetailsController());
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  void getData() async {
+    await controller.getCarDetails(carID: widget.carID);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return RootDesign(
-      child: ListView(
-        physics: const BouncingScrollPhysics(),
-        children: [
-          const CustomTop(title: "Details"),
-          PaddedScreen(
-            child: CustomField(
-              hintText: "Search",
-              controller: TextEditingController(),
-              suffixIcon: Icons.search,
-            ),
-          ),
-          SizedBox(height: 20.h),
-          infoBox(),
-          SizedBox(height: 50.h),
-          buttonRow(),
-          SizedBox(height: 50.h),
-        ],
-      ),
+    return Obx(
+      () {
+        return controller.carDetailsLoading.value
+            ? const ScreenLoading()
+            : RootDesign(
+                child: ListView(
+                  physics: const BouncingScrollPhysics(),
+                  children: [
+                    const CustomTop(title: "Details"),
+                    PaddedScreen(
+                      child: CustomField(
+                        hintText: "Search",
+                        controller: TextEditingController(),
+                        suffixIcon: Icons.search,
+                      ),
+                    ),
+                    SizedBox(height: 20.h),
+                    infoBox(),
+                    SizedBox(height: 50.h),
+                    buttonRow(),
+                    SizedBox(height: 50.h),
+                  ],
+                ),
+              );
+      },
     );
   }
 
   Widget infoBox() {
-    return PaddedScreen(
-      padding: 10.w,
-      child: GlassmorphismCard(
-        verticalPadding: 15.h,
-        horizontalPadding: 15.w,
-        boxHeight: 490.h,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Image.asset(
-              "${Paths.iconPath}car.png",
-              height: 180.h,
-              width: Get.width,
-              fit: BoxFit.fill,
+    return Obx(
+      () {
+        return PaddedScreen(
+          padding: 10.w,
+          child: GlassmorphismCard(
+            verticalPadding: 15.h,
+            horizontalPadding: 15.w,
+            boxHeight: 490.h,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                NetworkImageWidget(
+                  imageUrl: controller.carDetails.value!.data!.image.toString(),
+                  height: 180.h,
+                  width: Get.width,
+                  verticalPaddingForLoading: 50.h,
+                ),
+                SizedBox(height: 15.h),
+                vehicleTopInfo(),
+                SizedBox(height: 10.h),
+                vehicleCapacity(),
+                SizedBox(height: 15.h),
+                customText2(title: "1 min away . 1 : 30 PM"),
+                SizedBox(height: 15.h),
+                customText2(
+                  title:
+                      "Shop Name: ${controller.carDetails.value!.data!.carShopName}",
+                ),
+                SizedBox(height: 20.h),
+                customText(title: "Description"),
+                SizedBox(height: 15.h),
+                SizedBox(
+                  height: 75.h,
+                  child: customText2(
+                    title: controller.carDetails.value!.data!.description
+                            .toString() *
+                        20,
+                  ),
+                ),
+              ],
             ),
-            SizedBox(height: 15.h),
-            vehicleTopInfo(),
-            SizedBox(height: 10.h),
-            vehicleCapacity(),
-            SizedBox(height: 15.h),
-            customText2(title: "1 min away . 1 : 30 PM"),
-            SizedBox(height: 15.h),
-            customText2(title: "Affordable everyday rides"),
-            SizedBox(height: 20.h),
-            customText(title: "Description"),
-            SizedBox(height: 15.h),
-            customText2(
-              title:
-                  "You can also refer to someone who is riding a horse, a bicycle, or a motorcycle as a rider.",
-            ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 
   Widget vehicleTopInfo() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        customText(title: "UberX"),
-        customText2(title: "BDT 250.00"),
-      ],
+    return Obx(
+      () {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            customText(
+                title: controller.carDetails.value!.data!.name.toString()),
+            customText2(
+                title: "BDT ${controller.carDetails.value!.data!.price}"),
+          ],
+        );
+      },
     );
   }
 
   Widget vehicleCapacity() {
-    return Row(
-      children: [
-        Icon(
-          Icons.person_2_outlined,
-          color: TextColors.textColor1,
-          size: 17.sp,
-        ),
-        customText(title: "0"),
-      ],
+    return Obx(
+      () {
+        return Row(
+          children: [
+            Icon(
+              Icons.person_2_outlined,
+              color: TextColors.textColor1,
+              size: 17.sp,
+            ),
+            customText(
+              title: controller.carDetails.value!.data!.seat.toString(),
+            ),
+          ],
+        );
+      },
     );
   }
 
