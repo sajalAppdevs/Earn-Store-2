@@ -12,6 +12,9 @@ import 'package:earn_store/Views/Widgets/Home%20Widgets/home_agency.dart';
 import 'package:earn_store/Views/Widgets/Home%20Widgets/home_book.dart';
 import 'package:earn_store/Views/Widgets/Home%20Widgets/home_categories.dart';
 import 'package:earn_store/Views/Widgets/Home%20Widgets/home_categories_list.dart';
+import 'package:earn_store/Views/Widgets/Home%20Widgets/home_extra_category.dart';
+import 'package:earn_store/Views/Widgets/Home%20Widgets/home_flash_sell.dart';
+import 'package:earn_store/Views/Widgets/Home%20Widgets/home_hot_products.dart';
 import 'package:earn_store/Views/Widgets/Home%20Widgets/home_hotel_booking.dart';
 import 'package:earn_store/Views/Widgets/Home%20Widgets/home_level_and_point.dart';
 import 'package:earn_store/Views/Widgets/Home%20Widgets/home_match.dart';
@@ -21,6 +24,7 @@ import 'package:earn_store/Views/Widgets/Home%20Widgets/home_pdf_resources.dart'
 import 'package:earn_store/Views/Widgets/Home%20Widgets/home_popular_courses.dart';
 import 'package:earn_store/Views/Widgets/Home%20Widgets/home_streaming_hub.dart';
 import 'package:earn_store/Views/Widgets/Home%20Widgets/home_top.dart';
+import 'package:earn_store/Views/Widgets/Home%20Widgets/home_tour_packages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -87,11 +91,15 @@ class _HomePageState extends State<HomePage> {
             const HomeOnlineCourse(),
             const HomeOptions(),
             const HomeHotelBooking(),
+            const HomeTourPackages(),
             const HomeMatch(),
             const HomePDFResources(),
             const HomeBook(),
             const HomePopularCources(),
             const HomeAgency(),
+            const HomeFlashSell(),
+            const HomeExtraCategory(),
+            const HomeHotProducts(),
             SizedBox(height: 30.h)
           ],
         ),

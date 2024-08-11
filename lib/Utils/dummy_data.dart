@@ -193,8 +193,8 @@ class DummyData {
       name: "Youtube Video",
     ),
     Methods(
-      height: 54.h,
-      width: 54.w,
+      height: 40.h,
+      width: 50.w,
       imagePath: "${Paths.iconPath}ads_income.png",
       name: "Ads Income",
     ),

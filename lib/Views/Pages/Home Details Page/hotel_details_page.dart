@@ -30,6 +30,7 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
   }
 
   void getData() async {
+    debugPrint("HotelID: ${widget.hotelID}");
     await controller.getHotelDetails(
       hotelID: widget.hotelID,
     );

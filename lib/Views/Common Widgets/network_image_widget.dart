@@ -8,12 +8,14 @@ class NetworkImageWidget extends StatelessWidget {
   final double? height;
   final double? width;
   final double? loadingSize;
+  final double? verticalPaddingForLoading;
   const NetworkImageWidget({
     super.key,
     required this.imageUrl,
     this.height,
     this.width,
     this.loadingSize,
+    this.verticalPaddingForLoading,
   });
 
   @override
@@ -33,6 +35,7 @@ class NetworkImageWidget extends StatelessWidget {
       placeholder: (context, url) => ButtonLoading(
         loadingColor: TextColors.textColor1,
         loadingSize: loadingSize,
+        verticalPadding: verticalPaddingForLoading,
       ),
       errorWidget: (context, url, error) => Container(
         height: height,

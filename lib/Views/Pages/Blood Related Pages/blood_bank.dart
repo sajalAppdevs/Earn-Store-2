@@ -1,3 +1,5 @@
+import 'package:earn_store/Controllers/Blood%20Controllers/recent_donation_controller.dart';
+import 'package:earn_store/Utils/screen_loading.dart';
 import 'package:earn_store/Views/Common%20Widgets/custom_top.dart';
 import 'package:earn_store/Views/Common%20Widgets/glass_morphism_card.dart';
 import 'package:earn_store/Views/Pages/Blood%20Related%20Pages/be_donor_page.dart';
@@ -11,25 +13,47 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class BloodBank extends StatelessWidget {
+class BloodBank extends StatefulWidget {
   const BloodBank({super.key});
 
   @override
+  State<BloodBank> createState() => _BloodBankState();
+}
+
+class _BloodBankState extends State<BloodBank> {
+  RecentDonationController controller = Get.put(RecentDonationController());
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  void getData() async {
+    await controller.getRecentDonation();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return RootDesign(
-      child: ListView(
-        physics: const BouncingScrollPhysics(),
-        children: [
-          const CustomTop(title: "Blood Bank"),
-          const BloodPageSelector(),
-          SizedBox(height: 30.h),
-          beDonorButton(),
-          SizedBox(height: 30.h),
-          const BloodBankBanner(),
-          SizedBox(height: 40.h),
-          const RecentDonors(),
-        ],
-      ),
+    return Obx(
+      () {
+        return controller.donationLoading.value
+            ? const ScreenLoading()
+            : RootDesign(
+                child: ListView(
+                  physics: const BouncingScrollPhysics(),
+                  children: [
+                    const CustomTop(title: "Blood Bank"),
+                    const BloodPageSelector(),
+                    SizedBox(height: 30.h),
+                    beDonorButton(),
+                    SizedBox(height: 30.h),
+                    const BloodBankBanner(),
+                    SizedBox(height: 40.h),
+                    const RecentDonors(),
+                  ],
+                ),
+              );
+      },
     );
   }
 

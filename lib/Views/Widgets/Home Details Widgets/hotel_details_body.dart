@@ -55,10 +55,6 @@ class HotelDetailsBody extends StatelessWidget {
     );
     return Obx(
       () {
-        String hotelName =
-            controller.hotelDetails.value!.hotel!.hotelName.toString();
-        String hotelLocation =
-            controller.hotelDetails.value!.hotel!.location.toString();
         return GlassmorphismCard(
           boxHeight: 195.h,
           verticalPadding: 15.h,
@@ -66,7 +62,8 @@ class HotelDetailsBody extends StatelessWidget {
           child: Column(
             children: [
               TextStyles.customText(
-                title: "$hotelName $hotelLocation",
+                title:
+                    "${controller.hotelDetails.value!.hotel!.hotelName.toString()} ${controller.hotelDetails.value!.hotel!.location.toString()}",
                 isShowAll: true,
                 textAlign: TextAlign.left,
               ),
@@ -85,7 +82,8 @@ class HotelDetailsBody extends StatelessWidget {
                     height: 40.h,
                     width: 275.w,
                     child: TextStyles.customText(
-                      title: "$hotelName $hotelLocation",
+                      title:
+                          "${controller.hotelDetails.value!.hotel!.hotelName.toString()} ${controller.hotelDetails.value!.hotel!.location.toString()}",
                       isShowAll: true,
                       fontSize: 12.sp,
                       fontWeight: FontWeight.w400,
@@ -109,10 +107,6 @@ class HotelDetailsBody extends StatelessWidget {
     );
     return Obx(
       () {
-        String ratings =
-            controller.hotelDetails.value!.hotel!.rating.toString();
-        String reviews =
-            controller.hotelDetails.value!.reviews!.length.toString();
         return GlassmorphismCard(
           boxHeight: 50.h,
           boxWidth: Get.width,
@@ -124,7 +118,8 @@ class HotelDetailsBody extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextStyles.customText(
-                    title: ratings,
+                    title:
+                        controller.hotelDetails.value!.hotel!.rating.toString(),
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w500,
                   ),
@@ -138,7 +133,8 @@ class HotelDetailsBody extends StatelessWidget {
                 ],
               ),
               TextStyles.customText(
-                title: "$reviews Reviews",
+                title:
+                    "${controller.hotelDetails.value!.reviews!.length.toString()} Reviews",
                 fontSize: 14.sp,
                 fontWeight: FontWeight.w500,
               ),

@@ -45,7 +45,7 @@ class Hotel {
   String? location;
   String? longitude;
   String? latitude;
-  double? rating;
+  String? rating;
   String? image;
   String? mobileNumber;
   String? email;
@@ -75,7 +75,7 @@ class Hotel {
     location = json['location'];
     longitude = json['longitude'];
     latitude = json['latitude'];
-    rating = json['rating'];
+    rating = json['rating'].toString();
     image = json['image'];
     mobileNumber = json['mobile_number'];
     email = json['email'];
@@ -160,7 +160,7 @@ class HotelRooms {
 class Reviews {
   int? id;
   String? review;
-  double? rating;
+  String? rating;
   int? hotelId;
   int? userId;
   String? createdAt;
@@ -178,7 +178,7 @@ class Reviews {
   Reviews.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     review = json['review'];
-    rating = json['rating'];
+    rating = json['rating'].toString();
     hotelId = json['hotel_id'];
     userId = json['user_id'];
     createdAt = json['created_at'];

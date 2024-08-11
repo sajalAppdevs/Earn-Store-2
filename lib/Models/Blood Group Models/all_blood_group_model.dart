@@ -1,10 +1,10 @@
-class AllBloodGroup {
+class BloodGroupModel {
   bool? status;
   List<BloodGroups>? bloodGroups;
 
-  AllBloodGroup({this.status, this.bloodGroups});
+  BloodGroupModel({this.status, this.bloodGroups});
 
-  AllBloodGroup.fromJson(Map<String, dynamic> json) {
+  BloodGroupModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     if (json['blood_groups'] != null) {
       bloodGroups = <BloodGroups>[];

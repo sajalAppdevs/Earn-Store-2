@@ -3,6 +3,7 @@ import 'package:earn_store/Utils/button_loading.dart';
 import 'package:earn_store/Views/Common%20Widgets/network_image_widget.dart';
 import 'package:earn_store/Views/Pages/Home%20Details%20Page/all_hotel_page.dart';
 import 'package:earn_store/Views/Pages/Home%20Details%20Page/hotel_details_page.dart';
+import 'package:earn_store/Views/Styles/textstyles.dart';
 import 'package:earn_store/Views/Styles/title_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -79,10 +80,24 @@ class HomeHotelBooking extends StatelessWidget {
     AllHotelController controller = Get.put(AllHotelController());
     return Obx(
       () {
-        return NetworkImageWidget(
-          imageUrl: controller.hotels.value!.hotels![index].image.toString(),
-          height: 128.h,
-          width: 227.w,
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            NetworkImageWidget(
+              imageUrl:
+                  controller.hotels.value!.hotels![index].image.toString(),
+              height: 95.h,
+              width: 132.w,
+              verticalPaddingForLoading: 30.h,
+            ),
+            SizedBox(height: 10.h),
+            TextStyles.customText(
+              title:
+                  controller.hotels.value!.hotels![index].location.toString(),
+              fontSize: 17.sp,
+              fontWeight: FontWeight.w700,
+            )
+          ],
         );
       },
     );

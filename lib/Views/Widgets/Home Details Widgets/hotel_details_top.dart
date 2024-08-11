@@ -1,4 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:earn_store/Controllers/Home%20Controllers/all_hotel_controller.dart';
+import 'package:earn_store/Statics/colors.dart';
+import 'package:earn_store/Utils/button_loading.dart';
 import 'package:earn_store/Views/Common%20Widgets/custom_top.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,46 +17,42 @@ class HotelDetailsTop extends StatelessWidget {
     );
     return Obx(
       () {
-        String imagePath =
-            controller.hotelDetails.value!.hotel!.image.toString();
-        return imagePath.isEmpty
-            ? Container(
-                height: 270.h,
-                width: Get.width,
-                decoration: BoxDecoration(
-                  color: Colors.grey,
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(20.r),
-                    bottomRight: Radius.circular(20.r),
-                  ),
-                ),
-                child: const Column(
-                  children: [
-                    CustomTop(title: "Hotel Details"),
-                  ],
-                ),
-              )
-            : Container(
-                height: 270.h,
-                width: Get.width,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(20.r),
-                    bottomRight: Radius.circular(20.r),
-                  ),
-                  image: DecorationImage(
-                    image: NetworkImage(
-                      imagePath,
-                    ),
-                    fit: BoxFit.fill,
-                  ),
-                ),
-                child: const Column(
-                  children: [
-                    CustomTop(title: "Hotel Details"),
-                  ],
-                ),
-              );
+        return CachedNetworkImage(
+          imageUrl: controller.hotelDetails.value!.hotel!.image.toString(),
+          imageBuilder: (context, imageProvider) => Container(
+            height: 270.h,
+            width: Get.width,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(20.r),
+                bottomRight: Radius.circular(20.r),
+              ),
+              image: DecorationImage(
+                image: imageProvider,
+                fit: BoxFit.fill,
+              ),
+            ),
+            child: const Column(
+              children: [
+                CustomTop(title: "Hotel Details"),
+              ],
+            ),
+          ),
+          placeholder: (context, url) => ButtonLoading(
+            loadingColor: TextColors.textColor1,
+            verticalPadding: 50.h,
+          ),
+          errorWidget: (context, url, error) => Container(
+            height: 270.h,
+            width: Get.width,
+            color: Colors.grey,
+            child: const Column(
+              children: [
+                CustomTop(title: "Hotel Details"),
+              ],
+            ),
+          ),
+        );
       },
     );
   }
