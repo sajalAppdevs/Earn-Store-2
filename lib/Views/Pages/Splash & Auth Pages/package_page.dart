@@ -1,6 +1,8 @@
+import 'package:earn_store/Utils/url_helpers.dart';
 import 'package:earn_store/Views/Common%20Widgets/auth_top_logo.dart';
 import 'package:earn_store/Views/Common%20Widgets/glass_morphism_card.dart';
-import 'package:earn_store/Views/Pages/Splash%20&%20Auth%20Pages/payment_page.dart';
+import 'package:earn_store/Views/Pages/Home%20Pages/root_page.dart';
+import 'package:earn_store/Views/Pages/Splash%20&%20Auth%20Pages/payment_success_page.dart';
 import 'package:earn_store/Views/Pages/Splash%20&%20Auth%20Pages/root_design.dart';
 import 'package:earn_store/Views/Styles/buttons.dart';
 import 'package:earn_store/Views/Styles/padding.dart';
@@ -28,11 +30,39 @@ class PackagePage extends StatelessWidget {
               fontWeight: FontWeight.w700,
             ),
             SizedBox(height: 30.h),
-            packageBox(),
+            packageBox(
+              title: "Basic",
+              price: "Free",
+              onPressed: () {
+                Get.offAll(
+                  const RootScreen(),
+                );
+              },
+            ),
             SizedBox(height: 30.h),
-            packageBox(),
+            packageBox(
+              title: "Premium",
+              price: "\$ 200",
+              onPressed: () async {
+                await UrlHelpers.openUrl(
+                    "https://shop.bkash.com/an-telecom01919914978/pay/bdt5/BfP3Mx");
+                Get.to(
+                  const PaymentSuccessPage(),
+                );
+              },
+            ),
             SizedBox(height: 30.h),
-            packageBox(),
+            packageBox(
+              title: "Branch",
+              price: "\$ 300",
+              onPressed: () async {
+                await UrlHelpers.openUrl(
+                    "https://shop.bkash.com/an-telecom01919914978/pay/bdt10/xM7O1e");
+                Get.to(
+                  const PaymentSuccessPage(),
+                );
+              },
+            ),
             SizedBox(height: 30.h),
           ],
         ),
@@ -40,7 +70,11 @@ class PackagePage extends StatelessWidget {
     );
   }
 
-  Widget packageBox() {
+  Widget packageBox({
+    required String title,
+    required String price,
+    required VoidCallback onPressed,
+  }) {
     return GlassmorphismCard(
       boxHeight: 260.h,
       verticalPadding: 15.h,
@@ -48,7 +82,7 @@ class PackagePage extends StatelessWidget {
       child: Column(
         children: [
           TextStyles.customText(
-            title: "Basic",
+            title: title,
             fontSize: 22.sp,
             fontWeight: FontWeight.w700,
           ),
@@ -61,32 +95,27 @@ you can not earn. This is free basic Plan for you.''',
             fontWeight: FontWeight.w400,
           ),
           const Spacer(),
-          buttonRow(),
+          buttonRow(price: price, onPressed: onPressed),
         ],
       ),
     );
   }
 
-  Widget buttonRow() {
+  Widget buttonRow({
+    required String price,
+    required VoidCallback onPressed,
+  }) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         CustomButton(
           width: 130.w,
-          onPressed: () {
-            Get.to(
-              const PaymentPage(),
-            );
-          },
-          buttonText: "Free",
+          onPressed: () {},
+          buttonText: price,
         ),
         CustomButton(
           width: 130.w,
-          onPressed: () {
-            Get.to(
-              const PaymentPage(),
-            );
-          },
+          onPressed: onPressed,
           buttonText: "Select",
         ),
       ],

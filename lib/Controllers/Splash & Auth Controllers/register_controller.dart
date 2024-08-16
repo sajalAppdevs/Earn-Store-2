@@ -3,7 +3,7 @@ import 'package:earn_store/Models/Auth%20Models/register_model.dart';
 import 'package:earn_store/Networks/post_networks.dart';
 import 'package:earn_store/Utils/local_storage.dart';
 import 'package:earn_store/Utils/snackbars.dart';
-import 'package:earn_store/Views/Pages/Home%20Pages/root_page.dart';
+import 'package:earn_store/Views/Pages/Splash%20&%20Auth%20Pages/otp_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -56,8 +56,8 @@ class RegisterController extends GetxController {
             );
           } else {
             await LocalStorage.setUserID(userID: registerData.userID!.toInt());
-            Get.offAll(
-              const RootScreen(),
+            Get.to(
+              const OTPPage(),
             );
           }
           registerLoading.value = false;

@@ -9,6 +9,7 @@ class HomeFlashSell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      key: key,
       children: [
         const TitleText2(
           title: "Flash Sale",

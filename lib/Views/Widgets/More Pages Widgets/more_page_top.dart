@@ -1,6 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:earn_store/Controllers/More%20Controllers/more_controller.dart';
 import 'package:earn_store/Controllers/User%20Controllers/user_profile_controller.dart';
 import 'package:earn_store/Statics/paths.dart';
+import 'package:earn_store/Utils/button_loading.dart';
 import 'package:earn_store/Views/Common%20Widgets/glass_morphism_card.dart';
 import 'package:earn_store/Views/Styles/textstyles.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +19,7 @@ class MorePageTop extends StatefulWidget {
 class _MorePageTopState extends State<MorePageTop> {
   String todayDate = "";
   MoreController moreController = Get.put(MoreController());
+  UserProfileController profileController = Get.put(UserProfileController());
 
   @override
   void initState() {
@@ -58,7 +61,6 @@ class _MorePageTopState extends State<MorePageTop> {
   }
 
   Widget userInfo() {
-    UserProfileController profileController = Get.put(UserProfileController());
     return Obx(
       () {
         String name = profileController.userData.value!.user!.name.toString();
@@ -87,41 +89,65 @@ class _MorePageTopState extends State<MorePageTop> {
   }
 
   Widget levelAndWithdraw() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        TextStyles.customText(
-          title: "Level 04",
-          fontSize: 20.sp,
-          fontWeight: FontWeight.w500,
-        ),
-        GlassmorphismCard(
-          boxHeight: 40.h,
-          boxWidth: 115.w,
-          borderRadius: 30.r,
-          child: TextStyles.customText(
-            title: "Withdraw",
-            fontSize: 15.sp,
-            fontWeight: FontWeight.w500,
-          ),
-        )
-      ],
+    return Obx(
+      () {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            TextStyles.customText(
+              title:
+                  "Level ${profileController.userData.value!.user!.userLevel}",
+              fontSize: 20.sp,
+              fontWeight: FontWeight.w500,
+            ),
+            GlassmorphismCard(
+              boxHeight: 40.h,
+              boxWidth: 115.w,
+              borderRadius: 30.r,
+              child: TextStyles.customText(
+                title: "Withdraw",
+                fontSize: 15.sp,
+                fontWeight: FontWeight.w500,
+              ),
+            )
+          ],
+        );
+      },
     );
   }
 
   Widget userImage() {
-    return Container(
-      height: 40.h,
-      width: 40.w,
-      decoration: const BoxDecoration(
-        shape: BoxShape.circle,
-        image: DecorationImage(
-          image: AssetImage(
-            "${Paths.imagePath}blank_image.jpg",
+    return Obx(
+      () {
+        return CachedNetworkImage(
+          imageUrl: profileController.userData.value!.user!.imageUrl.toString(),
+          imageBuilder: (context, imageProvider) => Container(
+            height: 40.h,
+            width: 40.w,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              image: DecorationImage(
+                image: imageProvider,
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
-          fit: BoxFit.cover,
-        ),
-      ),
+          placeholder: (context, url) => ButtonLoading(loadingSize: 15.sp),
+          errorWidget: (context, url, error) => Container(
+            height: 40.h,
+            width: 40.w,
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              image: DecorationImage(
+                image: AssetImage(
+                  "${Paths.imagePath}blank_image.jpg",
+                ),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

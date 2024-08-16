@@ -1,3 +1,4 @@
+import 'package:earn_store/Utils/url_helpers.dart';
 import 'package:earn_store/Views/Common%20Widgets/custom_top.dart';
 import 'package:earn_store/Views/Pages/Splash%20&%20Auth%20Pages/root_design.dart';
 import 'package:earn_store/Views/Styles/buttons.dart';
@@ -22,7 +23,11 @@ class AllCoursePage extends StatelessWidget {
                 const AllCourseBox(),
                 SizedBox(height: 40.h),
                 CustomButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    await UrlHelpers.shareOnSocialMedia(
+                        url:
+                            "https://earnstor.lens-ecom.store/?refer=34?id=45");
+                  },
                   buttonText: "Refer",
                 )
               ],

@@ -1,5 +1,6 @@
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
+import 'package:earn_store/Controllers/Home%20Controllers/general_info_controller.dart';
 import 'package:earn_store/Controllers/User%20Controllers/user_profile_controller.dart';
 import 'package:earn_store/Statics/colors.dart';
 import 'package:earn_store/Statics/paths.dart';
@@ -25,6 +26,8 @@ class _RootScreenState extends State<RootScreen> {
   bool isLoading = true;
   UserProfileController userProfileController =
       Get.put(UserProfileController());
+  GeneralInfoController generalInfoController =
+      Get.put(GeneralInfoController());
   int index = 0;
 
   List<Widget> pages = [
@@ -42,6 +45,7 @@ class _RootScreenState extends State<RootScreen> {
 
   void getData() async {
     await userProfileController.getUserProfile();
+    await generalInfoController.getGeneralInfo();
     setState(() {
       isLoading = false;
     });

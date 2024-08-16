@@ -37,8 +37,9 @@ class User {
   int? isVerified;
   int? isPaymentVerified;
   int? verificationCode;
-  int? country;
-  int? packageId;
+  String? country;
+  String? packageId;
+  int? isDonor;
   String? title;
   String? studiedAt;
   String? workingAt;
@@ -47,6 +48,7 @@ class User {
   String? createdAt;
   String? updatedAt;
   String? countryName;
+  int? userLevel;
 
   User(
       {this.userid,
@@ -65,6 +67,7 @@ class User {
       this.verificationCode,
       this.country,
       this.packageId,
+      this.isDonor,
       this.title,
       this.studiedAt,
       this.workingAt,
@@ -72,7 +75,8 @@ class User {
       this.relationship,
       this.createdAt,
       this.updatedAt,
-      this.countryName});
+      this.countryName,
+      this.userLevel});
 
   User.fromJson(Map<String, dynamic> json) {
     userid = json['userid'];
@@ -80,7 +84,7 @@ class User {
     email = json['email'];
     mobile = json['mobile'];
     password = json['password'];
-    refercode = json['refercode'];
+    refercode = json['refercode'].toString();
     myReferCode = json['my_refer_code'];
     premium = json['premium'];
     imageUrl = json['imageUrl'];
@@ -89,8 +93,9 @@ class User {
     isVerified = json['is_verified'];
     isPaymentVerified = json['is_payment_verified'];
     verificationCode = json['verification_code'];
-    country = json['country'];
-    packageId = json['package_id'];
+    country = json['country'].toString();
+    packageId = json['package_id'].toString();
+    isDonor = json['is_donor'];
     title = json['title'];
     studiedAt = json['studied_at'];
     workingAt = json['working_at'];
@@ -98,7 +103,8 @@ class User {
     relationship = json['relationship'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
-    countryName = json['country_name'];
+    countryName = json['country_name'].toString();
+    userLevel = json['user_level'];
   }
 
   Map<String, dynamic> toJson() {
@@ -119,6 +125,7 @@ class User {
     data['verification_code'] = verificationCode;
     data['country'] = country;
     data['package_id'] = packageId;
+    data['is_donor'] = isDonor;
     data['title'] = title;
     data['studied_at'] = studiedAt;
     data['working_at'] = workingAt;
@@ -127,6 +134,7 @@ class User {
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
     data['country_name'] = countryName;
+    data['user_level'] = userLevel;
     return data;
   }
 }

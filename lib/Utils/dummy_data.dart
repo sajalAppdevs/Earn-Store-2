@@ -176,7 +176,6 @@ class DummyData {
   static List<String> homeCategories = [
     "All",
     "E-commerce",
-    "Investment",
   ];
 
   static List<Methods> homeOptions = [

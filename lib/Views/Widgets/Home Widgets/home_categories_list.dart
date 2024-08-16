@@ -8,7 +8,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeCategoriesList extends StatelessWidget {
-  const HomeCategoriesList({super.key});
+  final ScrollController scrollController;
+  const HomeCategoriesList({
+    super.key,
+    required this.scrollController,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,58 +29,64 @@ class HomeCategoriesList extends StatelessWidget {
   }
 
   Widget categories() {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      physics: const BouncingScrollPhysics(),
-      child: Row(
-        children: List.generate(
-          DummyData.homeCategories.length,
-          (index) {
-            return GestureDetector(
-              onTap: () {},
-              child: Padding(
-                padding: EdgeInsets.only(right: 20.w),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(4.r),
-                  child: BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
-                    child: Container(
-                      height: 35.h,
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.symmetric(
-                        vertical: 5.h,
-                        horizontal: 30.w,
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(4.r),
-                        color: GlassMorphismColors.glassColor1,
-                        boxShadow: [
-                          BoxShadow(
-                            color: GeneralColors.shadowColor1.withOpacity(0.26),
-                            blurRadius: 2,
-                            spreadRadius: 0,
-                            offset: const Offset(1.18, 1.18),
-                          ),
-                          BoxShadow(
-                            color: GeneralColors.blackColor.withOpacity(0.30),
-                            blurRadius: 2,
-                            spreadRadius: 0,
-                            offset: const Offset(-1.18, -1.18),
-                          ),
-                        ],
-                      ),
-                      child: TextStyles.customText(
-                        title: DummyData.homeCategories[index],
-                        fontWeight: FontWeight.w700,
-                      ),
+    return Row(
+      children: List.generate(
+        DummyData.homeCategories.length,
+        (index) {
+          return GestureDetector(
+            onTap: index == 1 ? scrollToEnd : () {},
+            child: Padding(
+              padding: EdgeInsets.only(right: 20.w),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(4.r),
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
+                  child: Container(
+                    height: 35.h,
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.symmetric(
+                      vertical: 5.h,
+                      horizontal: 30.w,
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4.r),
+                      color: GlassMorphismColors.glassColor1,
+                      boxShadow: [
+                        BoxShadow(
+                          color: GeneralColors.shadowColor1.withOpacity(0.26),
+                          blurRadius: 2,
+                          spreadRadius: 0,
+                          offset: const Offset(1.18, 1.18),
+                        ),
+                        BoxShadow(
+                          color: GeneralColors.blackColor.withOpacity(0.30),
+                          blurRadius: 2,
+                          spreadRadius: 0,
+                          offset: const Offset(-1.18, -1.18),
+                        ),
+                      ],
+                    ),
+                    child: TextStyles.customText(
+                      title: DummyData.homeCategories[index],
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
                 ),
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
+  }
+
+  void scrollToEnd() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      scrollController.animateTo(
+        scrollController.position.maxScrollExtent,
+        duration: const Duration(seconds: 1),
+        curve: Curves.easeInOut,
+      );
+    });
   }
 }

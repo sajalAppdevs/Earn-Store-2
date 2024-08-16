@@ -58,6 +58,9 @@ class _HomePageState extends State<HomePage> {
   AllAgencyController allAgencyController = Get.put(
     AllAgencyController(),
   );
+
+  final ScrollController _scrollController = ScrollController();
+
   @override
   void initState() {
     super.initState();
@@ -80,12 +83,13 @@ class _HomePageState extends State<HomePage> {
       child: PaddedScreen(
         padding: 10.w,
         child: ListView(
+          controller: _scrollController,
           physics: const BouncingScrollPhysics(),
           children: [
             const HomeTop(),
             const HomeAdvertisement(),
             const HomeLevelAndPoint(),
-            const HomeCategoriesList(),
+            HomeCategoriesList(scrollController: _scrollController),
             const HomeCategories(),
             const HomeStreamingHub(),
             const HomeOnlineCourse(),

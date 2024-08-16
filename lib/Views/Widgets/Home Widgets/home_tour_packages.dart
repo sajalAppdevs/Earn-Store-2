@@ -1,48 +1,65 @@
-import 'package:earn_store/Statics/paths.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:earn_store/Controllers/Home%20Controllers/all_agency_controller.dart';
+import 'package:earn_store/Utils/button_loading.dart';
 import 'package:earn_store/Views/Common%20Widgets/glass_morphism_card.dart';
 import 'package:earn_store/Views/Styles/textstyles.dart';
 import 'package:earn_store/Views/Styles/title_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class HomeTourPackages extends StatelessWidget {
   const HomeTourPackages({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        TitleText(
-          title: "Tour Package",
-          onPressed: () {},
-        ),
-        SizedBox(height: 70.h),
-        Container(
-          height: 150.h,
-          clipBehavior: Clip.none,
-          child: Stack(
-            clipBehavior: Clip.none,
-            children: [
-              SingleChildScrollView(
-                clipBehavior: Clip.none,
-                scrollDirection: Axis.horizontal,
-                child: Stack(
-                  children: [
-                    Row(
-                      children: List.generate(
-                        3,
-                        (index) {
-                          return tourBox(index: index);
-                        },
-                      ),
+    AllAgencyController controller = Get.put(
+      AllAgencyController(),
+    );
+    return Obx(
+      () {
+        return controller.agencyLoading.value
+            ? ButtonLoading(
+                verticalPadding: 50.h,
+              )
+            : Column(
+                children: [
+                  TitleText(
+                    title: "Tour Package",
+                    onPressed: () {},
+                  ),
+                  SizedBox(height: 70.h),
+                  Container(
+                    height: 150.h,
+                    clipBehavior: Clip.none,
+                    child: Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        SingleChildScrollView(
+                          clipBehavior: Clip.none,
+                          scrollDirection: Axis.horizontal,
+                          child: Stack(
+                            children: [
+                              Row(
+                                children: List.generate(
+                                  controller.agencies.value!.agencys!.length > 3
+                                      ? 3
+                                      : controller
+                                          .agencies.value!.agencys!.length,
+                                  (index) {
+                                    return tourBox(index: index);
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
+                  ),
+                ],
+              );
+      },
     );
   }
 
@@ -68,61 +85,87 @@ class HomeTourPackages extends StatelessWidget {
   }
 
   Widget tourImage({required int index}) {
-    return Positioned(
-      top: -30,
-      left: 20.w,
-      child: Container(
-        clipBehavior: Clip.none,
-        height: 95.h,
-        width: 110.w,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5.r),
-          image: const DecorationImage(
-            image: AssetImage(
-              "${Paths.imagePath}tour.jpg",
+    AllAgencyController controller = Get.put(
+      AllAgencyController(),
+    );
+    return Obx(
+      () {
+        return Positioned(
+          top: -30,
+          left: 20.w,
+          child: CachedNetworkImage(
+            imageUrl:
+                controller.agencies.value!.agencys![index].image.toString(),
+            imageBuilder: (context, imageProvider) => Container(
+              clipBehavior: Clip.none,
+              height: 95.h,
+              width: 110.w,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5.r),
+                image: DecorationImage(
+                  image: imageProvider,
+                  fit: BoxFit.fill,
+                ),
+              ),
             ),
-            fit: BoxFit.fill,
+            placeholder: (context, url) => const ButtonLoading(),
+            errorWidget: (context, url, error) => Container(
+              clipBehavior: Clip.none,
+              height: 95.h,
+              width: 110.w,
+              decoration: BoxDecoration(
+                color: Colors.grey,
+                borderRadius: BorderRadius.circular(5.r),
+              ),
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 
   Widget topInfo({required int index}) {
-    return Padding(
-      padding: EdgeInsets.only(
-        left: 15.w,
-        right: 10.w,
-        top: 10.h,
-        bottom: 10.h,
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
+    AllAgencyController controller = Get.put(
+      AllAgencyController(),
+    );
+    return Obx(
+      () {
+        return Padding(
+          padding: EdgeInsets.only(
+            left: 15.w,
+            right: 10.w,
+            top: 10.h,
+            bottom: 10.h,
+          ),
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SizedBox(width: 80.w),
-              SizedBox(
-                width: 80.w,
-                child: TextStyles.customText(
-                  title: "3 Days in Bali",
-                  fontSize: 12.sp,
-                  isShowAll: true,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(width: 80.w),
+                  SizedBox(
+                    width: 80.w,
+                    child: TextStyles.customText(
+                      title: controller.agencies.value!.agencys![index].location.toString(),
+                      fontSize: 12.sp,
+                      isShowAll: true,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 50.w,
+                    child: TextStyles.customText(
+                      title: "\$45",
+                      fontSize: 10.sp,
+                    ),
+                  )
+                ],
               ),
-              SizedBox(
-                width: 50.w,
-                child: TextStyles.customText(
-                  title: "\$45",
-                  fontSize: 10.sp,
-                ),
-              )
+              detailsButton(index: index),
             ],
           ),
-          detailsButton(index: index),
-        ],
-      ),
+        );
+      },
     );
   }
 

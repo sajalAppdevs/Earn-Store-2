@@ -1,6 +1,8 @@
 import 'package:earn_store/Controllers/Earning%20Controllers/withdraw_controller.dart';
 import 'package:earn_store/Utils/dummy_data.dart';
+import 'package:earn_store/Utils/snackbars.dart';
 import 'package:earn_store/Views/Common%20Widgets/glass_morphism_card.dart';
+import 'package:earn_store/Views/Pages/Home%20Pages/root_page.dart';
 import 'package:earn_store/Views/Styles/buttons.dart';
 import 'package:earn_store/Views/Styles/fields.dart';
 import 'package:earn_store/Views/Styles/padding.dart';
@@ -35,7 +37,15 @@ class WithdrawBody extends StatelessWidget {
           ),
           SizedBox(height: 100.h),
           CustomButton(
-            onPressed: () {},
+            onPressed: () {
+              Snackbars.successSnackBar(
+                title: "Withdraw Status",
+                description: "Sended to admin",
+              );
+              Get.offAll(
+                const RootScreen(),
+              );
+            },
             buttonText: "Proceed",
           ),
           SizedBox(height: 70.h),

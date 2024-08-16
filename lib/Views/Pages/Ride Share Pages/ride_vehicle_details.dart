@@ -1,9 +1,12 @@
 import 'package:earn_store/Controllers/Car%20Controllers/car_details_controller.dart';
 import 'package:earn_store/Statics/colors.dart';
 import 'package:earn_store/Utils/screen_loading.dart';
+import 'package:earn_store/Utils/snackbars.dart';
+import 'package:earn_store/Utils/url_helpers.dart';
 import 'package:earn_store/Views/Common%20Widgets/custom_top.dart';
 import 'package:earn_store/Views/Common%20Widgets/glass_morphism_card.dart';
 import 'package:earn_store/Views/Common%20Widgets/network_image_widget.dart';
+import 'package:earn_store/Views/Pages/Home%20Pages/root_page.dart';
 import 'package:earn_store/Views/Pages/Splash%20&%20Auth%20Pages/root_design.dart';
 import 'package:earn_store/Views/Styles/buttons.dart';
 import 'package:earn_store/Views/Styles/fields.dart';
@@ -100,8 +103,7 @@ class _RideVehicleDetailsState extends State<RideVehicleDetails> {
                   height: 75.h,
                   child: customText2(
                     title: controller.carDetails.value!.data!.description
-                            .toString() *
-                        20,
+                        .toString(),
                   ),
                 ),
               ],
@@ -154,12 +156,21 @@ class _RideVehicleDetailsState extends State<RideVehicleDetails> {
         children: [
           CustomButton(
             width: 150.w,
-            onPressed: () {},
+            onPressed: () async {
+              await UrlHelpers.shareOnSocialMedia(
+                  url: "https://earnstor.lens-ecom.store/?refer=34?id=45");
+            },
             buttonText: "Refer",
           ),
           CustomButton(
             width: 150.w,
-            onPressed: () {},
+            onPressed: () {
+              Snackbars.successSnackBar(
+                  title: "Booking Status", description: "Sended To Admin");
+              Get.offAll(
+                const RootScreen(),
+              );
+            },
             buttonText: "Book",
           ),
         ],

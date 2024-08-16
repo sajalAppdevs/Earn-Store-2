@@ -1,5 +1,8 @@
 import 'package:earn_store/Statics/paths.dart';
+import 'package:earn_store/Utils/snackbars.dart';
+import 'package:earn_store/Utils/url_helpers.dart';
 import 'package:earn_store/Views/Common%20Widgets/custom_top.dart';
+import 'package:earn_store/Views/Pages/Home%20Pages/root_page.dart';
 import 'package:earn_store/Views/Pages/Splash%20&%20Auth%20Pages/root_design.dart';
 import 'package:earn_store/Views/Styles/buttons.dart';
 import 'package:earn_store/Views/Styles/padding.dart';
@@ -68,12 +71,21 @@ class ParcelDetails extends StatelessWidget {
         children: [
           CustomButton(
             width: 150.w,
-            onPressed: () {},
+            onPressed: () async {
+                await UrlHelpers.shareOnSocialMedia(
+                url: "https://earnstor.lens-ecom.store/?refer=34?id=45");
+            },
             buttonText: "Refer",
           ),
           CustomButton(
             width: 150.w,
-            onPressed: () {},
+            onPressed: () {
+              Snackbars.successSnackBar(
+                  title: "Booking Status", description: "Sended To Admin");
+              Get.offAll(
+                const RootScreen(),
+              );
+            },
             buttonText: "Book Now",
           ),
         ],

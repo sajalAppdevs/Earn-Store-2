@@ -3,6 +3,7 @@ import 'package:earn_store/Statics/colors.dart';
 import 'package:earn_store/Utils/button_loading.dart';
 import 'package:earn_store/Views/Common%20Widgets/auth_top_logo.dart';
 import 'package:earn_store/Views/Common%20Widgets/non_glass_morphism_card.dart';
+import 'package:earn_store/Views/Pages/Splash%20&%20Auth%20Pages/register_page.dart';
 import 'package:earn_store/Views/Pages/Splash%20&%20Auth%20Pages/root_design.dart';
 import 'package:earn_store/Views/Styles/buttons.dart';
 import 'package:earn_store/Views/Styles/fields.dart';
@@ -85,21 +86,26 @@ class LoginPage extends StatelessWidget {
   }
 
   Widget signUpText() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        TextStyles.customText(
-          title: "Don’t have an account? ",
-          fontSize: 13.sp,
-          fontWeight: FontWeight.w400,
-        ),
-        TextStyles.customText(
-          title: "Sign UP",
-          fontSize: 13.sp,
-          fontWeight: FontWeight.w400,
-          color: TextColors.textColor2,
-        ),
-      ],
+    return GestureDetector(
+      onTap: () {
+        Get.to(const RegisterPage());
+      },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          TextStyles.customText(
+            title: "Don’t have an account? ",
+            fontSize: 13.sp,
+            fontWeight: FontWeight.w400,
+          ),
+          TextStyles.customText(
+            title: "Sign UP",
+            fontSize: 13.sp,
+            fontWeight: FontWeight.w400,
+            color: TextColors.textColor2,
+          ),
+        ],
+      ),
     );
   }
 }

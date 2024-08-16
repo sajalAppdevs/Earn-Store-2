@@ -1,8 +1,10 @@
 import 'package:earn_store/Controllers/Food%20Related%20Controllers/food_details_controller.dart';
 import 'package:earn_store/Statics/paths.dart';
 import 'package:earn_store/Utils/screen_loading.dart';
+import 'package:earn_store/Utils/snackbars.dart';
 import 'package:earn_store/Views/Common%20Widgets/glass_morphism_card.dart';
 import 'package:earn_store/Views/Common%20Widgets/network_image_widget.dart';
+import 'package:earn_store/Views/Pages/Home%20Pages/root_page.dart';
 import 'package:earn_store/Views/Pages/Splash%20&%20Auth%20Pages/root_design.dart';
 import 'package:earn_store/Views/Styles/buttons.dart';
 import 'package:earn_store/Views/Styles/fields.dart';
@@ -83,7 +85,12 @@ class _FoodDetailsPageState extends State<FoodDetailsPage> {
                           ),
                           SizedBox(height: 30.h),
                           CustomButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Snackbars.successSnackBar(
+                                  title: "Order Status",
+                                  description: "Sended To Admin");
+                              Get.offAll(const RootScreen());
+                            },
                             buttonText: "Order Now",
                           ),
                           SizedBox(height: 50.h),
