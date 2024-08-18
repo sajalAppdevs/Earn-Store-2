@@ -1,4 +1,4 @@
-import 'package:earn_store/Statics/paths.dart';
+import 'package:earn_store/Controllers/Home%20Controllers/tour_package_controller.dart';
 import 'package:earn_store/Views/Common%20Widgets/custom_top.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,21 +9,27 @@ class PackageDetailsTop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 265.h,
-      width: Get.width,
-      alignment: Alignment.topLeft,
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(
-            "${Paths.iconPath}tour_spot.png",
+    TourPackageController controller = Get.put(TourPackageController());
+    return Obx(
+      () {
+        return Container(
+          height: 265.h,
+          width: Get.width,
+          alignment: Alignment.topLeft,
+          decoration: BoxDecoration(
+            color: Colors.grey,
+            image: DecorationImage(
+              image: NetworkImage(
+                controller.packageDetails.value!.packages![0].image.toString(),
+              ),
+              fit: BoxFit.fill,
+            ),
           ),
-          fit: BoxFit.fill,
-        ),
-      ),
-      child: const CustomTop(
-        title: "Package Details",
-      ),
+          child: const CustomTop(
+            title: "Package Details",
+          ),
+        );
+      },
     );
   }
 }

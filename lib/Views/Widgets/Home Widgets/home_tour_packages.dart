@@ -1,7 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:earn_store/Controllers/Home%20Controllers/all_agency_controller.dart';
+import 'package:earn_store/Controllers/Home%20Controllers/tour_package_controller.dart';
 import 'package:earn_store/Utils/button_loading.dart';
 import 'package:earn_store/Views/Common%20Widgets/glass_morphism_card.dart';
+import 'package:earn_store/Views/Pages/Tour%20Related%20Pages/package_details_page.dart';
 import 'package:earn_store/Views/Styles/textstyles.dart';
 import 'package:earn_store/Views/Styles/title_text.dart';
 import 'package:flutter/material.dart';
@@ -13,20 +14,20 @@ class HomeTourPackages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AllAgencyController controller = Get.put(
-      AllAgencyController(),
+    TourPackageController controller = Get.put(
+      TourPackageController(),
     );
     return Obx(
       () {
-        return controller.agencyLoading.value
+        return controller.packageLoading.value
             ? ButtonLoading(
                 verticalPadding: 50.h,
               )
             : Column(
                 children: [
-                  TitleText(
-                    title: "Tour Package",
-                    onPressed: () {},
+                  const TitleText(
+                    title: "Tour Packages",
+                    hideAll: true,
                   ),
                   SizedBox(height: 70.h),
                   Container(
@@ -42,10 +43,12 @@ class HomeTourPackages extends StatelessWidget {
                             children: [
                               Row(
                                 children: List.generate(
-                                  controller.agencies.value!.agencys!.length > 3
+                                  controller.allPackages.value!.packages!
+                                              .length >
+                                          3
                                       ? 3
                                       : controller
-                                          .agencies.value!.agencys!.length,
+                                          .allPackages.value!.packages!.length,
                                   (index) {
                                     return tourBox(index: index);
                                   },
@@ -64,12 +67,23 @@ class HomeTourPackages extends StatelessWidget {
   }
 
   Widget tourBox({required int index}) {
+    TourPackageController controller = Get.put(
+      TourPackageController(),
+    );
     return Stack(
       clipBehavior: Clip.none,
       children: [
         Padding(
           padding: EdgeInsets.only(left: 35.w),
           child: GlassmorphismCard(
+            onPressed: () {
+              Get.to(
+                PackageDetailsPage(
+                  packageID: controller.allPackages.value!.packages![index].id
+                      .toString(),
+                ),
+              );
+            },
             boxHeight: 105.h,
             boxWidth: 250.w,
             child: Column(
@@ -85,8 +99,8 @@ class HomeTourPackages extends StatelessWidget {
   }
 
   Widget tourImage({required int index}) {
-    AllAgencyController controller = Get.put(
-      AllAgencyController(),
+    TourPackageController controller = Get.put(
+      TourPackageController(),
     );
     return Obx(
       () {
@@ -95,7 +109,7 @@ class HomeTourPackages extends StatelessWidget {
           left: 20.w,
           child: CachedNetworkImage(
             imageUrl:
-                controller.agencies.value!.agencys![index].image.toString(),
+                controller.allPackages.value!.packages![index].image.toString(),
             imageBuilder: (context, imageProvider) => Container(
               clipBehavior: Clip.none,
               height: 95.h,
@@ -125,8 +139,8 @@ class HomeTourPackages extends StatelessWidget {
   }
 
   Widget topInfo({required int index}) {
-    AllAgencyController controller = Get.put(
-      AllAgencyController(),
+    TourPackageController controller = Get.put(
+      TourPackageController(),
     );
     return Obx(
       () {
@@ -147,7 +161,9 @@ class HomeTourPackages extends StatelessWidget {
                   SizedBox(
                     width: 80.w,
                     child: TextStyles.customText(
-                      title: controller.agencies.value!.agencys![index].location.toString(),
+                      title: controller
+                          .allPackages.value!.packages![index].location
+                          .toString(),
                       fontSize: 12.sp,
                       isShowAll: true,
                     ),
@@ -155,7 +171,8 @@ class HomeTourPackages extends StatelessWidget {
                   SizedBox(
                     width: 50.w,
                     child: TextStyles.customText(
-                      title: "\$45",
+                      title:
+                          "\$${controller.allPackages.value!.packages![index].price.toString()}",
                       fontSize: 10.sp,
                     ),
                   )

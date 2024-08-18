@@ -11,12 +11,15 @@ class TextStyles {
     FontWeight? fontWeight,
     double? fontSize,
     TextAlign? textAlign,
+    bool? discountText,
   }) {
     return Text(
       title,
       overflow: isShowAll == true ? null : TextOverflow.ellipsis,
       textAlign: textAlign ?? TextAlign.center,
       style: GoogleFonts.poppins(
+        decoration: discountText == true ? TextDecoration.lineThrough : null,
+        decorationColor: TextColors.textColor1,
         color: color ?? TextColors.textColor1,
         fontWeight: fontWeight ?? FontWeight.w600,
         fontSize: fontSize ?? 16.sp,

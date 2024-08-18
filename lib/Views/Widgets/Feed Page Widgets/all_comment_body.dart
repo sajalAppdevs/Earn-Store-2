@@ -1,34 +1,41 @@
 import 'dart:ui';
 
+import 'package:earn_store/Controllers/Social%20Media%20Controllers/post_comment_controller.dart';
 import 'package:earn_store/Statics/colors.dart';
 import 'package:earn_store/Statics/paths.dart';
 import 'package:earn_store/Views/Styles/textstyles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class AllCommentBody extends StatelessWidget {
   const AllCommentBody({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView.builder(
-        itemCount: 10,
-        physics: const BouncingScrollPhysics(),
-        itemBuilder: (BuildContext context, int index) {
-          return Padding(
-            padding: EdgeInsets.only(bottom: 30.h),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                userImage(),
-                SizedBox(width: 10.w),
-                customGlass(),
-              ],
-            ),
-          );
-        },
-      ),
+    PostCommentController controller = Get.put(PostCommentController());
+    return Obx(
+      () {
+        return Expanded(
+          child: ListView.builder(
+            itemCount: controller.comments.value!.comments!.length,
+            physics: const BouncingScrollPhysics(),
+            itemBuilder: (BuildContext context, int index) {
+              return Padding(
+                padding: EdgeInsets.only(bottom: 30.h),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    userImage(),
+                    SizedBox(width: 10.w),
+                    customGlass(index: index),
+                  ],
+                ),
+              );
+            },
+          ),
+        );
+      },
     );
   }
 
@@ -49,7 +56,7 @@ class AllCommentBody extends StatelessWidget {
     );
   }
 
-  Widget customGlass() {
+  Widget customGlass({required int index}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -89,9 +96,9 @@ class AllCommentBody extends StatelessWidget {
                 children: [
                   boxTop(),
                   SizedBox(height: 5.h),
-                  boxName(),
+                  boxName(index: index),
                   SizedBox(height: 8.h),
-                  boxComment(),
+                  boxComment(index: index),
                 ],
               ),
             ),
@@ -122,21 +129,31 @@ class AllCommentBody extends StatelessWidget {
     );
   }
 
-  Widget boxName() {
-    return TextStyles.customText(
-      title: "Rashidatul Kobra",
-      fontSize: 14.sp,
-      fontWeight: FontWeight.w700,
+  Widget boxName({required int index}) {
+    PostCommentController controller = Get.put(PostCommentController());
+    return Obx(
+      () {
+        return TextStyles.customText(
+          title: controller.comments.value!.comments![index].name.toString(),
+          fontSize: 14.sp,
+          fontWeight: FontWeight.w700,
+        );
+      },
     );
   }
 
-  Widget boxComment() {
-    return TextStyles.customText(
-      title: "Wow nice ",
-      isShowAll: true,
-      fontSize: 14.sp,
-      fontWeight: FontWeight.w500,
-      textAlign: TextAlign.left,
+  Widget boxComment({required int index}) {
+    PostCommentController controller = Get.put(PostCommentController());
+    return Obx(
+      () {
+        return TextStyles.customText(
+          title: controller.comments.value!.comments![index].text.toString(),
+          isShowAll: true,
+          fontSize: 14.sp,
+          fontWeight: FontWeight.w500,
+          textAlign: TextAlign.left,
+        );
+      },
     );
   }
 

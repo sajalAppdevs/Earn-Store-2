@@ -5,6 +5,7 @@ import 'package:earn_store/Controllers/Home%20Controllers/online_course_controll
 import 'package:earn_store/Controllers/Home%20Controllers/pdf_and_resources_controller.dart';
 import 'package:earn_store/Controllers/Home%20Controllers/popular_courses_controller.dart';
 import 'package:earn_store/Controllers/Home%20Controllers/sport_update_controller.dart';
+import 'package:earn_store/Controllers/Home%20Controllers/tour_package_controller.dart';
 import 'package:earn_store/Views/Pages/Splash%20&%20Auth%20Pages/root_design.dart';
 import 'package:earn_store/Views/Styles/padding.dart';
 import 'package:earn_store/Views/Widgets/Home%20Widgets/home_advertise.dart';
@@ -46,6 +47,9 @@ class _HomePageState extends State<HomePage> {
   AllHotelController hotelController = Get.put(
     AllHotelController(),
   );
+  TourPackageController tourPackageController = Get.put(
+    TourPackageController(),
+  );
   SportUpdateController sportUpdateController = Get.put(
     SportUpdateController(),
   );
@@ -71,6 +75,7 @@ class _HomePageState extends State<HomePage> {
     await advertiseController.getBanners();
     await onlineCourseController.geOnlineCourse();
     await hotelController.getAllHotels();
+    await tourPackageController.getAllTourPackage();
     await sportUpdateController.getSportUpdates();
     await pdfAndResourcesController.getAllResources();
     await popularCoursesController.getPopularCourses();
@@ -90,7 +95,7 @@ class _HomePageState extends State<HomePage> {
             const HomeAdvertisement(),
             const HomeLevelAndPoint(),
             HomeCategoriesList(scrollController: _scrollController),
-            const HomeCategories(),
+            HomeCategories(scrollController: _scrollController),
             const HomeStreamingHub(),
             const HomeOnlineCourse(),
             const HomeOptions(),

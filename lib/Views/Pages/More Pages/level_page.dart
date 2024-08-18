@@ -5,6 +5,7 @@ import 'package:earn_store/Statics/paths.dart';
 import 'package:earn_store/Utils/button_loading.dart';
 import 'package:earn_store/Views/Common%20Widgets/custom_top.dart';
 import 'package:earn_store/Views/Common%20Widgets/glass_morphism_card.dart';
+import 'package:earn_store/Views/Pages/Earning%20Pages/withdraw_page.dart';
 import 'package:earn_store/Views/Pages/Splash%20&%20Auth%20Pages/root_design.dart';
 import 'package:earn_store/Views/Styles/buttons.dart';
 import 'package:earn_store/Views/Styles/padding.dart';
@@ -57,7 +58,11 @@ class LevelPage extends StatelessWidget {
                     ),
                     CustomButton(
                       width: 115.w,
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.to(
+                          const WithdrawPage(),
+                        );
+                      },
                       buttonText: "Withdraw",
                       textSize: 15.sp,
                     )

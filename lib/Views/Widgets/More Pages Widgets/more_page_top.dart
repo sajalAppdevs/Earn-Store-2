@@ -4,6 +4,7 @@ import 'package:earn_store/Controllers/User%20Controllers/user_profile_controlle
 import 'package:earn_store/Statics/paths.dart';
 import 'package:earn_store/Utils/button_loading.dart';
 import 'package:earn_store/Views/Common%20Widgets/glass_morphism_card.dart';
+import 'package:earn_store/Views/Pages/Earning%20Pages/withdraw_page.dart';
 import 'package:earn_store/Views/Styles/textstyles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -104,6 +105,11 @@ class _MorePageTopState extends State<MorePageTop> {
               boxHeight: 40.h,
               boxWidth: 115.w,
               borderRadius: 30.r,
+              onPressed: () {
+                Get.to(
+                  const WithdrawPage(),
+                );
+              },
               child: TextStyles.customText(
                 title: "Withdraw",
                 fontSize: 15.sp,

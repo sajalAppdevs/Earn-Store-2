@@ -6,11 +6,22 @@ import 'package:earn_store/Views/Pages/Category%20Pages/quiz_test_page.dart';
 import 'package:earn_store/Views/Pages/Food%20Related%20Page/food_delivery_page.dart';
 import 'package:earn_store/Views/Pages/Ride%20Share%20Pages/ride_share_page.dart';
 import 'package:earn_store/Views/Pages/Tour%20Related%20Pages/tour_page.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class HomeCategoriesController extends GetxController {
-  void categoriesNavigator({required int index}) {
+  void categoriesNavigator({
+    required int index,
+    required ScrollController scrollController,
+  }) {
     if (index == 0) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        scrollController.animateTo(
+          scrollController.position.maxScrollExtent,
+          duration: const Duration(seconds: 1),
+          curve: Curves.easeInOut,
+        );
+      });
     } else if (index == 1) {
       Get.to(
         const NewsPaperPage(),

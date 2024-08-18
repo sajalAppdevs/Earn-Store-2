@@ -5,8 +5,9 @@ import 'package:earn_store/Views/Styles/textstyles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ChatDetailsTop extends StatelessWidget {
-  const ChatDetailsTop({super.key});
+class GroupChatDetailsTop extends StatelessWidget {
+  final String groupName;
+  const GroupChatDetailsTop({super.key, required this.groupName});
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +27,6 @@ class ChatDetailsTop extends StatelessWidget {
           children: [
             Row(
               children: [
-                chatImage(),
-                SizedBox(width: 10.w),
                 userName(),
               ],
             ),
@@ -65,7 +64,7 @@ class ChatDetailsTop extends StatelessWidget {
     return SizedBox(
       width: 220.w,
       child: TextStyles.customText(
-        title: "Soykot Hosen",
+        title: groupName,
         fontSize: 14.sp,
         textAlign: TextAlign.left,
       ),

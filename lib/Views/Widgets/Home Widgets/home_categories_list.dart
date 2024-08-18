@@ -20,7 +20,10 @@ class HomeCategoriesList extends StatelessWidget {
       padding: EdgeInsets.only(top: 20.h, bottom: 20.h),
       child: Column(
         children: [
-          const TitleText(title: "Categories"),
+          const TitleText(
+            title: "Categories",
+            hideAll: true,
+          ),
           SizedBox(height: 10.h),
           categories(),
         ],

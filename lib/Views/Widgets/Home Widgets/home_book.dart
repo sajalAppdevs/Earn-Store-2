@@ -1,8 +1,10 @@
 import 'package:earn_store/Statics/paths.dart';
 import 'package:earn_store/Views/Common%20Widgets/glass_morphism_card.dart';
+import 'package:earn_store/Views/Pages/Book%20Related%20Pages/book_category_page.dart';
 import 'package:earn_store/Views/Styles/textstyles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class HomeBook extends StatelessWidget {
   const HomeBook({super.key});
@@ -17,7 +19,11 @@ class HomeBook extends StatelessWidget {
           GlassmorphismCard(
             boxHeight: 41.h,
             boxWidth: 150.w,
-            onPressed: () {},
+            onPressed: () {
+              Get.to(
+                const BookCategoryPage(),
+              );
+            },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -38,7 +44,11 @@ class HomeBook extends StatelessWidget {
           GlassmorphismCard(
             boxHeight: 41.h,
             boxWidth: 150.w,
-            onPressed: () {},
+            onPressed: () {
+              Get.to(
+                const BookCategoryPage(),
+              );
+            },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

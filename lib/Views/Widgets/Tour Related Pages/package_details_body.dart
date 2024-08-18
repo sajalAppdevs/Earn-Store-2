@@ -1,3 +1,4 @@
+import 'package:earn_store/Controllers/Home%20Controllers/tour_package_controller.dart';
 import 'package:earn_store/Statics/paths.dart';
 import 'package:earn_store/Utils/snackbars.dart';
 import 'package:earn_store/Utils/url_helpers.dart';
@@ -33,63 +34,85 @@ class PackageDetailsBody extends StatelessWidget {
   }
 
   Widget locationWidget() {
-    return Row(
-      children: [
-        Image.asset(
-          "${Paths.iconPath}location.png",
-          height: 15.h,
-          width: 12.w,
-          fit: BoxFit.fill,
-        ),
-        SizedBox(width: 5.w),
-        TextStyles.customText(
-          title: "Sea pearl Beach Resort & Spa Cox’s Bazar",
-          fontSize: 12.sp,
-        )
-      ],
+    TourPackageController controller = Get.put(TourPackageController());
+    return Obx(
+      () {
+        return Row(
+          children: [
+            Image.asset(
+              "${Paths.iconPath}location.png",
+              height: 15.h,
+              width: 12.w,
+              fit: BoxFit.fill,
+            ),
+            SizedBox(width: 5.w),
+            TextStyles.customText(
+              title:
+                  "${controller.packageDetails.value!.packages![0].packageName} in ${controller.packageDetails.value!.packages![0].location}",
+              fontSize: 12.sp,
+            )
+          ],
+        );
+      },
     );
   }
 
   Widget titleAndDetails() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        TextStyles.customText(
-          title: "Cox’s Bazar Tour",
-        ),
-        SizedBox(height: 20.h),
-        TextStyles.customText(
-          title:
-              "Cox’s Bazar is a town on the southeast coast of Bangladesh. It’s known for its very long, sandy beachfront, stretching from Sea Beach in the north to Kolatoli Beach in the south.",
-          fontSize: 14.sp,
-          fontWeight: FontWeight.w400,
-          isShowAll: true,
-          textAlign: TextAlign.left,
-        )
-      ],
+    TourPackageController controller = Get.put(TourPackageController());
+    return Obx(
+      () {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Align(
+              alignment: Alignment.centerLeft,
+              child: TextStyles.customText(
+                title:
+                    "${controller.packageDetails.value!.packages![0].location} Tour",
+              ),
+            ),
+            SizedBox(height: 20.h),
+            TextStyles.customText(
+              title: controller.packageDetails.value!.packages![0].facilities
+                  .toString(),
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w400,
+              isShowAll: true,
+              textAlign: TextAlign.left,
+            )
+          ],
+        );
+      },
     );
   }
 
   Widget packageContain() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        TextStyles.customText(
-          title: "Package Contains",
-        ),
-        SizedBox(height: 20.h),
-        containWidget(title: "3 Nights accommodation at Sea Pearl Hotel"),
-        containWidget(title: "All day Breakfast at Hotel "),
-        containWidget(title: "2 Breakfast, 2 Lunch, 2 Dinner"),
-        containWidget(title: "Inani Beach tour with Lunch"),
-        containWidget(title: "Radiant Fish World"),
-        containWidget(title: "Himchori"),
-        containWidget(title: "Marine Drive"),
-        containWidget(title: "Mermaid Beach Resort"),
-        containWidget(title: "Sonadia Island"),
-        containWidget(title: "Laboni Beach"),
-        containWidget(title: "100 Feet Buddha"),
-      ],
+    TourPackageController controller = Get.put(TourPackageController());
+    return Obx(
+      () {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TextStyles.customText(
+              title: "Package Contains",
+            ),
+            SizedBox(height: 20.h),
+            ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: controller
+                  .packageDetails.value!.packages![0].packageContainer!.length,
+              itemBuilder: (BuildContext context, int index) {
+                return containWidget(
+                  title: controller.packageDetails.value!.packages![0]
+                      .packageContainer![index]
+                      .toString(),
+                );
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 

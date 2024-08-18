@@ -1,3 +1,4 @@
+import 'package:earn_store/Controllers/Social%20Media%20Controllers/social_media_controller.dart';
 import 'package:earn_store/Statics/paths.dart';
 import 'package:earn_store/Views/Pages/Feed%20Pages/all_comment_page.dart';
 import 'package:earn_store/Views/Styles/padding.dart';
@@ -7,10 +8,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class FeedBoxBottom extends StatelessWidget {
-  const FeedBoxBottom({super.key});
+  final int index;
+  const FeedBoxBottom({super.key, required this.index});
 
   @override
   Widget build(BuildContext context) {
+    SocialMediaController controller = Get.put(SocialMediaController());
     return PaddedScreen(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -35,7 +38,10 @@ class FeedBoxBottom extends StatelessWidget {
           GestureDetector(
             onTap: () {
               Get.to(
-                const AllCommentPage(),
+                AllCommentPage(
+                  postID: controller.socialMedias.value!.posts![index].id
+                      .toString(),
+                ),
               );
             },
             child: Row(

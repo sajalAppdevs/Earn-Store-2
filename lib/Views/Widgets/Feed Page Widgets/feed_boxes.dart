@@ -1,3 +1,4 @@
+import 'package:earn_store/Controllers/Social%20Media%20Controllers/social_media_controller.dart';
 import 'package:earn_store/Statics/colors.dart';
 import 'package:earn_store/Views/Widgets/Feed%20Page%20Widgets/feed_box_activity_count.dart';
 import 'package:earn_store/Views/Widgets/Feed%20Page%20Widgets/feed_box_bottom.dart';
@@ -5,25 +6,34 @@ import 'package:earn_store/Views/Widgets/Feed%20Page%20Widgets/feed_box_content.
 import 'package:earn_store/Views/Widgets/Feed%20Page%20Widgets/feed_box_top.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class FeedBoxes extends StatelessWidget {
   const FeedBoxes({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: 5,
-      physics: const NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      itemBuilder: (BuildContext context, int index) {
-        return feedBox();
+    SocialMediaController controller = Get.put(SocialMediaController());
+    return Obx(
+      () {
+        return ListView.builder(
+          itemCount: controller.socialMedias.value!.posts!.length,
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemBuilder: (BuildContext context, int index) {
+            return controller.socialMedias.value!.posts![index].image == null &&
+                    controller.socialMedias.value!.posts![index].video == null
+                ? Container()
+                : feedBox(index: index);
+          },
+        );
       },
     );
   }
 
-  Widget feedBox() {
+  Widget feedBox({required int index}) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 15.h),
+      margin: EdgeInsets.symmetric(vertical: 10.h),
       padding: EdgeInsets.symmetric(vertical: 15.h),
       decoration: BoxDecoration(
         color: Colors.transparent.withOpacity(0.4),
@@ -46,9 +56,13 @@ class FeedBoxes extends StatelessWidget {
         children: [
           const FeedBoxTop(),
           SizedBox(height: 15.h),
-          const FeedBoxContent(),
+          FeedBoxContent(
+            index: index,
+          ),
           SizedBox(height: 15.h),
-          const FeedBoxActivityCount(),
+          FeedBoxActivityCount(
+            index: index,
+          ),
           SizedBox(height: 10.h),
           Divider(
             color: TextColors.textColor1,
@@ -56,7 +70,9 @@ class FeedBoxes extends StatelessWidget {
             thickness: 0.4,
           ),
           SizedBox(height: 15.h),
-          const FeedBoxBottom()
+          FeedBoxBottom(
+            index: index,
+          )
         ],
       ),
     );

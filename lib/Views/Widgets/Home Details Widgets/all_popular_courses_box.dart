@@ -1,6 +1,7 @@
 import 'package:earn_store/Controllers/Home%20Controllers/popular_courses_controller.dart';
 import 'package:earn_store/Views/Common%20Widgets/glass_morphism_card.dart';
 import 'package:earn_store/Views/Common%20Widgets/network_image_widget.dart';
+import 'package:earn_store/Views/Pages/Home%20Details%20Page/popular_course_details.dart';
 import 'package:earn_store/Views/Styles/textstyles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -44,6 +45,9 @@ class AllPopularCoursesBox extends StatelessWidget {
             boxHeight: 100.h,
             horizontalPadding: 10.w,
             verticalPadding: 10.h,
+            onPressed: () {
+              Get.to(const PopularCourseDetails());
+            },
             child: Row(
               children: [
                 courseImage(imagePath: imagePath),
