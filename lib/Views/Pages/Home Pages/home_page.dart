@@ -1,5 +1,6 @@
 import 'package:earn_store/Controllers/Home%20Controllers/all_agency_controller.dart';
 import 'package:earn_store/Controllers/Home%20Controllers/all_hotel_controller.dart';
+import 'package:earn_store/Controllers/Home%20Controllers/content_controller.dart';
 import 'package:earn_store/Controllers/Home%20Controllers/home_advertise_controller.dart';
 import 'package:earn_store/Controllers/Home%20Controllers/online_course_controller.dart';
 import 'package:earn_store/Controllers/Home%20Controllers/pdf_and_resources_controller.dart';
@@ -41,6 +42,7 @@ class _HomePageState extends State<HomePage> {
   HomeAdvertiseController advertiseController = Get.put(
     HomeAdvertiseController(),
   );
+  ContentController contentController = Get.put(ContentController());
   OnlineCourseController onlineCourseController = Get.put(
     OnlineCourseController(),
   );
@@ -73,6 +75,7 @@ class _HomePageState extends State<HomePage> {
 
   void getData() async {
     await advertiseController.getBanners();
+    await contentController.getStreamingContent();
     await onlineCourseController.geOnlineCourse();
     await hotelController.getAllHotels();
     await tourPackageController.getAllTourPackage();
@@ -87,29 +90,35 @@ class _HomePageState extends State<HomePage> {
     return RootDesign(
       child: PaddedScreen(
         padding: 10.w,
-        child: ListView(
-          controller: _scrollController,
-          physics: const BouncingScrollPhysics(),
+        child: Column(
           children: [
             const HomeTop(),
-            const HomeAdvertisement(),
-            const HomeLevelAndPoint(),
-            HomeCategoriesList(scrollController: _scrollController),
-            HomeCategories(scrollController: _scrollController),
-            const HomeStreamingHub(),
-            const HomeOnlineCourse(),
-            const HomeOptions(),
-            const HomeHotelBooking(),
-            const HomeTourPackages(),
-            const HomeMatch(),
-            const HomePDFResources(),
-            const HomeBook(),
-            const HomePopularCources(),
-            const HomeAgency(),
-            const HomeFlashSell(),
-            const HomeExtraCategory(),
-            const HomeHotProducts(),
-            SizedBox(height: 30.h)
+            Expanded(
+              child: ListView(
+                controller: _scrollController,
+                physics: const BouncingScrollPhysics(),
+                children: [
+                  const HomeAdvertisement(),
+                  const HomeLevelAndPoint(),
+                  HomeCategoriesList(scrollController: _scrollController),
+                  HomeCategories(scrollController: _scrollController),
+                  const HomeStreamingHub(),
+                  const HomeOnlineCourse(),
+                  const HomeOptions(),
+                  const HomeHotelBooking(),
+                  const HomeTourPackages(),
+                  const HomeMatch(),
+                  const HomePDFResources(),
+                  const HomeBook(),
+                  const HomePopularCources(),
+                  const HomeAgency(),
+                  const HomeFlashSell(),
+                  const HomeExtraCategory(),
+                  const HomeHotProducts(),
+                  SizedBox(height: 30.h)
+                ],
+              ),
+            ),
           ],
         ),
       ),

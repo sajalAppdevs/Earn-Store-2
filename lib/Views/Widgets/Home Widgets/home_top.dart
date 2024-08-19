@@ -4,6 +4,7 @@ import 'package:earn_store/Utils/button_loading.dart';
 import 'package:earn_store/Utils/url_helpers.dart';
 import 'package:earn_store/Views/Common%20Widgets/rounded_button.dart';
 import 'package:earn_store/Views/Pages/Home%20Pages/help_center_page.dart';
+import 'package:earn_store/Views/Pages/Home%20Pages/notification_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -76,7 +77,11 @@ class _HomeTopState extends State<HomeTop> {
       width: 40.w,
       paddingLeft: 7.w,
       paddingTop: 5.h,
-      onPressed: () {},
+      onPressed: () {
+        Get.to(
+          const NotificationScreen(),
+        );
+      },
       child: Image.asset(
         "${Paths.iconPath}notification.png",
         height: 38.h,

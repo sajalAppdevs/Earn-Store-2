@@ -1,5 +1,6 @@
 import 'package:earn_store/Controllers/Social%20Media%20Controllers/social_media_controller.dart';
 import 'package:earn_store/Statics/paths.dart';
+import 'package:earn_store/Utils/url_helpers.dart';
 import 'package:earn_store/Views/Pages/Feed%20Pages/all_comment_page.dart';
 import 'package:earn_store/Views/Styles/padding.dart';
 import 'package:earn_store/Views/Styles/textstyles.dart';
@@ -55,6 +56,28 @@ class FeedBoxBottom extends StatelessWidget {
                 SizedBox(width: 8.w),
                 TextStyles.customText(
                   title: "Comment",
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+              ],
+            ),
+          ),
+          GestureDetector(
+            onTap: () async {
+              await UrlHelpers.shareOnSocialMedia(
+                  url: "https://earnstor.lens-ecom.store/?refer=34?id=45");
+            },
+            child: Row(
+              children: [
+                Image.asset(
+                  "${Paths.iconPath}share.png",
+                  height: 25.h,
+                  width: 25.w,
+                  fit: BoxFit.fill,
+                ),
+                SizedBox(width: 8.w),
+                TextStyles.customText(
+                  title: "Share",
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w500,
                 ),

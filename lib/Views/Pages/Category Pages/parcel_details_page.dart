@@ -1,7 +1,8 @@
-import 'package:earn_store/Statics/paths.dart';
+import 'package:earn_store/Controllers/Home%20Controllers/parcel_delivery_controller.dart';
 import 'package:earn_store/Utils/snackbars.dart';
 import 'package:earn_store/Utils/url_helpers.dart';
 import 'package:earn_store/Views/Common%20Widgets/custom_top.dart';
+import 'package:earn_store/Views/Common%20Widgets/network_image_widget.dart';
 import 'package:earn_store/Views/Pages/Home%20Pages/root_page.dart';
 import 'package:earn_store/Views/Pages/Splash%20&%20Auth%20Pages/root_design.dart';
 import 'package:earn_store/Views/Styles/buttons.dart';
@@ -12,7 +13,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class ParcelDetails extends StatelessWidget {
-  const ParcelDetails({super.key});
+  final int index;
+  const ParcelDetails({super.key, required this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -31,36 +33,52 @@ class ParcelDetails extends StatelessWidget {
   }
 
   Widget parcelImage() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-      child: Image.asset(
-        "${Paths.iconPath}pathao.png",
-        height: 145.h,
-        width: Get.width,
-        fit: BoxFit.fill,
-      ),
+    ParcelDeliveryController controller = Get.put(
+      ParcelDeliveryController(),
+    );
+    return Obx(
+      () {
+        return Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+          child: NetworkImageWidget(
+            imageUrl: controller.parcels.value!.deliveryCompany![index].image
+                .toString(),
+            verticalPaddingForLoading: 50.h,
+            height: 145.h,
+            width: Get.width,
+          ),
+        );
+      },
     );
   }
 
   Widget parcelInfo() {
-    return PaddedScreen(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          TextStyles.customText(
-            title: "REDX",
+    ParcelDeliveryController controller = Get.put(
+      ParcelDeliveryController(),
+    );
+    return Obx(
+      () {
+        return PaddedScreen(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextStyles.customText(
+                title: controller.parcels.value!.deliveryCompany![index].name
+                    .toString(),
+              ),
+              SizedBox(height: 10.h),
+              TextStyles.customText(
+                title:
+                    "One of the best delivery services in Bangladesh. Package starts from 125.00৳",
+                fontSize: 12.sp,
+                fontWeight: FontWeight.w400,
+                isShowAll: true,
+                textAlign: TextAlign.left,
+              ),
+            ],
           ),
-          SizedBox(height: 10.h),
-          TextStyles.customText(
-            title:
-                "One of the best delivery services in Bangladesh. Package starts from 125.00৳",
-            fontSize: 12.sp,
-            fontWeight: FontWeight.w400,
-            isShowAll: true,
-            textAlign: TextAlign.left,
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 
@@ -72,8 +90,8 @@ class ParcelDetails extends StatelessWidget {
           CustomButton(
             width: 150.w,
             onPressed: () async {
-                await UrlHelpers.shareOnSocialMedia(
-                url: "https://earnstor.lens-ecom.store/?refer=34?id=45");
+              await UrlHelpers.shareOnSocialMedia(
+                  url: "https://earnstor.lens-ecom.store/?refer=34?id=45");
             },
             buttonText: "Refer",
           ),
