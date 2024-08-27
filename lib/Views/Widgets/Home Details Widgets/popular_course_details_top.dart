@@ -1,4 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:earn_store/Controllers/Home%20Controllers/popular_courses_controller.dart';
 import 'package:earn_store/Statics/paths.dart';
+import 'package:earn_store/Utils/button_loading.dart';
 import 'package:earn_store/Views/Styles/buttons.dart';
 import 'package:earn_store/Views/Styles/textstyles.dart';
 import 'package:flutter/material.dart';
@@ -23,93 +26,139 @@ class PopularCourseDetailsTop extends StatelessWidget {
   }
 
   Widget courseVideoImage() {
-    return Container(
-      height: 160.h,
-      width: Get.width,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5.r),
-        image: const DecorationImage(
-          image: AssetImage(
-            "${Paths.imagePath}course.jpg",
+    PopularCoursesController controller = Get.put(
+      PopularCoursesController(),
+    );
+    return Obx(
+      () {
+        return CachedNetworkImage(
+          imageUrl: controller.courseDetails.value!.course!.image.toString(),
+          imageBuilder: (context, imageProvider) => Container(
+            height: 160.h,
+            width: Get.width,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5.r),
+              image: DecorationImage(
+                image: imageProvider,
+                fit: BoxFit.fill,
+              ),
+            ),
           ),
-          fit: BoxFit.fill,
-        ),
-      ),
+          placeholder: (context, url) => ButtonLoading(verticalPadding: 50.h),
+          errorWidget: (context, url, error) => Container(
+            height: 160.h,
+            width: Get.width,
+            decoration: BoxDecoration(
+              color: Colors.grey,
+              borderRadius: BorderRadius.circular(5.r),
+            ),
+          ),
+        );
+      },
     );
   }
 
   Widget priceAndEnrollButton() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
+    PopularCoursesController controller = Get.put(
+      PopularCoursesController(),
+    );
+    return Obx(
+      () {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            TextStyles.customText(
-              title: "৳5500",
-              fontSize: 18.sp,
+            Row(
+              children: [
+                TextStyles.customText(
+                  title:
+                      "৳${controller.courseDetails.value!.course!.discountedPrice}",
+                  fontSize: 18.sp,
+                ),
+                SizedBox(width: 5.w),
+                TextStyles.customText(
+                  title: "৳${controller.courseDetails.value!.course!.price}",
+                  fontSize: 14.sp,
+                  discountText: true,
+                ),
+              ],
             ),
-            SizedBox(width: 5.w),
-            TextStyles.customText(
-              title: "৳7000",
-              fontSize: 14.sp,
-              discountText: true,
-            ),
+            CustomButton(
+              height: 35.h,
+              width: 100.w,
+              onPressed: () {},
+              buttonText: "Enroll",
+            )
           ],
-        ),
-        CustomButton(
-          height: 35.h,
-          width: 100.w,
-          onPressed: () {},
-          buttonText: "Enroll",
-        )
-      ],
+        );
+      },
     );
   }
 
   Widget nameAndDescription() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(height: 15.h),
-        TextStyles.customText(
-          title: "IELTS Batch",
-        ),
-        SizedBox(height: 15.h),
-        TextStyles.customText(
-          title:
-              "If your goal is to study or work abroad, achieving a competitive band score on the IELTS exam is essential. That's why 10 Minute School is proud to introduce the 'IELTS Live Batch' Live Course. Designed for learners aiming to excel on the exam and pursue opportunities abroad, this course offers in-depth instruction on all four skills: Listening, Reading, Writing, and Speaking. With 36 interactive live classes led by experienced instructors, you'll receive expert guidance over 12 weeks. Don't wait any longer – enroll now to reach your desired IELTS band score.",
-          fontSize: 14.sp,
-          isShowAll: true,
-          textAlign: TextAlign.left,
-        )
-      ],
+    PopularCoursesController controller = Get.put(
+      PopularCoursesController(),
+    );
+    return Obx(
+      () {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 15.h),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: TextStyles.customText(
+                title: controller.courseDetails.value!.course!.title.toString(),
+              ),
+            ),
+            SizedBox(height: 15.h),
+            TextStyles.customText(
+              title: controller.courseDetails.value!.course!.description
+                  .toString(),
+              fontSize: 14.sp,
+              isShowAll: true,
+              textAlign: TextAlign.left,
+            )
+          ],
+        );
+      },
     );
   }
 
   Widget courseProperties() {
-    return Column(
-      children: [
-        propertiesBox(
-          iconPath: "enroll.png",
-          title: "525 Enroll Course",
-        ),
-        propertiesBox(
-          iconPath: "duration.png",
-          title: "Course duration: 3 month",
-        ),
-        propertiesBox(
-          iconPath: "course_clock.png",
-          title: "Time 20 Hour",
-        ),
-        propertiesBox(
-          iconPath: "course_video.png",
-          title: "24 Video Lecture",
-        ),
-        propertiesBox(
-          iconPath: "pdf.png",
-          title: "23 Class Lecture PDF",
-        ),
-      ],
+    PopularCoursesController controller = Get.put(
+      PopularCoursesController(),
+    );
+    return Obx(
+      () {
+        return Column(
+          children: [
+            propertiesBox(
+              iconPath: "enroll.png",
+              title:
+                  "${controller.courseDetails.value!.course!.totalEnrolled} Enroll Course",
+            ),
+            propertiesBox(
+              iconPath: "duration.png",
+              title:
+                  "Course duration: ${controller.courseDetails.value!.course!.duration}",
+            ),
+            propertiesBox(
+              iconPath: "course_clock.png",
+              title: "Time ${controller.courseDetails.value!.course!.time}",
+            ),
+            propertiesBox(
+              iconPath: "course_video.png",
+              title:
+                  "${controller.courseDetails.value!.course!.totalVideoLecture} Video Lecture",
+            ),
+            propertiesBox(
+              iconPath: "pdf.png",
+              title:
+                  "${controller.courseDetails.value!.course!.totalPdf} Class Lecture PDF",
+            ),
+          ],
+        );
+      },
     );
   }
 

@@ -53,16 +53,10 @@ class HomePopularCources extends StatelessWidget {
       () {
         return Column(
           children: List.generate(
-            controller.courses.value!.onlineCourses!.length > 3
+            controller.courses.value!.courses!.length > 3
                 ? 3
-                : controller.courses.value!.onlineCourses!.length,
+                : controller.courses.value!.courses!.length,
             (index) {
-              String imagePath = controller
-                  .courses.value!.onlineCourses![index].icon
-                  .toString();
-              String name = controller
-                  .courses.value!.onlineCourses![index].appName
-                  .toString();
               return Padding(
                 padding: EdgeInsets.only(bottom: 15.w),
                 child: GlassmorphismCard(
@@ -71,29 +65,41 @@ class HomePopularCources extends StatelessWidget {
                   verticalPadding: 10.h,
                   onPressed: () {
                     Get.to(
-                      const PopularCourseDetails(),
+                      PopularCourseDetails(
+                        courseID: controller.courses.value!.courses![index].id
+                            .toString(),
+                      ),
                     );
                   },
                   child: Row(
                     children: [
-                      courseImage(imagePath: imagePath),
+                      courseImage(
+                        imagePath: controller
+                            .courses.value!.courses![index].image
+                            .toString(),
+                      ),
                       SizedBox(width: 5.w),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           TextStyles.customText(
-                            title: name,
+                            title: controller
+                                .courses.value!.courses![index].title
+                                .toString(),
                             fontSize: 15.sp,
                           ),
                           SizedBox(height: 5.h),
                           TextStyles.customText(
-                            title: "Hasnain Nur Sezan  +4",
+                            title: controller
+                                .courses.value!.courses![index].instructor
+                                .toString(),
                             fontSize: 13.sp,
                             fontWeight: FontWeight.w400,
                           ),
                           SizedBox(height: 5.h),
                           TextStyles.customText(
-                            title: "For Class VI    Free",
+                            title:
+                                "Duration: ${controller.courses.value!.courses![index].duration}",
                             fontSize: 13.sp,
                           ),
                         ],

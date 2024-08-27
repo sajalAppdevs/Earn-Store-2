@@ -2,11 +2,13 @@ import 'package:earn_store/Statics/paths.dart';
 import 'package:earn_store/Views/Common%20Widgets/glass_morphism_card.dart';
 import 'package:earn_store/Views/Styles/textstyles.dart';
 import 'package:earn_store/Views/Styles/title_text2.dart';
+import 'package:earn_store/Views/Pages/Ecommerce%20Related%20Pages/all_category_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
-class HomeExtraCategory extends StatelessWidget {
-  const HomeExtraCategory({super.key});
+class HomeProductCategory extends StatelessWidget {
+  const HomeProductCategory({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +17,13 @@ class HomeExtraCategory extends StatelessWidget {
         SizedBox(
           height: 20.h,
         ),
-        const TitleText2(
-          title: "Extra Category",
+        TitleText2(
+          title: "Category",
+          onPressed: () {
+            Get.to(
+              const AllCategoryPage(),
+            );
+          },
         ),
         SizedBox(
           height: 20.h,

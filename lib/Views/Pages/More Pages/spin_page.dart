@@ -7,8 +7,18 @@ import 'package:earn_store/Views/Styles/textstyles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class SpinPage extends StatelessWidget {
+class SpinPage extends StatefulWidget {
   const SpinPage({super.key});
+
+  @override
+  State<SpinPage> createState() => _SpinPageState();
+}
+
+class _SpinPageState extends State<SpinPage> {
+  bool isSpinning = false;
+  double rotationAngle = 0.0;
+  Duration spinDuration = const Duration(seconds: 10);
+  double rotationSpeed = 15.0; // Increase initial speed
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +32,34 @@ class SpinPage extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(height: 100.h),
-                spinImage(),
+                AnimatedRotation(
+                  turns: rotationAngle / 360,
+                  duration: spinDuration,
+                  curve: Curves.easeOutCubic,
+                  child: spinImage(),
+                ),
                 CustomButton(
                   width: 150.w,
-                  onPressed: () {},
+                  onPressed: () async {
+                    if (!isSpinning) {
+                      setState(() {
+                        isSpinning = true;
+                        rotationAngle = 0.0;
+                        rotationSpeed = 15.0; // Increase initial speed
+                      });
+
+                      while (isSpinning) {
+                        setState(() {
+                          rotationAngle += rotationSpeed;
+                          rotationSpeed -= 0.05; // Decrease speed decrement
+                          if (rotationSpeed <= 0.0) {
+                            isSpinning = false;
+                          }
+                        });
+                        // await Future.delayed(const Duration(milliseconds: 10));
+                      }
+                    }
+                  },
                   buttonText: "Run Spin",
                   textSize: 16.sp,
                 ),
@@ -43,11 +77,18 @@ class SpinPage extends StatelessWidget {
   }
 
   Widget spinImage() {
-    return Image.asset(
-      "${Paths.iconPath}spin_big.png",
-      height: 157.h,
-      width: 157.w,
-      fit: BoxFit.fill,
+    return Container(
+      height: 157,
+      width: 157,
+      decoration: const BoxDecoration(
+        shape: BoxShape.circle,
+        image: DecorationImage(
+          image: AssetImage(
+            "${Paths.iconPath}spin_big.png",
+          ),
+          fit: BoxFit.fill,
+        ),
+      ),
     );
   }
 

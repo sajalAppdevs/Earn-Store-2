@@ -13,6 +13,7 @@ class HomeFlashSell extends StatelessWidget {
       children: [
         const TitleText2(
           title: "Flash Sale",
+          hideAll: true,
         ),
         SizedBox(
           height: 20.h,

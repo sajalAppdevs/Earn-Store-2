@@ -1,15 +1,17 @@
 class PopularCoursesModel {
   bool? status;
-  List<OnlineCourses>? onlineCourses;
+  String? message;
+  List<Courses>? courses;
 
-  PopularCoursesModel({this.status, this.onlineCourses});
+  PopularCoursesModel({this.status, this.message, this.courses});
 
   PopularCoursesModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
-    if (json['onlineCourses'] != null) {
-      onlineCourses = <OnlineCourses>[];
-      json['onlineCourses'].forEach((v) {
-        onlineCourses!.add(OnlineCourses.fromJson(v));
+    message = json['message'];
+    if (json['courses'] != null) {
+      courses = <Courses>[];
+      json['courses'].forEach((v) {
+        courses!.add(Courses.fromJson(v));
       });
     }
   }
@@ -17,37 +19,71 @@ class PopularCoursesModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['status'] = status;
-    if (onlineCourses != null) {
-      data['onlineCourses'] = onlineCourses!.map((v) => v.toJson()).toList();
+    data['message'] = message;
+    if (courses != null) {
+      data['courses'] = courses!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
-class OnlineCourses {
+class Courses {
   int? id;
-  String? icon;
-  String? appName;
-  String? link;
-  int? isPopular;
+  String? image;
+  String? title;
+  String? instructor;
+  int? price;
+  int? discountedPrice;
+  int? catId;
+  String? description;
+  int? totalEnrolled;
+  String? duration;
+  String? time;
+  int? totalVideoLecture;
+  int? totalPdf;
+  String? video;
+  String? learningOutcome;
+  String? courseDetails;
   String? createdAt;
   String? updatedAt;
 
-  OnlineCourses(
+  Courses(
       {this.id,
-      this.icon,
-      this.appName,
-      this.link,
-      this.isPopular,
+      this.image,
+      this.title,
+      this.instructor,
+      this.price,
+      this.discountedPrice,
+      this.catId,
+      this.description,
+      this.totalEnrolled,
+      this.duration,
+      this.time,
+      this.totalVideoLecture,
+      this.totalPdf,
+      this.video,
+      this.learningOutcome,
+      this.courseDetails,
       this.createdAt,
       this.updatedAt});
 
-  OnlineCourses.fromJson(Map<String, dynamic> json) {
+  Courses.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    icon = json['icon'];
-    appName = json['app_name'];
-    link = json['link'];
-    isPopular = json['is_popular'];
+    image = json['image'];
+    title = json['title'];
+    instructor = json['instructor'];
+    price = json['price'];
+    discountedPrice = json['discounted_price'];
+    catId = json['cat_id'];
+    description = json['description'];
+    totalEnrolled = json['total_enrolled'];
+    duration = json['duration'];
+    time = json['time'];
+    totalVideoLecture = json['total_video_lecture'];
+    totalPdf = json['total_pdf'];
+    video = json['video'];
+    learningOutcome = json['learning_outcome'];
+    courseDetails = json['course_details'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }
@@ -55,10 +91,21 @@ class OnlineCourses {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
-    data['icon'] = icon;
-    data['app_name'] = appName;
-    data['link'] = link;
-    data['is_popular'] = isPopular;
+    data['image'] = image;
+    data['title'] = title;
+    data['instructor'] = instructor;
+    data['price'] = price;
+    data['discounted_price'] = discountedPrice;
+    data['cat_id'] = catId;
+    data['description'] = description;
+    data['total_enrolled'] = totalEnrolled;
+    data['duration'] = duration;
+    data['time'] = time;
+    data['total_video_lecture'] = totalVideoLecture;
+    data['total_pdf'] = totalPdf;
+    data['video'] = video;
+    data['learning_outcome'] = learningOutcome;
+    data['course_details'] = courseDetails;
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
     return data;

@@ -14,7 +14,7 @@ import 'package:earn_store/Views/Widgets/Home%20Widgets/home_agency.dart';
 import 'package:earn_store/Views/Widgets/Home%20Widgets/home_book.dart';
 import 'package:earn_store/Views/Widgets/Home%20Widgets/home_categories.dart';
 import 'package:earn_store/Views/Widgets/Home%20Widgets/home_categories_list.dart';
-import 'package:earn_store/Views/Widgets/Home%20Widgets/home_extra_category.dart';
+import 'package:earn_store/Views/Widgets/Home%20Widgets/home_product_category.dart';
 import 'package:earn_store/Views/Widgets/Home%20Widgets/home_flash_sell.dart';
 import 'package:earn_store/Views/Widgets/Home%20Widgets/home_hot_products.dart';
 import 'package:earn_store/Views/Widgets/Home%20Widgets/home_hotel_booking.dart';
@@ -100,8 +100,8 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   const HomeAdvertisement(),
                   const HomeLevelAndPoint(),
-                  HomeCategoriesList(scrollController: _scrollController),
-                  HomeCategories(scrollController: _scrollController),
+                  const HomeCategoriesList(),
+                  const HomeCategories(),
                   const HomeStreamingHub(),
                   const HomeOnlineCourse(),
                   const HomeOptions(),
@@ -113,7 +113,7 @@ class _HomePageState extends State<HomePage> {
                   const HomePopularCources(),
                   const HomeAgency(),
                   const HomeFlashSell(),
-                  const HomeExtraCategory(),
+                  const HomeProductCategory(),
                   const HomeHotProducts(),
                   SizedBox(height: 30.h)
                 ],

@@ -42,7 +42,9 @@ class _AllCommentPageState extends State<AllCommentPage> {
                       const AllCommentTop(),
                       const AllCommentBody(),
                       SizedBox(height: 20.h),
-                      const AllCommentBottom(),
+                      AllCommentBottom(
+                        postID: widget.postID,
+                      ),
                       SizedBox(height: 20.h),
                     ],
                   ),

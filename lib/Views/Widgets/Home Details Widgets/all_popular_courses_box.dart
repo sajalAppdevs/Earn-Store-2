@@ -18,7 +18,7 @@ class AllPopularCoursesBox extends StatelessWidget {
     return Obx(
       () {
         return ListView.builder(
-          itemCount: controller.courses.value!.onlineCourses!.length,
+          itemCount: controller.courses.value!.courses!.length,
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemBuilder: (BuildContext context, int index) {
@@ -36,9 +36,9 @@ class AllPopularCoursesBox extends StatelessWidget {
     return Obx(
       () {
         String imagePath =
-            controller.courses.value!.onlineCourses![index].icon.toString();
+            controller.courses.value!.courses![index].image.toString();
         String name =
-            controller.courses.value!.onlineCourses![index].appName.toString();
+            controller.courses.value!.courses![index].title.toString();
         return Padding(
           padding: EdgeInsets.only(bottom: 15.w),
           child: GlassmorphismCard(
@@ -46,7 +46,12 @@ class AllPopularCoursesBox extends StatelessWidget {
             horizontalPadding: 10.w,
             verticalPadding: 10.h,
             onPressed: () {
-              Get.to(const PopularCourseDetails());
+              Get.to(
+                PopularCourseDetails(
+                  courseID:
+                      controller.courses.value!.courses![index].id.toString(),
+                ),
+              );
             },
             child: Row(
               children: [

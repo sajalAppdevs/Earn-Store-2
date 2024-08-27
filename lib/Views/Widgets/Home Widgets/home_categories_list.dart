@@ -2,16 +2,16 @@ import 'dart:ui';
 
 import 'package:earn_store/Statics/colors.dart';
 import 'package:earn_store/Utils/dummy_data.dart';
+import 'package:earn_store/Views/Pages/Ecommerce%20Related%20Pages/ecommerce_page.dart';
 import 'package:earn_store/Views/Styles/title_text.dart';
 import 'package:earn_store/Views/Styles/textstyles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class HomeCategoriesList extends StatelessWidget {
-  final ScrollController scrollController;
   const HomeCategoriesList({
     super.key,
-    required this.scrollController,
   });
 
   @override
@@ -37,7 +37,13 @@ class HomeCategoriesList extends StatelessWidget {
         DummyData.homeCategories.length,
         (index) {
           return GestureDetector(
-            onTap: index == 1 ? scrollToEnd : () {},
+            onTap: index == 1
+                ? () {
+                    Get.to(
+                      const EcommercePage(),
+                    );
+                  }
+                : () {},
             child: Padding(
               padding: EdgeInsets.only(right: 20.w),
               child: ClipRRect(
@@ -81,15 +87,5 @@ class HomeCategoriesList extends StatelessWidget {
         },
       ),
     );
-  }
-
-  void scrollToEnd() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      scrollController.animateTo(
-        scrollController.position.maxScrollExtent,
-        duration: const Duration(seconds: 1),
-        curve: Curves.easeInOut,
-      );
-    });
   }
 }

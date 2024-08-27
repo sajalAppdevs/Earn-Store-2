@@ -7,8 +7,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class HomeCategories extends StatelessWidget {
-  final ScrollController scrollController;
-  const HomeCategories({super.key, required this.scrollController});
+  const HomeCategories({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,8 @@ class HomeCategories extends StatelessWidget {
             RoundedButton(
               onPressed: () {
                 controller.categoriesNavigator(
-                    index: index, scrollController: scrollController);
+                  index: index,
+                );
               },
               child: Image.asset(
                 imagePath,
@@ -43,7 +45,8 @@ class HomeCategories extends StatelessWidget {
             GestureDetector(
               onTap: () {
                 controller.categoriesNavigator(
-                    index: index, scrollController: scrollController);
+                  index: index,
+                );
               },
               child: TextStyles.customText(
                 title: title,

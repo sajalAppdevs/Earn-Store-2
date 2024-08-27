@@ -5,6 +5,7 @@ class TextColors {
   static const textColor2 = Color(0xffFF8F13);
   static const textColor3 = Color(0xffFFBC0E);
   static const textColor4 = Color(0xffFC807A);
+  static const textColor5 = Color(0xff4A3E8A);
 }
 
 class ButtonColors {

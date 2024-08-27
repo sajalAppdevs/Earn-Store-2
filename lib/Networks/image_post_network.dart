@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:async/async.dart';
 import 'package:path/path.dart';
 
-class AddEventNetwork {
+class ImagePostNetwork {
   Future<bool> addImagePosts({
     required String url,
     required String imageKey,

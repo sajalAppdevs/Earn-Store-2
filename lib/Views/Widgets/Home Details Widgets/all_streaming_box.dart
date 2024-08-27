@@ -39,7 +39,12 @@ class AllStreamingBox extends StatelessWidget {
         return GlassmorphismCard(
           onPressed: () {
             Get.to(
-              const AllStreamDetails(),
+              AllStreamDetails(
+                mainLogo: controller.contents.value!.streamingHubs![index].image
+                    .toString(),
+                hubID: controller.contents.value!.streamingHubs![index].id
+                    .toString(),
+              ),
             );
           },
           child: NetworkImageWidget(

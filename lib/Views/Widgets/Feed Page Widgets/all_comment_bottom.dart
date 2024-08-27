@@ -1,11 +1,15 @@
+import 'package:earn_store/Controllers/Social%20Media%20Controllers/post_comment_controller.dart';
 import 'package:earn_store/Statics/paths.dart';
+import 'package:earn_store/Utils/button_loading.dart';
 import 'package:earn_store/Views/Common%20Widgets/glass_morphism_card.dart';
 import 'package:earn_store/Views/Styles/textstyles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class AllCommentBottom extends StatelessWidget {
-  const AllCommentBottom({super.key});
+  final String postID;
+  const AllCommentBottom({super.key, required this.postID});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +18,9 @@ class AllCommentBottom extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         messegeField(messegeController: messegeController),
-        sendButton(),
+        sendButton(
+          messegeController: messegeController,
+        ),
       ],
     );
   }
@@ -40,27 +46,46 @@ class AllCommentBottom extends StatelessWidget {
     );
   }
 
-  Widget sendButton() {
-    return GlassmorphismCard(
-      boxHeight: 45.h,
-      boxWidth: 100.w,
-      borderRadius: 30.r,
-      horizontalPadding: 20.w,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          TextStyles.customText(
-            title: "Send",
-            fontSize: 12.sp,
-          ),
-          Image.asset(
-            "${Paths.iconPath}send.png",
-            height: 16.h,
-            width: 16.w,
-            fit: BoxFit.fill,
-          )
-        ],
-      ),
+  Widget sendButton({required TextEditingController messegeController}) {
+    PostCommentController controller = Get.put(PostCommentController());
+    return Obx(
+      () {
+        return controller.addCommentLoading.value
+            ? Padding(
+                padding: EdgeInsets.only(right: 20.w),
+                child: const ButtonLoading(),
+              )
+            : GlassmorphismCard(
+                boxHeight: 45.h,
+                boxWidth: 100.w,
+                borderRadius: 30.r,
+                horizontalPadding: 20.w,
+                onPressed: () async {
+                  if (messegeController.text.isEmpty) {
+                  } else {
+                    await controller.sendMessage(
+                      postID: postID,
+                      message: messegeController.text,
+                    );
+                  }
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TextStyles.customText(
+                      title: "Send",
+                      fontSize: 12.sp,
+                    ),
+                    Image.asset(
+                      "${Paths.iconPath}send.png",
+                      height: 16.h,
+                      width: 16.w,
+                      fit: BoxFit.fill,
+                    )
+                  ],
+                ),
+              );
+      },
     );
   }
 }
