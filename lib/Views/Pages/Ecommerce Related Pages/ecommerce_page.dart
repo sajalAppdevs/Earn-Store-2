@@ -44,7 +44,10 @@ class _EcommercePageState extends State<EcommercePage> {
             ),
           ),
           SizedBox(height: 30.h),
-          const HomeFlashSell(),
+          PaddedScreen(
+            padding: 15.w,
+            child: const HomeFlashSell(),
+          ),
           SizedBox(height: 30.h),
           const EcommerceProductList(),
         ],

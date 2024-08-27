@@ -11,12 +11,8 @@ import 'package:earn_store/Views/Pages/Splash%20&%20Auth%20Pages/root_design.dar
 import 'package:earn_store/Views/Styles/padding.dart';
 import 'package:earn_store/Views/Widgets/Home%20Widgets/home_advertise.dart';
 import 'package:earn_store/Views/Widgets/Home%20Widgets/home_agency.dart';
-import 'package:earn_store/Views/Widgets/Home%20Widgets/home_book.dart';
 import 'package:earn_store/Views/Widgets/Home%20Widgets/home_categories.dart';
 import 'package:earn_store/Views/Widgets/Home%20Widgets/home_categories_list.dart';
-import 'package:earn_store/Views/Widgets/Home%20Widgets/home_product_category.dart';
-import 'package:earn_store/Views/Widgets/Home%20Widgets/home_flash_sell.dart';
-import 'package:earn_store/Views/Widgets/Home%20Widgets/home_hot_products.dart';
 import 'package:earn_store/Views/Widgets/Home%20Widgets/home_hotel_booking.dart';
 import 'package:earn_store/Views/Widgets/Home%20Widgets/home_level_and_point.dart';
 import 'package:earn_store/Views/Widgets/Home%20Widgets/home_match.dart';
@@ -109,12 +105,12 @@ class _HomePageState extends State<HomePage> {
                   const HomeTourPackages(),
                   const HomeMatch(),
                   const HomePDFResources(),
-                  const HomeBook(),
+                  // const HomeBook(),
                   const HomePopularCources(),
                   const HomeAgency(),
-                  const HomeFlashSell(),
-                  const HomeProductCategory(),
-                  const HomeHotProducts(),
+                  // const HomeFlashSell(),
+                  // const HomeProductCategory(),
+                  // const HomeHotProducts(),
                   SizedBox(height: 30.h)
                 ],
               ),

@@ -1,5 +1,4 @@
 import 'package:earn_store/Statics/colors.dart';
-import 'package:earn_store/Statics/paths.dart';
 import 'package:earn_store/Views/Common%20Widgets/glass_morphism_card.dart';
 import 'package:earn_store/Views/Styles/textstyles.dart';
 import 'package:flutter/material.dart';
@@ -57,21 +56,21 @@ class FoodDetailsTop extends StatelessWidget {
                 )
               ],
             ),
-            Row(
-              children: [
-                Icon(
-                  Icons.shopping_cart,
-                  size: 25.sp,
-                  color: TextColors.textColor1,
-                ),
-                SizedBox(width: 20.w),
-                Image.asset(
-                  "${Paths.iconPath}location.png",
-                  height: 25.h,
-                  width: 19.w,
-                ),
-              ],
-            )
+            // Row(
+            //   children: [
+            //     Icon(
+            //       Icons.shopping_cart,
+            //       size: 25.sp,
+            //       color: TextColors.textColor1,
+            //     ),
+            //     SizedBox(width: 20.w),
+            //     Image.asset(
+            //       "${Paths.iconPath}location.png",
+            //       height: 25.h,
+            //       width: 19.w,
+            //     ),
+            //   ],
+            // )
           ],
         ),
       ),

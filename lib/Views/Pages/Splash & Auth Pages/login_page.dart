@@ -61,14 +61,14 @@ class LoginPage extends StatelessWidget {
                 controller: loginController.passwordController,
               ),
               SizedBox(height: 15.h),
-              Align(
-                alignment: Alignment.centerRight,
-                child: TextStyles.customText(
-                  title: "Forgot password?",
-                  fontSize: 13.sp,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
+              // Align(
+              //   alignment: Alignment.centerRight,
+              //   child: TextStyles.customText(
+              //     title: "Forgot password?",
+              //     fontSize: 13.sp,
+              //     fontWeight: FontWeight.w400,
+              //   ),
+              // ),
               SizedBox(height: 30.h),
               loginController.loginLoading.value
                   ? const ButtonLoading()

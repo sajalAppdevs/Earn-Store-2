@@ -1,14 +1,11 @@
 import 'package:earn_store/Utils/local_storage.dart';
-import 'package:earn_store/Views/Pages/More%20Pages/change_pass_page.dart';
 import 'package:earn_store/Views/Pages/More%20Pages/leader_board_page.dart';
 import 'package:earn_store/Views/Pages/More%20Pages/level_page.dart';
-import 'package:earn_store/Views/Pages/More%20Pages/live_chat_page.dart';
-import 'package:earn_store/Views/Pages/More%20Pages/run_ads_page.dart';
-import 'package:earn_store/Views/Pages/More%20Pages/update_package_page.dart';
 import 'package:earn_store/Views/Pages/More%20Pages/profile_page.dart';
 import 'package:earn_store/Views/Pages/More%20Pages/refer_list_page.dart';
 import 'package:earn_store/Views/Pages/More%20Pages/spin_page.dart';
 import 'package:earn_store/Views/Pages/More%20Pages/total_earning_page.dart';
+import 'package:earn_store/Views/Pages/Splash%20&%20Auth%20Pages/coming_soon.dart';
 import 'package:earn_store/Views/Pages/Splash%20&%20Auth%20Pages/splash_page.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -40,20 +37,32 @@ class MoreController extends GetxController {
         const LevelPage(),
       );
     } else if (index == 6) {
+      // Get.to(
+      //   const UpdatePackagePage(),
+      // );
       Get.to(
-        const UpdatePackagePage(),
+        const ComingSoonPage(),
       );
     } else if (index == 7) {
+      // Get.to(
+      //   const RunAdsPage(),
+      // );
       Get.to(
-        const RunAdsPage(),
+        const ComingSoonPage(),
       );
     } else if (index == 8) {
+      // Get.to(
+      //   const ChangePagePage(),
+      // );
       Get.to(
-        const ChangePagePage(),
+        const ComingSoonPage(),
       );
     } else if (index == 9) {
+      // Get.to(
+      //   const LiveChatPage(),
+      // );
       Get.to(
-        const LiveChatPage(),
+        const ComingSoonPage(),
       );
     } else if (index == 10) {
       logOut();

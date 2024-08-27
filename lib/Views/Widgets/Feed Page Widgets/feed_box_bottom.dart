@@ -19,23 +19,23 @@ class FeedBoxBottom extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Image.asset(
-                "${Paths.iconPath}like_icon.png",
-                height: 21.h,
-                width: 21.w,
-                fit: BoxFit.fill,
-              ),
-              SizedBox(width: 8.w),
-              TextStyles.customText(
-                title: "Like",
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w500,
-              )
-            ],
-          ),
+          // Row(
+          //   crossAxisAlignment: CrossAxisAlignment.start,
+          //   children: [
+          //     Image.asset(
+          //       "${Paths.iconPath}like_icon.png",
+          //       height: 21.h,
+          //       width: 21.w,
+          //       fit: BoxFit.fill,
+          //     ),
+          //     SizedBox(width: 8.w),
+          //     TextStyles.customText(
+          //       title: "Like",
+          //       fontSize: 14.sp,
+          //       fontWeight: FontWeight.w500,
+          //     )
+          //   ],
+          // ),
           GestureDetector(
             onTap: () {
               Get.to(

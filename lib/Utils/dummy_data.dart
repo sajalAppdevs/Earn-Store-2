@@ -175,7 +175,7 @@ class DummyData {
 
   static List<String> homeCategories = [
     "All",
-    "E-commerce",
+    // "E-commerce",
   ];
 
   static List<Methods> homeOptions = [
@@ -191,18 +191,18 @@ class DummyData {
       imagePath: "${Paths.iconPath}youtube.png",
       name: "Youtube Video",
     ),
-    Methods(
-      height: 40.h,
-      width: 50.w,
-      imagePath: "${Paths.iconPath}ads_income.png",
-      name: "Ads Income",
-    ),
-    Methods(
-      height: 42.h,
-      width: 42.w,
-      imagePath: "${Paths.iconPath}play_store.png",
-      name: "App Download",
-    ),
+    // Methods(
+    //   height: 40.h,
+    //   width: 50.w,
+    //   imagePath: "${Paths.iconPath}ads_income.png",
+    //   name: "Ads Income",
+    // ),
+    // Methods(
+    //   height: 42.h,
+    //   width: 42.w,
+    //   imagePath: "${Paths.iconPath}play_store.png",
+    //   name: "App Download",
+    // ),
   ];
   static List<Methods> paymentMethods = [
     Methods(

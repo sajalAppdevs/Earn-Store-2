@@ -9,7 +9,6 @@ import 'package:earn_store/Views/Common%20Widgets/network_image_widget.dart';
 import 'package:earn_store/Views/Pages/Home%20Pages/root_page.dart';
 import 'package:earn_store/Views/Pages/Splash%20&%20Auth%20Pages/root_design.dart';
 import 'package:earn_store/Views/Styles/buttons.dart';
-import 'package:earn_store/Views/Styles/fields.dart';
 import 'package:earn_store/Views/Styles/padding.dart';
 import 'package:earn_store/Views/Styles/textstyles.dart';
 import 'package:flutter/material.dart';
@@ -48,14 +47,6 @@ class _RideVehicleDetailsState extends State<RideVehicleDetails> {
                   physics: const BouncingScrollPhysics(),
                   children: [
                     const CustomTop(title: "Details"),
-                    PaddedScreen(
-                      child: CustomField(
-                        hintText: "Search",
-                        controller: TextEditingController(),
-                        suffixIcon: Icons.search,
-                      ),
-                    ),
-                    SizedBox(height: 20.h),
                     infoBox(),
                     SizedBox(height: 50.h),
                     buttonRow(),

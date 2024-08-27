@@ -45,7 +45,7 @@ class _BloodBankState extends State<BloodBank> {
                     const CustomTop(title: "Blood Bank"),
                     const BloodPageSelector(),
                     SizedBox(height: 30.h),
-                    beDonorButton(),
+                    //    beDonorButton(),
                     SizedBox(height: 30.h),
                     const BloodBankBanner(),
                     SizedBox(height: 40.h),

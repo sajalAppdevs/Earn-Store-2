@@ -1,6 +1,7 @@
 import 'package:earn_store/Controllers/Home%20Controllers/online_course_controller.dart';
 import 'package:earn_store/Models/Home%20Models/online_course_model.dart';
 import 'package:earn_store/Utils/button_loading.dart';
+import 'package:earn_store/Utils/url_helpers.dart';
 import 'package:earn_store/Views/Common%20Widgets/glass_morphism_card.dart';
 import 'package:earn_store/Views/Common%20Widgets/network_image_widget.dart';
 import 'package:earn_store/Views/Pages/Home%20Details%20Page/all_course_page.dart';
@@ -67,17 +68,24 @@ class HomeOnlineCourse extends StatelessWidget {
       () {
         OnlineCourseModel courses = controller.courses.value!;
         String name = courses.onlineCourses![index].appName.toString();
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            courseImage(index: index),
-            SizedBox(height: 10.h),
-            TextStyles.customText(
-              title: name,
-              fontSize: 13.sp,
-              fontWeight: FontWeight.w400,
-            )
-          ],
+        String url =
+            controller.courses.value!.onlineCourses![index].link.toString();
+        return GestureDetector(
+          onTap: () async {
+            await UrlHelpers.openUrl(url);
+          },
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              courseImage(index: index),
+              SizedBox(height: 10.h),
+              TextStyles.customText(
+                title: name,
+                fontSize: 13.sp,
+                fontWeight: FontWeight.w400,
+              )
+            ],
+          ),
         );
       },
     );

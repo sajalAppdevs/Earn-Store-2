@@ -2,6 +2,7 @@ import 'package:earn_store/Controllers/Home%20Controllers/content_controller.dar
 import 'package:earn_store/Utils/button_loading.dart';
 import 'package:earn_store/Views/Common%20Widgets/glass_morphism_card.dart';
 import 'package:earn_store/Views/Common%20Widgets/network_image_widget.dart';
+import 'package:earn_store/Views/Pages/Home%20Details%20Page/all_stream_details.dart';
 import 'package:earn_store/Views/Pages/Home%20Details%20Page/all_streaming_page.dart';
 import 'package:earn_store/Views/Styles/title_text.dart';
 import 'package:flutter/material.dart';
@@ -55,6 +56,18 @@ class HomeStreamingHub extends StatelessWidget {
                 child: GlassmorphismCard(
                   boxHeight: 60.h,
                   boxWidth: 120.w,
+                  onPressed: () {
+                    Get.to(
+                      AllStreamDetails(
+                        mainLogo: controller
+                            .contents.value!.streamingHubs![index].image
+                            .toString(),
+                        hubID: controller
+                            .contents.value!.streamingHubs![index].id
+                            .toString(),
+                      ),
+                    );
+                  },
                   child: NetworkImageWidget(
                     imageUrl: controller
                         .contents.value!.streamingHubs![index].image

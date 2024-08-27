@@ -7,7 +7,6 @@ import 'package:earn_store/Views/Common%20Widgets/network_image_widget.dart';
 import 'package:earn_store/Views/Pages/Home%20Pages/root_page.dart';
 import 'package:earn_store/Views/Pages/Splash%20&%20Auth%20Pages/root_design.dart';
 import 'package:earn_store/Views/Styles/buttons.dart';
-import 'package:earn_store/Views/Styles/fields.dart';
 import 'package:earn_store/Views/Styles/padding.dart';
 import 'package:earn_store/Views/Styles/textstyles.dart';
 import 'package:earn_store/Views/Widgets/Food%20Related%20Widgets/food_details_top.dart';
@@ -46,14 +45,14 @@ class _FoodDetailsPageState extends State<FoodDetailsPage> {
                   physics: const BouncingScrollPhysics(),
                   children: [
                     const FoodDetailsTop(title: "Order Details"),
-                    PaddedScreen(
-                      child: CustomField(
-                        hintText: "Search",
-                        controller: TextEditingController(),
-                        suffixIcon: Icons.search,
-                      ),
-                    ),
-                    SizedBox(height: 30.h),
+                    // PaddedScreen(
+                    //   child: CustomField(
+                    //     hintText: "Search",
+                    //     controller: TextEditingController(),
+                    //     suffixIcon: Icons.search,
+                    //   ),
+                    // ),
+                    // SizedBox(height: 30.h),
                     productImage(),
                     PaddedScreen(
                       child: Column(
@@ -175,13 +174,13 @@ class _FoodDetailsPageState extends State<FoodDetailsPage> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         customText(title: "Product Description"),
-        CustomButton(
-          height: 35.h,
-          width: 120.w,
-          onPressed: () {},
-          buttonText: "Check Reviews",
-          textSize: 10.sp,
-        )
+        // CustomButton(
+        //   height: 35.h,
+        //   width: 120.w,
+        //   onPressed: () {},
+        //   buttonText: "Check Reviews",
+        //   textSize: 10.sp,
+        // )
       ],
     );
   }

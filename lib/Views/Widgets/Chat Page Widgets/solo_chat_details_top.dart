@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:earn_store/Controllers/Social%20Media%20Controllers/solo_messege_controller.dart';
-import 'package:earn_store/Statics/colors.dart';
 import 'package:earn_store/Statics/paths.dart';
 import 'package:earn_store/Utils/button_loading.dart';
 import 'package:earn_store/Views/Common%20Widgets/glass_morphism_card.dart';
@@ -35,14 +34,14 @@ class SoloChatDetailsTop extends StatelessWidget {
                 userName(),
               ],
             ),
-            IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.more_vert,
-                color: TextColors.textColor4,
-                size: 30.sp,
-              ),
-            )
+            // IconButton(
+            //   onPressed: () {},
+            //   icon: Icon(
+            //     Icons.more_vert,
+            //     color: TextColors.textColor4,
+            //     size: 30.sp,
+            //   ),
+            // )
           ],
         ),
       ),

@@ -1,4 +1,3 @@
-import 'package:earn_store/Statics/colors.dart';
 import 'package:earn_store/Statics/paths.dart';
 import 'package:earn_store/Views/Common%20Widgets/glass_morphism_card.dart';
 import 'package:earn_store/Views/Styles/textstyles.dart';
@@ -30,14 +29,14 @@ class GroupChatDetailsTop extends StatelessWidget {
                 userName(),
               ],
             ),
-            IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.more_vert,
-                color: TextColors.textColor4,
-                size: 30.sp,
-              ),
-            )
+            // IconButton(
+            //   onPressed: () {},
+            //   icon: Icon(
+            //     Icons.more_vert,
+            //     color: TextColors.textColor4,
+            //     size: 30.sp,
+            //   ),
+            // )
           ],
         ),
       ),

@@ -42,8 +42,8 @@ class _TotalEarningPageState extends State<TotalEarningPage> {
                     const CustomTop(
                       title: "Total Earning",
                     ),
-                    SizedBox(height: 20.h),
-                    totalEarningTopBox(),
+                    // SizedBox(height: 20.h),
+                    // totalEarningTopBox(),
                     SizedBox(height: 20.h),
                     const TotalEarningRecent()
                   ],

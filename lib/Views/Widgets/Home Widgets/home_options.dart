@@ -21,6 +21,7 @@ class HomeOptions extends StatelessWidget {
           TitleText(
             title: "Free Earn",
             onPressed: () {},
+            hideAll: true,
           ),
           SizedBox(height: 15.h),
           ListView.builder(

@@ -3,7 +3,6 @@ import 'package:earn_store/Statics/colors.dart';
 import 'package:earn_store/Views/Common%20Widgets/glass_morphism_card.dart';
 import 'package:earn_store/Views/Common%20Widgets/network_image_widget.dart';
 import 'package:earn_store/Views/Pages/Ride%20Share%20Pages/ride_vehicle_details.dart';
-import 'package:earn_store/Views/Styles/buttons.dart';
 import 'package:earn_store/Views/Styles/padding.dart';
 import 'package:earn_store/Views/Styles/textstyles.dart';
 import 'package:flutter/material.dart';
@@ -46,13 +45,13 @@ class RideShareRecommended extends StatelessWidget {
         TextStyles.customText(
           title: "Recommended",
         ),
-        CustomButton(
-          height: 35.h,
-          width: 100.w,
-          onPressed: () {},
-          buttonText: "See All",
-          textSize: 14.sp,
-        )
+        // CustomButton(
+        //   height: 35.h,
+        //   width: 100.w,
+        //   onPressed: () {},
+        //   buttonText: "See All",
+        //   textSize: 14.sp,
+        // )
       ],
     );
   }

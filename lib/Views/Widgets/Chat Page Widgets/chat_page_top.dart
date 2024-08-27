@@ -15,7 +15,7 @@ class ChatPageTop extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         buttonRow(),
-        searchAndMore(),
+        // searchAndMore(),
       ],
     );
   }

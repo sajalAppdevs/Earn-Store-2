@@ -16,10 +16,10 @@ class MatchListSelector extends StatelessWidget {
           title: "MATCHES",
           onPressed: () {},
         ),
-        selectorBox(
-          title: "NEWS",
-          onPressed: () {},
-        ),
+        // selectorBox(
+        //   title: "NEWS",
+        //   onPressed: () {},
+        // ),
       ],
     );
   }

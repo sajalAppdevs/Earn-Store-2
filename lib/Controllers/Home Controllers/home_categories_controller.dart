@@ -2,10 +2,9 @@ import 'package:earn_store/Views/Pages/Blood%20Related%20Pages/blood_bank.dart';
 import 'package:earn_store/Views/Pages/Category%20Pages/live_tv_page.dart';
 import 'package:earn_store/Views/Pages/Category%20Pages/news_paper_page.dart';
 import 'package:earn_store/Views/Pages/Category%20Pages/parcel_page.dart';
-import 'package:earn_store/Views/Pages/Category%20Pages/quiz_test_page.dart';
-import 'package:earn_store/Views/Pages/Ecommerce%20Related%20Pages/ecommerce_page.dart';
 import 'package:earn_store/Views/Pages/Food%20Related%20Page/food_delivery_page.dart';
 import 'package:earn_store/Views/Pages/Ride%20Share%20Pages/ride_share_page.dart';
+import 'package:earn_store/Views/Pages/Splash%20&%20Auth%20Pages/coming_soon.dart';
 import 'package:earn_store/Views/Pages/Tour%20Related%20Pages/tour_page.dart';
 import 'package:get/get.dart';
 
@@ -14,8 +13,11 @@ class HomeCategoriesController extends GetxController {
     required int index,
   }) {
     if (index == 0) {
+      // Get.to(
+      //   const EcommercePage(),
+      // );
       Get.to(
-        const EcommercePage(),
+        const ComingSoonPage(),
       );
     } else if (index == 1) {
       Get.to(
@@ -42,8 +44,11 @@ class HomeCategoriesController extends GetxController {
         const ParcelPage(),
       );
     } else if (index == 7) {
+      // Get.to(
+      //   const QuizTestPage(),
+      // );
       Get.to(
-        const QuizTestPage(),
+        const ComingSoonPage(),
       );
     } else if (index == 8) {
       Get.to(

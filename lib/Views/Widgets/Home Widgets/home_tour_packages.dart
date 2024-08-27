@@ -178,7 +178,7 @@ class HomeTourPackages extends StatelessWidget {
                   )
                 ],
               ),
-              detailsButton(index: index),
+              // detailsButton(index: index),
             ],
           ),
         );

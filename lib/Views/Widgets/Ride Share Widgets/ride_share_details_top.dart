@@ -1,5 +1,4 @@
 import 'package:earn_store/Statics/colors.dart';
-import 'package:earn_store/Statics/paths.dart';
 import 'package:earn_store/Views/Common%20Widgets/glass_morphism_card.dart';
 import 'package:earn_store/Views/Common%20Widgets/network_image_widget.dart';
 import 'package:flutter/material.dart';
@@ -58,11 +57,11 @@ class RideShareDetailsTop extends StatelessWidget {
                 )
               ],
             ),
-            Image.asset(
-              "${Paths.iconPath}location.png",
-              height: 25.h,
-              width: 19.w,
-            )
+            // Image.asset(
+            //   "${Paths.iconPath}location.png",
+            //   height: 25.h,
+            //   width: 19.w,
+            // )
           ],
         ),
       ),

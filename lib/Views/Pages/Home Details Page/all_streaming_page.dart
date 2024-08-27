@@ -13,7 +13,7 @@ class AllStreamingPage extends StatelessWidget {
       child: ListView(
         physics: const BouncingScrollPhysics(),
         children: const [
-          CustomTop(title: "Pelf Earn"),
+          CustomTop(title: "Earn Store"),
           PaddedScreen(
             child: Column(
               children: [

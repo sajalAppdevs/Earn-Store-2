@@ -1,4 +1,4 @@
-package com.earnstore.app
+package com.earnstorapps.app
 
 import io.flutter.embedding.android.FlutterActivity
 

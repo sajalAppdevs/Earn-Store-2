@@ -46,7 +46,7 @@ class _AllStreamDetailsState extends State<AllStreamDetails> {
                 child: ListView(
                   physics: const BouncingScrollPhysics(),
                   children: [
-                    const CustomTop(title: "Pelf Earn"),
+                    const CustomTop(title: "Earn Store"),
                     SizedBox(height: 10.h),
                     PaddedScreen(
                       padding: 10.w,
