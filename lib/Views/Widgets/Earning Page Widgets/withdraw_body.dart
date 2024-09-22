@@ -1,8 +1,11 @@
-import 'package:earn_store/Controllers/Earning%20Controllers/withdraw_controller.dart';
-import 'package:earn_store/Utils/dummy_data.dart';
+import 'package:earn_store/Controllers/Home%20Controllers/general_info_controller.dart';
+import 'package:earn_store/Controllers/User%20Controllers/payment_method_controller.dart';
+import 'package:earn_store/Controllers/User%20Controllers/user_profile_controller.dart';
+import 'package:earn_store/Controllers/User%20Controllers/withdraw_controller.dart';
+import 'package:earn_store/Utils/button_loading.dart';
 import 'package:earn_store/Utils/snackbars.dart';
 import 'package:earn_store/Views/Common%20Widgets/glass_morphism_card.dart';
-import 'package:earn_store/Views/Pages/Home%20Pages/root_page.dart';
+import 'package:earn_store/Views/Common%20Widgets/network_image_widget.dart';
 import 'package:earn_store/Views/Styles/buttons.dart';
 import 'package:earn_store/Views/Styles/fields.dart';
 import 'package:earn_store/Views/Styles/padding.dart';
@@ -16,41 +19,68 @@ class WithdrawBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PaddedScreen(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          titleText(title: "Withdrawal Method"),
-          SizedBox(height: 20.h),
-          withdrawMethods(),
-          SizedBox(height: 30.h),
-          titleText2(title: "Enter Account Number"),
-          CustomField(
-            hintText: "eg: 018XXXXXXXX",
-            controller: TextEditingController(),
+    WithdrawController controller = Get.put(WithdrawController());
+    TextEditingController mobileController = TextEditingController();
+    TextEditingController amountController = TextEditingController();
+    return Obx(
+      () {
+        return PaddedScreen(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              titleText(title: "Withdrawal Method"),
+              SizedBox(height: 20.h),
+              withdrawMethods(),
+              SizedBox(height: 30.h),
+              titleText2(title: "Enter Account Number"),
+              CustomField(
+                hintText: "eg: 018XXXXXXXX",
+                controller: mobileController,
+              ),
+              SizedBox(height: 20.h),
+              titleText2(title: "Enter Amount"),
+              CustomField(
+                hintText: "eg: 1000",
+                controller: amountController,
+              ),
+              SizedBox(height: 100.h),
+              controller.withdrawLoading.value
+                  ? const ButtonLoading()
+                  : CustomButton(
+                      onPressed: () async {
+                        UserProfileController userProfileController =
+                            Get.put(UserProfileController());
+                        GeneralInfoController generalInfoController =
+                            Get.put(GeneralInfoController());
+                        String balance = generalInfoController.getBalance(
+                          userPoint: userProfileController
+                              .userData.value!.user!.point!
+                              .toInt(),
+                          currencyPerPoint: generalInfoController
+                              .generalInfos.value!.generalInfos!.point!
+                              .toDouble(),
+                        );
+                        bool status = controller.availableChecker(
+                            requestedAmount: amountController.text,
+                            balance: balance);
+                        if (status) {
+                          await controller.withdraw(
+                              number: mobileController.text,
+                              amount: amountController.text);
+                        } else {
+                          Snackbars.unSuccessSnackBar(
+                            title: "Money Withdraw Status",
+                            description: "You have sufficient balance",
+                          );
+                        }
+                      },
+                      buttonText: "Proceed",
+                    ),
+              SizedBox(height: 70.h),
+            ],
           ),
-          SizedBox(height: 20.h),
-          titleText2(title: "Enter Amount"),
-          CustomField(
-            hintText: "eg: 1000",
-            controller: TextEditingController(),
-          ),
-          SizedBox(height: 100.h),
-          CustomButton(
-            onPressed: () {
-              Snackbars.successSnackBar(
-                title: "Withdraw Status",
-                description: "Sended to admin",
-              );
-              Get.offAll(
-                const RootScreen(),
-              );
-            },
-            buttonText: "Proceed",
-          ),
-          SizedBox(height: 70.h),
-        ],
-      ),
+        );
+      },
     );
   }
 
@@ -74,7 +104,9 @@ class WithdrawBody extends StatelessWidget {
   }
 
   Widget withdrawMethods() {
-    WithdrawController controller = Get.put(WithdrawController());
+    PaymentMethodController controller = Get.put(
+      PaymentMethodController(),
+    );
     return Obx(
       () {
         return SingleChildScrollView(
@@ -82,7 +114,7 @@ class WithdrawBody extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: List.generate(
-              DummyData.withdrawMethods.length,
+              controller.methods.value!.paymentMethods!.length,
               (index) {
                 return controller.withdrawMethodIndex.value == index
                     ? Padding(
@@ -95,11 +127,12 @@ class WithdrawBody extends StatelessWidget {
                           onPressed: () {
                             controller.withdrawMethodChange(index: index);
                           },
-                          child: Image.asset(
-                            DummyData.withdrawMethods[index].imagePath,
-                            height: DummyData.withdrawMethods[index].height,
-                            width: DummyData.withdrawMethods[index].width,
-                            fit: BoxFit.fill,
+                          child: NetworkImageWidget(
+                            imageUrl: controller
+                                .methods.value!.paymentMethods![index].logo
+                                .toString(),
+                            height: 30.h,
+                            width: 30.w,
                           ),
                         ),
                       )
@@ -118,11 +151,12 @@ class WithdrawBody extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10.r),
                             color: Colors.white.withOpacity(0.5),
                           ),
-                          child: Image.asset(
-                            DummyData.withdrawMethods[index].imagePath,
-                            height: DummyData.withdrawMethods[index].height,
-                            width: DummyData.withdrawMethods[index].width,
-                            fit: BoxFit.fill,
+                          child: NetworkImageWidget(
+                            imageUrl: controller
+                                .methods.value!.paymentMethods![index].logo
+                                .toString(),
+                            height: 30.h,
+                            width: 30.w,
                           ),
                         ),
                       );

@@ -1,4 +1,5 @@
 import 'package:earn_store/Views/Common%20Widgets/glass_morphism_card.dart';
+import 'package:earn_store/Views/Pages/Blood%20Related%20Pages/donor_profile_page.dart';
 import 'package:earn_store/Views/Pages/Blood%20Related%20Pages/donor_search_first.dart';
 import 'package:earn_store/Views/Styles/textstyles.dart';
 import 'package:flutter/material.dart';
@@ -13,10 +14,10 @@ class BloodPageSelector extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        // selectorBox(
-        //   title: "Recent",
-        //   onPressed: () {},
-        // ),
+        selectorBox(
+          title: "Recent",
+          onPressed: () {},
+        ),
         selectorBox(
           title: "Search",
           onPressed: () {
@@ -25,14 +26,14 @@ class BloodPageSelector extends StatelessWidget {
             );
           },
         ),
-        // selectorBox(
-        //   title: "Profile",
-        //   onPressed: () {
-        //     Get.to(
-        //       const DonorProfilePage(),
-        //     );
-        //   },
-        // )
+        selectorBox(
+          title: "Profile",
+          onPressed: () {
+            Get.to(
+              const DonorProfilePage(),
+            );
+          },
+        )
       ],
     );
   }

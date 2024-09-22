@@ -1,6 +1,7 @@
 import 'package:earn_store/Controllers/Social%20Media%20Controllers/conversation_controller.dart';
 import 'package:earn_store/Statics/colors.dart';
 import 'package:earn_store/Statics/paths.dart';
+import 'package:earn_store/Views/Pages/Chat%20Pages/all_user_page.dart';
 import 'package:earn_store/Views/Styles/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,7 +16,7 @@ class ChatPageTop extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         buttonRow(),
-        // searchAndMore(),
+        searchAndMore(),
       ],
     );
   }
@@ -64,21 +65,16 @@ class ChatPageTop extends StatelessWidget {
   Widget searchAndMore() {
     return Padding(
       padding: EdgeInsets.only(top: 20.h),
-      child: Row(
-        children: [
-          Image.asset(
-            "${Paths.iconPath}chat_search.png",
-            height: 34.h,
-            width: 46.w,
-            fit: BoxFit.fill,
-          ),
-          SizedBox(width: 10.w),
-          Icon(
-            Icons.more_vert,
-            size: 30.sp,
-            color: TextColors.textColor4,
-          )
-        ],
+      child: GestureDetector(
+        onTap: () {
+          Get.to(const AllUserPage());
+        },
+        child: Image.asset(
+          "${Paths.iconPath}chat_search.png",
+          height: 34.h,
+          width: 46.w,
+          fit: BoxFit.fill,
+        ),
       ),
     );
   }

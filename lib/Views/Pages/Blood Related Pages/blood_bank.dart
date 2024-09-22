@@ -1,4 +1,5 @@
 import 'package:earn_store/Controllers/Blood%20Controllers/recent_donation_controller.dart';
+import 'package:earn_store/Controllers/User%20Controllers/user_profile_controller.dart';
 import 'package:earn_store/Utils/screen_loading.dart';
 import 'package:earn_store/Views/Common%20Widgets/custom_top.dart';
 import 'package:earn_store/Views/Common%20Widgets/glass_morphism_card.dart';
@@ -22,6 +23,9 @@ class BloodBank extends StatefulWidget {
 
 class _BloodBankState extends State<BloodBank> {
   RecentDonationController controller = Get.put(RecentDonationController());
+  UserProfileController userProfileController = Get.put(
+    UserProfileController(),
+  );
   @override
   void initState() {
     super.initState();
@@ -44,8 +48,12 @@ class _BloodBankState extends State<BloodBank> {
                   children: [
                     const CustomTop(title: "Blood Bank"),
                     const BloodPageSelector(),
-                    SizedBox(height: 30.h),
-                    //    beDonorButton(),
+                    userProfileController.userData.value!.user!.isDonor == 1
+                        ? const SizedBox()
+                        : SizedBox(height: 30.h),
+                    userProfileController.userData.value!.user!.isDonor == 1
+                        ? const SizedBox()
+                        : beDonorButton(),
                     SizedBox(height: 30.h),
                     const BloodBankBanner(),
                     SizedBox(height: 40.h),

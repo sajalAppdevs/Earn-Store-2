@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AgencyDetails extends StatelessWidget {
-  const AgencyDetails({super.key});
+  final int index;
+  const AgencyDetails({super.key, required this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,9 @@ class AgencyDetails extends StatelessWidget {
             title: "Agency Details",
           ),
           SizedBox(height: 30.h),
-          const AgencyDetailsBody()
+          AgencyDetailsBody(
+            index: index,
+          )
         ],
       ),
     );

@@ -1,3 +1,4 @@
+import 'package:earn_store/Models/Social%20Media%20Models/add_comment_model.dart';
 import 'package:earn_store/Models/Social%20Media%20Models/post_comment_model.dart';
 import 'package:earn_store/Networks/get_networks.dart';
 import 'package:earn_store/Networks/post_networks.dart';
@@ -32,29 +33,30 @@ class PostCommentController extends GetxController {
     );
   }
 
-  Future<void> sendMessage({
+  Future<void> addComment({
     required String postID,
-    required String message,
+    required String comment,
   }) async {
     addCommentLoading.value = true;
     int userID = await LocalStorage.getUserID();
-    final response = await postNetworks.postDataWithoutResponse(
+    final response = await postNetworks.postData<AddCommentModel>(
+      fromJson: (json) => AddCommentModel.fromJson(json),
       url: "/add-comment",
       body: {
-        "post_id": postID.toString(),
+        "post_id": postID,
         "user_id": userID.toString(),
-        "text": message,
+        "comment_text": comment,
       },
     );
     response.fold(
       (left) {
+        addCommentLoading.value = false;
         Snackbars.unSuccessSnackBar(
           title: "Add Comment Status",
-          description: left,
+          description: "Failed to add Comment",
         );
-        addCommentLoading.value = false;
       },
-      (loginData) async {
+      (commentData) async {
         addCommentLoading.value = false;
         await getPostComment(postID: postID);
       },

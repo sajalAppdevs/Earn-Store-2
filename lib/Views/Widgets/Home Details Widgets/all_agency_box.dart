@@ -43,7 +43,9 @@ class AllAgencyBox extends StatelessWidget {
             boxRightPadding: 15.w,
             onPressed: () {
               Get.to(
-                const AgencyDetails(),
+                AgencyDetails(
+                  index: index,
+                ),
               );
             },
             childAlignment: Alignment.centerLeft,

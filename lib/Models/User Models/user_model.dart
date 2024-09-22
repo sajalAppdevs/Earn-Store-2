@@ -45,10 +45,13 @@ class User {
   String? workingAt;
   String? address;
   String? relationship;
+  String? bloodGroupId;
+  String? gender;
   String? createdAt;
   String? updatedAt;
   String? countryName;
   int? userLevel;
+  String? bloodGroup;
 
   User(
       {this.userid,
@@ -73,10 +76,13 @@ class User {
       this.workingAt,
       this.address,
       this.relationship,
+      this.bloodGroupId,
+      this.gender,
       this.createdAt,
       this.updatedAt,
       this.countryName,
-      this.userLevel});
+      this.userLevel,
+      this.bloodGroup});
 
   User.fromJson(Map<String, dynamic> json) {
     userid = json['userid'];
@@ -84,7 +90,7 @@ class User {
     email = json['email'];
     mobile = json['mobile'];
     password = json['password'];
-    refercode = json['refercode'].toString();
+    refercode = json['refercode'];
     myReferCode = json['my_refer_code'];
     premium = json['premium'];
     imageUrl = json['imageUrl'];
@@ -96,15 +102,18 @@ class User {
     country = json['country'].toString();
     packageId = json['package_id'].toString();
     isDonor = json['is_donor'];
-    title = json['title'];
+    title = json['title'].toString();
     studiedAt = json['studied_at'];
     workingAt = json['working_at'];
     address = json['address'];
     relationship = json['relationship'];
+    bloodGroupId = json['blood_group_id'].toString();
+    gender = json['gender'].toString();
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     countryName = json['country_name'].toString();
     userLevel = json['user_level'];
+    bloodGroup = json['blood_group'].toString();
   }
 
   Map<String, dynamic> toJson() {
@@ -131,10 +140,13 @@ class User {
     data['working_at'] = workingAt;
     data['address'] = address;
     data['relationship'] = relationship;
+    data['blood_group_id'] = bloodGroupId;
+    data['gender'] = gender;
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
     data['country_name'] = countryName;
     data['user_level'] = userLevel;
+    data['blood_group'] = bloodGroup;
     return data;
   }
 }

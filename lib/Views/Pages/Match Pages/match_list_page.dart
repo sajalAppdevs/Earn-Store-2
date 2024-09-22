@@ -25,7 +25,7 @@ class MatchListPage extends StatelessWidget {
               const MatchListSelector(),
               PaddedScreen(
                 child: ListView.builder(
-                  itemCount: controller.sportUpdates.value!.posts!.length,
+                  itemCount: controller.sportUpdates.value!.sportUpdates!.length,
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemBuilder: (BuildContext context, int index) {

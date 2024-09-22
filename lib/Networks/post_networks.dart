@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:earn_store/Statics/network_links.dart';
+import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:http/http.dart' as http;
 
@@ -16,6 +17,7 @@ class PostNetworks {
         Uri.parse(baseUrl + url),
         body: (body),
       );
+      debugPrint(response.body);
       if (response.statusCode == 200) {
         return Right(
           fromJson(

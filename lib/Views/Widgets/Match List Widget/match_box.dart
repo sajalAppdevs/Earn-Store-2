@@ -22,15 +22,15 @@ class MatchBox extends StatelessWidget {
       () {
         SportUpdateModel sportUpdates = controller.sportUpdates.value!;
         String date = DateHelpers.formatDate(
-          sportUpdates.posts![index].datetime.toString(),
+          sportUpdates.sportUpdates![index].datetime.toString(),
         );
-        String title = sportUpdates.posts![index].title.toString();
+        String title = sportUpdates.sportUpdates![index].title.toString();
         String countryFlag1 =
-            sportUpdates.posts![index].team1!.image.toString();
-        String countryName1 = sportUpdates.posts![index].team1!.name.toString();
+            sportUpdates.sportUpdates![index].team1!.image.toString();
+        String countryName1 = sportUpdates.sportUpdates![index].team1!.name.toString();
         String countryFlag2 =
-            sportUpdates.posts![index].team2!.image.toString();
-        String countryName2 = sportUpdates.posts![index].team2!.name.toString();
+            sportUpdates.sportUpdates![index].team2!.image.toString();
+        String countryName2 = sportUpdates.sportUpdates![index].team2!.name.toString();
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

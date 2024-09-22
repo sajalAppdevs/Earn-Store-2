@@ -1,10 +1,14 @@
+import 'package:earn_store/Controllers/Ecommerce%20Related%20Controller/user_cart_controller.dart';
 import 'package:earn_store/Statics/colors.dart';
+import 'package:earn_store/Utils/snackbars.dart';
+import 'package:earn_store/Views/Pages/Home%20Pages/root_page.dart';
 import 'package:earn_store/Views/Styles/buttons.dart';
-import 'package:earn_store/Views/Styles/fields.dart';
 import 'package:earn_store/Views/Styles/padding.dart';
 import 'package:earn_store/Views/Styles/textstyles.dart';
+import 'package:earn_store/Views/Widgets/Ecommerce%20Related%20Widgets/delivery_area_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class ProductCartBottom extends StatelessWidget {
   const ProductCartBottom({super.key});
@@ -26,7 +30,15 @@ class ProductCartBottom extends StatelessWidget {
           SizedBox(height: 70.h),
           CustomButton(
             buttonText: "Proceed Checkout",
-            onPressed: () {},
+            onPressed: () {
+              Snackbars.successSnackBar(
+                title: "Order Place Status",
+                description: "Order Placed To Admin",
+              );
+              Get.offAll(
+                const RootScreen(),
+              );
+            },
           ),
           SizedBox(height: 70.h),
         ],
@@ -35,32 +47,42 @@ class ProductCartBottom extends StatelessWidget {
   }
 
   Widget subTotalPrice() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        TextStyles.customText(
-          title: "Sub Total",
-        ),
-        TextStyles.customText(
-          title: "120.00৳",
-        ),
-      ],
+    UserCartController controller = Get.put(
+      UserCartController(),
+    );
+    return Obx(
+      () {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            TextStyles.customText(
+              title: "Sub Total",
+            ),
+            TextStyles.customText(
+              title: "${controller.subTotal.value}.00৳",
+            ),
+          ],
+        );
+      },
     );
   }
 
   Widget areaSelector() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        CustomField(
-          hintText: "Select Area",
-          controller: TextEditingController(),
-          width: 200.w,
-        ),
-        TextStyles.customText(
-          title: "0.00",
-        ),
-      ],
+    UserCartController controller = Get.put(
+      UserCartController(),
+    );
+    return Obx(
+      () {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const DeliveryAreaSelector(),
+            TextStyles.customText(
+              title: "${controller.deliveryCharge.value}.00৳",
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -72,16 +94,24 @@ class ProductCartBottom extends StatelessWidget {
   }
 
   Widget totalPrice() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        TextStyles.customText(
-          title: "Total",
-        ),
-        TextStyles.customText(
-          title: "120.00৳",
-        ),
-      ],
+    UserCartController controller = Get.put(
+      UserCartController(),
+    );
+    return Obx(
+      () {
+        int total = controller.subTotal.value + controller.deliveryCharge.value;
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            TextStyles.customText(
+              title: "Total",
+            ),
+            TextStyles.customText(
+              title: "$total.00৳",
+            ),
+          ],
+        );
+      },
     );
   }
 }

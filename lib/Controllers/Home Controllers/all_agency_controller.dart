@@ -10,7 +10,7 @@ class AllAgencyController extends GetxController {
   Future<void> getAllAgencies() async {
     agencyLoading.value = true;
     final response = await getNetworks.getData<AllAgencyModel>(
-      url: "/get-agencys",
+      url: "/get-hajj-agencys",
       fromJson: (json) => AllAgencyModel.fromJson(json),
     );
     response.fold(

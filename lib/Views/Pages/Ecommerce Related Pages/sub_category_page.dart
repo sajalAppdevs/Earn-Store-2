@@ -4,23 +4,12 @@ import 'package:earn_store/Views/Widgets/Ecommerce%20Related%20Widgets/sub_categ
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class SubCategoryPage extends StatefulWidget {
+class SubCategoryPage extends StatelessWidget {
+  final String mainCatID;
   const SubCategoryPage({
     super.key,
+    required this.mainCatID,
   });
-
-  @override
-  State<SubCategoryPage> createState() => _SubCategoryPageState();
-}
-
-class _SubCategoryPageState extends State<SubCategoryPage> {
-  @override
-  void initState() {
-    super.initState();
-    getData();
-  }
-
-  void getData() async {}
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +21,9 @@ class _SubCategoryPageState extends State<SubCategoryPage> {
             title: "Sub Category",
           ),
           SizedBox(height: 10.h),
-          const SubCategoryBody(),
+          SubCategoryBody(
+            mainCatID: mainCatID,
+          ),
           SizedBox(height: 20.h),
         ],
       ),

@@ -82,12 +82,22 @@ class PopularCourseDetailsTop extends StatelessWidget {
                 ),
               ],
             ),
-            CustomButton(
-              height: 35.h,
-              width: 100.w,
-              onPressed: () {},
-              buttonText: "Enroll",
-            )
+            controller.courseEnrollLoading.value
+                ? Padding(
+                    padding: EdgeInsets.only(right: 20.w),
+                    child: const ButtonLoading(),
+                  )
+                : CustomButton(
+                    height: 35.h,
+                    width: 100.w,
+                    onPressed: () async {
+                      await controller.enrollCourse(
+                        courseID: controller.courseDetails.value!.course!.id
+                            .toString(),
+                      );
+                    },
+                    buttonText: "Enroll",
+                  )
           ],
         );
       },

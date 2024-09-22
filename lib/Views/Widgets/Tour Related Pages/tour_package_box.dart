@@ -85,7 +85,7 @@ class TourPackageBox extends StatelessWidget {
                                 .toString()),
                       ),
                       SizedBox(height: 8.w),
-                      detailsButton(),
+                      detailsButton(index: index),
                     ],
                   ),
                 )
@@ -126,13 +126,21 @@ class TourPackageBox extends StatelessWidget {
     );
   }
 
-  Widget detailsButton() {
+  Widget detailsButton({required int index}) {
+    TourPackageController controller = Get.put(TourPackageController());
     return Padding(
       padding: EdgeInsets.only(left: 75.w),
       child: CustomButton(
         height: 30.h,
         width: 90.w,
-        onPressed: () {},
+        onPressed: () {
+          Get.to(
+            PackageDetailsPage(
+              packageID: controller.specificPackages.value!.packages![index].id
+                  .toString(),
+            ),
+          );
+        },
         buttonText: "Details",
         textSize: 12.sp,
       ),

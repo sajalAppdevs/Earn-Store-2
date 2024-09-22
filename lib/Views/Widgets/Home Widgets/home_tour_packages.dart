@@ -43,12 +43,8 @@ class HomeTourPackages extends StatelessWidget {
                             children: [
                               Row(
                                 children: List.generate(
-                                  controller.allPackages.value!.packages!
-                                              .length >
-                                          3
-                                      ? 3
-                                      : controller
-                                          .allPackages.value!.packages!.length,
+                                  controller
+                                      .allPackages.value!.packages!.length,
                                   (index) {
                                     return tourBox(index: index);
                                   },

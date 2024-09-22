@@ -1,30 +1,39 @@
+import 'package:earn_store/Controllers/Social%20Media%20Controllers/admin_chat_controller.dart';
 import 'package:earn_store/Statics/colors.dart';
 import 'package:earn_store/Statics/paths.dart';
 import 'package:earn_store/Views/Styles/padding.dart';
 import 'package:earn_store/Views/Styles/textstyles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class LiveChatBody extends StatelessWidget {
   const LiveChatBody({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: PaddedScreen(
-        padding: 15.w,
-        child: ListView.builder(
-          itemCount: 30,
-          physics: const BouncingScrollPhysics(),
-          itemBuilder: (BuildContext context, int index) {
-            return index % 2 == 0 ? senderMessege() : userMessege();
-          },
-        ),
-      ),
+    AdminChatController controller = Get.put(AdminChatController());
+    return Obx(
+      () {
+        return Expanded(
+          child: PaddedScreen(
+            padding: 15.w,
+            child: ListView.builder(
+              itemCount: controller.adminChats.value!.chatDetails!.length,
+              physics: const BouncingScrollPhysics(),
+              itemBuilder: (BuildContext context, int index) {
+                return index % 2 == 0
+                    ? senderMessege(index: index)
+                    : userMessege(index: index);
+              },
+            ),
+          ),
+        );
+      },
     );
   }
 
-  Widget senderMessege() {
+  Widget senderMessege({required int index}) {
     return Padding(
       padding: EdgeInsets.only(
         bottom: 15.h,
@@ -36,13 +45,13 @@ class LiveChatBody extends StatelessWidget {
         children: [
           chatImage(),
           SizedBox(width: 10.h),
-          messegeBox(isUser: false),
+          messegeBox(isUser: false, index: index),
         ],
       ),
     );
   }
 
-  Widget userMessege() {
+  Widget userMessege({required int index}) {
     return Padding(
       padding: EdgeInsets.only(
         bottom: 15.h,
@@ -52,7 +61,7 @@ class LiveChatBody extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          messegeBox(isUser: true),
+          messegeBox(isUser: true, index: index),
           SizedBox(width: 10.h),
           chatImage(),
         ],
@@ -77,56 +86,65 @@ class LiveChatBody extends StatelessWidget {
     );
   }
 
-  Widget messegeBox({required bool isUser}) {
-    return Column(
-      crossAxisAlignment:
-          isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: isUser
-              ? EdgeInsets.only(right: 8.w, bottom: 5.h)
-              : EdgeInsets.only(left: 8.w, bottom: 5.h),
-          child: TextStyles.customText(
-            title: "4:00 PM 21 Apr 2024",
-            fontSize: 8.sp,
-            fontWeight: FontWeight.w400,
-          ),
-        ),
-        Container(
-          alignment: Alignment.center,
-          padding: EdgeInsets.symmetric(
-            vertical: 10.h,
-            horizontal: 10.w,
-          ),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(18.r),
-            color: GlassMorphismColors.glassColor1.withOpacity(0.5),
-            boxShadow: [
-              BoxShadow(
-                color: GeneralColors.shadowColor1.withOpacity(0.26),
-                blurRadius: 2,
-                spreadRadius: 0,
-                offset: const Offset(1.18, 1.18),
+  Widget messegeBox({required bool isUser, required int index}) {
+    AdminChatController controller = Get.put(AdminChatController());
+    return Obx(
+      () {
+        return Column(
+          crossAxisAlignment:
+              isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: isUser
+                  ? EdgeInsets.only(right: 8.w, bottom: 5.h)
+                  : EdgeInsets.only(left: 8.w, bottom: 5.h),
+              child: TextStyles.customText(
+                title: controller
+                    .adminChats.value!.chatDetails![index].messageCreatedAt
+                    .toString(),
+                fontSize: 8.sp,
+                fontWeight: FontWeight.w400,
               ),
-              BoxShadow(
-                color: GeneralColors.blackColor.withOpacity(0.30),
-                blurRadius: 2,
-                spreadRadius: 0,
-                offset: const Offset(-1.18, -1.18),
-              ),
-            ],
-          ),
-          child: SizedBox(
-            width: 150.w,
-            child: TextStyles.customText(
-              title: "Hi. How are you ?",
-              fontSize: 12.sp,
-              fontWeight: FontWeight.w400,
-              isShowAll: true,
             ),
-          ),
-        ),
-      ],
+            Container(
+              alignment: Alignment.center,
+              padding: EdgeInsets.symmetric(
+                vertical: 10.h,
+                horizontal: 10.w,
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(18.r),
+                color: GlassMorphismColors.glassColor1.withOpacity(0.5),
+                boxShadow: [
+                  BoxShadow(
+                    color: GeneralColors.shadowColor1.withOpacity(0.26),
+                    blurRadius: 2,
+                    spreadRadius: 0,
+                    offset: const Offset(1.18, 1.18),
+                  ),
+                  BoxShadow(
+                    color: GeneralColors.blackColor.withOpacity(0.30),
+                    blurRadius: 2,
+                    spreadRadius: 0,
+                    offset: const Offset(-1.18, -1.18),
+                  ),
+                ],
+              ),
+              child: SizedBox(
+                width: 150.w,
+                child: TextStyles.customText(
+                  title: controller
+                      .adminChats.value!.chatDetails![index].message
+                      .toString(),
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w400,
+                  isShowAll: true,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

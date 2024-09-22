@@ -57,7 +57,9 @@ class HomeAgency extends StatelessWidget {
               child: GlassmorphismCard(
                 onPressed: () {
                   Get.to(
-                    const AgencyDetails(),
+                    AgencyDetails(
+                      index: index,
+                    ),
                   );
                 },
                 boxHeight: 150.h,

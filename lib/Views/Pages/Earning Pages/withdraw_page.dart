@@ -1,5 +1,7 @@
 import 'package:earn_store/Controllers/Home%20Controllers/general_info_controller.dart';
+import 'package:earn_store/Controllers/User%20Controllers/payment_method_controller.dart';
 import 'package:earn_store/Controllers/User%20Controllers/user_profile_controller.dart';
+import 'package:earn_store/Utils/screen_loading.dart';
 import 'package:earn_store/Views/Common%20Widgets/custom_top.dart';
 import 'package:earn_store/Views/Pages/Splash%20&%20Auth%20Pages/root_design.dart';
 import 'package:earn_store/Views/Styles/textstyles.dart';
@@ -8,22 +10,47 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class WithdrawPage extends StatelessWidget {
+class WithdrawPage extends StatefulWidget {
   const WithdrawPage({super.key});
 
   @override
+  State<WithdrawPage> createState() => _WithdrawPageState();
+}
+
+class _WithdrawPageState extends State<WithdrawPage> {
+  PaymentMethodController controller = Get.put(
+    PaymentMethodController(),
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  void getData() async {
+    await controller.getPaymentMethods();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return RootDesign(
-      child: ListView(
-        physics: const BouncingScrollPhysics(),
-        children: [
-          const CustomTop(title: "Withdraw Money"),
-          SizedBox(height: 30.h),
-          balanceWidget(),
-          SizedBox(height: 30.h),
-          const WithdrawBody()
-        ],
-      ),
+    return Obx(
+      () {
+        return controller.methodsLoading.value
+            ? const ScreenLoading()
+            : RootDesign(
+                child: ListView(
+                  physics: const BouncingScrollPhysics(),
+                  children: [
+                    const CustomTop(title: "Withdraw Money"),
+                    SizedBox(height: 30.h),
+                    balanceWidget(),
+                    SizedBox(height: 30.h),
+                    const WithdrawBody()
+                  ],
+                ),
+              );
+      },
     );
   }
 

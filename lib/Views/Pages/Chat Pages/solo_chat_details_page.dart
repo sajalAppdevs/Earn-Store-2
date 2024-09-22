@@ -12,7 +12,9 @@ import 'package:get/get.dart';
 
 class SoloChatDetailsPage extends StatefulWidget {
   final String convoID;
-  const SoloChatDetailsPage({super.key, required this.convoID});
+  final String othersID;
+  const SoloChatDetailsPage(
+      {super.key, required this.convoID, required this.othersID});
 
   @override
   State<SoloChatDetailsPage> createState() => _SoloChatDetailsPageState();
@@ -59,6 +61,7 @@ class _SoloChatDetailsPageState extends State<SoloChatDetailsPage> {
                     const SoloChatDetailsBody(),
                     SoloChatDetailsBottom(
                       convoID: widget.convoID,
+                      otherID: widget.othersID,
                     ),
                     SizedBox(height: 30.h),
                   ],

@@ -1,4 +1,6 @@
+import 'package:earn_store/Controllers/Social%20Media%20Controllers/customer_chat_controller.dart';
 import 'package:earn_store/Utils/local_storage.dart';
+import 'package:earn_store/Views/Pages/More%20Pages/change_pass_page.dart';
 import 'package:earn_store/Views/Pages/More%20Pages/leader_board_page.dart';
 import 'package:earn_store/Views/Pages/More%20Pages/level_page.dart';
 import 'package:earn_store/Views/Pages/More%20Pages/profile_page.dart';
@@ -11,7 +13,11 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class MoreController extends GetxController {
-  void moreNavigator({required int index}) {
+  RxBool liveChatLoading = false.obs;
+  CustomerChatController customerChatController = Get.put(
+    CustomerChatController(),
+  );
+  void moreNavigator({required int index}) async {
     if (index == 0) {
       Get.to(
         const ProfilePage(),
@@ -51,19 +57,10 @@ class MoreController extends GetxController {
         const ComingSoonPage(),
       );
     } else if (index == 8) {
-      // Get.to(
-      //   const ChangePagePage(),
-      // );
       Get.to(
-        const ComingSoonPage(),
+        const ChangePagePage(),
       );
     } else if (index == 9) {
-      // Get.to(
-      //   const LiveChatPage(),
-      // );
-      Get.to(
-        const ComingSoonPage(),
-      );
     } else if (index == 10) {
       logOut();
     }
@@ -80,5 +77,11 @@ class MoreController extends GetxController {
     Get.offAll(
       const SplashPage(),
     );
+  }
+
+  Future<void> adminChat() async {
+    liveChatLoading.value = true;
+    await customerChatController.getCustomerChat();
+    liveChatLoading.value = false;
   }
 }

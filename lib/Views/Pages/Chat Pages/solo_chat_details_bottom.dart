@@ -10,7 +10,12 @@ import 'package:get/get.dart';
 
 class SoloChatDetailsBottom extends StatelessWidget {
   final String convoID;
-  const SoloChatDetailsBottom({super.key, required this.convoID});
+  final String otherID;
+  const SoloChatDetailsBottom({
+    super.key,
+    required this.convoID,
+    required this.otherID,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +69,6 @@ class SoloChatDetailsBottom extends StatelessWidget {
                 onPressed: () async {
                   if (messegeController.text.isEmpty) {
                   } else {
-                    String otherID = controller.idSelector();
                     await controller.sendMessage(
                       receiverID: otherID,
                       message: messegeController.text,

@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PDFResourcesDetails extends StatelessWidget {
-  const PDFResourcesDetails({super.key});
+  final int index;
+  const PDFResourcesDetails({super.key, required this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,9 @@ class PDFResourcesDetails extends StatelessWidget {
         children: [
           const CustomTop(title: "Pdf & Resources"),
           SizedBox(height: 10.h),
-          const PDFResourcesDetailsBody(),
+          PDFResourcesDetailsBody(
+            index: index,
+          ),
         ],
       ),
     );

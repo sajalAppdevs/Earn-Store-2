@@ -1,9 +1,8 @@
 import 'package:earn_store/Controllers/Home%20Controllers/tour_package_controller.dart';
 import 'package:earn_store/Statics/paths.dart';
-import 'package:earn_store/Utils/snackbars.dart';
+import 'package:earn_store/Utils/button_loading.dart';
 import 'package:earn_store/Utils/url_helpers.dart';
 import 'package:earn_store/Views/Common%20Widgets/glass_morphism_card.dart';
-import 'package:earn_store/Views/Pages/Home%20Pages/root_page.dart';
 import 'package:earn_store/Views/Styles/buttons.dart';
 import 'package:earn_store/Views/Styles/textstyles.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +10,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class PackageDetailsBody extends StatelessWidget {
-  const PackageDetailsBody({super.key});
+  final String packageID;
+  const PackageDetailsBody({
+    super.key,
+    required this.packageID,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -148,29 +151,40 @@ class PackageDetailsBody extends StatelessWidget {
   }
 
   Widget buttonRow() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        CustomButton(
-          width: 150.w,
-          onPressed: () async {
-            await UrlHelpers.shareOnSocialMedia(
-                url: "https://earnstor.lens-ecom.store/?refer=34?id=45");
-          },
-          buttonText: "Refer",
-        ),
-        CustomButton(
-          width: 150.w,
-          onPressed: () {
-            Snackbars.successSnackBar(
-                title: "Booking Status", description: "Sended To Admin");
-            Get.offAll(
-              const RootScreen(),
-            );
-          },
-          buttonText: "Book",
-        ),
-      ],
+    TourPackageController controller = Get.put(TourPackageController());
+    return Obx(
+      () {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            CustomButton(
+              width: 150.w,
+              onPressed: () async {
+                await UrlHelpers.shareOnSocialMedia(
+                    url: "https://earnstor.lens-ecom.store/?refer=34?id=45");
+              },
+              buttonText: "Refer",
+            ),
+            controller.bookPackageLoading.value
+                ? Padding(
+                    padding: EdgeInsets.only(right: 40.w),
+                    child: const ButtonLoading(),
+                  )
+                : CustomButton(
+                    width: 150.w,
+                    onPressed: () async {
+                      await controller.packageBook(
+                        agencyID: controller
+                            .packageDetails.value!.packages![0].agencyId
+                            .toString(),
+                        agencyPackageID: packageID,
+                      );
+                    },
+                    buttonText: "Book",
+                  ),
+          ],
+        );
+      },
     );
   }
 }

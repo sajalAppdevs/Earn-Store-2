@@ -51,7 +51,7 @@ class LiveChatTop extends StatelessWidget {
     return SizedBox(
       width: 220.w,
       child: TextStyles.customText(
-        title: "Soykot Hosen",
+        title: "Admin",
         fontSize: 14.sp,
         textAlign: TextAlign.left,
       ),

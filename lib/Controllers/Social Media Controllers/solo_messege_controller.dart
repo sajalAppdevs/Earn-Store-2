@@ -67,11 +67,15 @@ class SoloMessegeController extends GetxController {
   String nameSelector() {
     UserProfileController userProfileController =
         Get.put(UserProfileController());
-    if (messages.value!.data!.messages![0].fromId !=
-        userProfileController.userData.value!.user!.userid!.toInt()) {
-      return messages.value!.data!.messages![0].fromUserName.toString();
+    if (messages.value!.data!.messages!.isEmpty) {
+      return "User";
     } else {
-      return messages.value!.data!.messages![0].toUserName.toString();
+      if (messages.value!.data!.messages![0].fromId !=
+          userProfileController.userData.value!.user!.userid!.toInt()) {
+        return messages.value!.data!.messages![0].fromUserName.toString();
+      } else {
+        return messages.value!.data!.messages![0].toUserName.toString();
+      }
     }
   }
 

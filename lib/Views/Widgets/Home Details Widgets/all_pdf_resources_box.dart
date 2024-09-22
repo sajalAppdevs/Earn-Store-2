@@ -36,9 +36,9 @@ class AllPDFResourcesBox extends StatelessWidget {
       () {
         String imagePath =
             controller.pdfAndResources.value!.pdfs![index].image.toString();
-        String name = imagePath =
+        String name =
             controller.pdfAndResources.value!.pdfs![index].title.toString();
-        String price = imagePath =
+        String price = 
             controller.pdfAndResources.value!.pdfs![index].price.toString();
         return Padding(
           padding: EdgeInsets.only(bottom: 15.h),
@@ -46,7 +46,9 @@ class AllPDFResourcesBox extends StatelessWidget {
             boxHeight: 85.h,
             onPressed: () {
               Get.to(
-                const PDFResourcesDetails(),
+                PDFResourcesDetails(
+                  index: index,
+                ),
               );
             },
             horizontalPadding: 10.w,

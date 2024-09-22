@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:earn_store/Controllers/Blood%20Controllers/district_controller.dart';
 import 'package:earn_store/Controllers/Blood%20Controllers/division_controller.dart';
 import 'package:earn_store/Statics/colors.dart';
 import 'package:earn_store/Views/Styles/textstyles.dart';
@@ -13,6 +14,7 @@ class DivisionSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DivisionController divisionController = Get.put(DivisionController());
+    DistrictController districtController = Get.put(DistrictController());
     return Obx(
       () {
         return ClipRRect(
@@ -53,6 +55,9 @@ class DivisionSelector extends StatelessWidget {
                   ),
                   onChanged: (value) {
                     divisionController.setDivision(value: value!.toInt());
+                    districtController.getDistrict(
+                      divisionID: value.toString(),
+                    );
                   },
                   items: List.generate(
                     divisionController.divisions.value!.divisions!.length,

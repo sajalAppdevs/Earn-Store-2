@@ -1,3 +1,4 @@
+import 'package:earn_store/Controllers/Ecommerce%20Related%20Controller/user_cart_controller.dart';
 import 'package:earn_store/Statics/colors.dart';
 import 'package:earn_store/Statics/paths.dart';
 import 'package:earn_store/Views/Common%20Widgets/glass_morphism_card.dart';
@@ -77,27 +78,37 @@ class EcommerceTop extends StatelessWidget {
   }
 
   Widget cartWidget() {
-    return GestureDetector(
-      onTap: () {
-        Get.to(
-          const ProductCartPage(),
+    UserCartController userCartController = Get.put(
+      UserCartController(),
+    );
+    return Obx(
+      () {
+        return GestureDetector(
+          onTap: () {
+            userCartController.carts.value!.client!.cartInfo!.isEmpty
+                ? null
+                : Get.to(
+                    const ProductCartPage(),
+                  );
+          },
+          child: badges.Badge(
+            badgeStyle: const badges.BadgeStyle(
+              badgeColor: TextColors.textColor1,
+            ),
+            badgeContent: TextStyles.customText(
+              title: userCartController.carts.value!.client!.cartInfo!.length
+                  .toString(),
+              fontSize: 10.sp,
+              color: TextColors.textColor5,
+            ),
+            child: Icon(
+              Icons.shopping_cart_outlined,
+              size: 25.sp,
+              color: TextColors.textColor1,
+            ),
+          ),
         );
       },
-      child: badges.Badge(
-        badgeStyle: const badges.BadgeStyle(
-          badgeColor: TextColors.textColor1,
-        ),
-        badgeContent: TextStyles.customText(
-          title: "0",
-          fontSize: 14.sp,
-          color: TextColors.textColor5,
-        ),
-        child: Icon(
-          Icons.shopping_cart_outlined,
-          size: 25.sp,
-          color: TextColors.textColor1,
-        ),
-      ),
     );
   }
 }

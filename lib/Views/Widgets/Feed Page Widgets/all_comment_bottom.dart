@@ -63,9 +63,9 @@ class AllCommentBottom extends StatelessWidget {
                 onPressed: () async {
                   if (messegeController.text.isEmpty) {
                   } else {
-                    await controller.sendMessage(
+                    await controller.addComment(
                       postID: postID,
-                      message: messegeController.text,
+                      comment: messegeController.text,
                     );
                   }
                 },

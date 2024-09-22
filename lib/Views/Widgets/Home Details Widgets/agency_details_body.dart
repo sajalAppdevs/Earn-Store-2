@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:earn_store/Controllers/Home%20Controllers/all_agency_controller.dart';
 import 'package:earn_store/Statics/colors.dart';
-import 'package:earn_store/Statics/paths.dart';
+import 'package:earn_store/Utils/button_loading.dart';
 import 'package:earn_store/Utils/snackbars.dart';
 import 'package:earn_store/Utils/url_helpers.dart';
 import 'package:earn_store/Views/Pages/Home%20Pages/root_page.dart';
@@ -12,72 +14,99 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AgencyDetailsBody extends StatelessWidget {
-  const AgencyDetailsBody({super.key});
+  final int index;
+  const AgencyDetailsBody({super.key, required this.index});
 
   @override
   Widget build(BuildContext context) {
-    return PaddedScreen(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          agencyImage(),
-          SizedBox(height: 20.h),
-          TextStyles.customText(
-            title: "Haramain Hajj Umrah Ltd",
+    AllAgencyController controller = Get.put(
+      AllAgencyController(),
+    );
+    return Obx(
+      () {
+        return PaddedScreen(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              agencyImage(
+                  imagePath: controller.agencies.value!.agencys![index].image
+                      .toString()),
+              SizedBox(height: 20.h),
+              TextStyles.customText(
+                title: controller.agencies.value!.agencys![index].agencyName
+                    .toString(),
+              ),
+              SizedBox(height: 5.h),
+              TextStyles.customText(
+                title:
+                    controller.agencies.value!.agencys![index].email.toString(),
+                fontSize: 12.sp,
+                fontWeight: FontWeight.w400,
+                isShowAll: true,
+                textAlign: TextAlign.left,
+              ),
+              SizedBox(height: 5.h),
+              packageWidget(index: index),
+              SizedBox(height: 50.h),
+              buttonRow(),
+              SizedBox(height: 40.h),
+            ],
           ),
-          SizedBox(height: 5.h),
-          TextStyles.customText(
-            title: "One of the best Halal travel agencies in Bangladesh.",
-            fontSize: 12.sp,
-            fontWeight: FontWeight.w400,
-            isShowAll: true,
-            textAlign: TextAlign.left,
-          ),
-          SizedBox(height: 5.h),
-          packageWidget(),
-          SizedBox(height: 50.h),
-          buttonRow(),
-          SizedBox(height: 40.h),
-        ],
-      ),
+        );
+      },
     );
   }
 
-  Widget agencyImage() {
-    return Container(
-      height: 150.h,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5.r),
-        image: const DecorationImage(
-          image: AssetImage(
-            "${Paths.imagePath}hajj.jpg",
+  Widget agencyImage({required String imagePath}) {
+    return CachedNetworkImage(
+      imageUrl: imagePath,
+      imageBuilder: (context, imageProvider) => Container(
+        height: 150.h,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: imageProvider,
+            fit: BoxFit.cover,
           ),
-          fit: BoxFit.fill,
+        ),
+      ),
+      placeholder: (context, url) => const ButtonLoading(),
+      errorWidget: (context, url, error) => Container(
+        height: 150.h,
+        decoration: const BoxDecoration(
+          color: Colors.grey,
         ),
       ),
     );
   }
 
-  Widget packageWidget() {
-    return RichText(
-      text: TextSpan(
-        text: 'Package starts from ',
-        style: GoogleFonts.poppins(
-          fontSize: 12.sp,
-          fontWeight: FontWeight.w600,
-          color: TextColors.textColor1,
-        ),
-        children: <TextSpan>[
-          TextSpan(
-            text: '1,25,000৳',
+  Widget packageWidget({required int index}) {
+    AllAgencyController controller = Get.put(
+      AllAgencyController(),
+    );
+    return Obx(
+      () {
+        return RichText(
+          text: TextSpan(
+            text: 'Mobile: ',
             style: GoogleFonts.poppins(
               fontSize: 12.sp,
               fontWeight: FontWeight.w600,
-              color: TextColors.textColor4,
+              color: TextColors.textColor1,
             ),
+            children: <TextSpan>[
+              TextSpan(
+                text: controller.agencies.value!.agencys![index].mobileNumber
+                    .toString(),
+                style: GoogleFonts.poppins(
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w600,
+                  color: TextColors.textColor4,
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 

@@ -1,10 +1,9 @@
+import 'package:earn_store/Controllers/User%20Controllers/user_profile_controller.dart';
 import 'package:earn_store/Statics/colors.dart';
 import 'package:earn_store/Statics/paths.dart';
 import 'package:earn_store/Views/Common%20Widgets/custom_top.dart';
 import 'package:earn_store/Views/Common%20Widgets/glass_morphism_card.dart';
-import 'package:earn_store/Views/Pages/Blood%20Related%20Pages/donor_edit_profile.dart';
 import 'package:earn_store/Views/Pages/Splash%20&%20Auth%20Pages/root_design.dart';
-import 'package:earn_store/Views/Styles/buttons.dart';
 import 'package:earn_store/Views/Styles/padding.dart';
 import 'package:earn_store/Views/Styles/textstyles.dart';
 import 'package:flutter/material.dart';
@@ -26,59 +25,54 @@ class DonorProfilePage extends StatelessWidget {
           SizedBox(height: 30.h),
           profileInfoBox(),
           SizedBox(height: 100.h),
-          PaddedScreen(
-            child: CustomButton(
-              onPressed: () {
-                Get.to(
-                  const DonorEditProfile(),
-                );
-              },
-              buttonText: "Edit",
-            ),
-          )
         ],
       ),
     );
   }
 
   Widget profileInfoBox() {
-    return PaddedScreen(
-      padding: 15.w,
-      child: GlassmorphismCard(
-        boxHeight: 350.h,
-        verticalPadding: 15.h,
-        horizontalPadding: 10.w,
-        child: Column(
-          children: [
-            userImage(),
-            customDivider(),
-            infoRow(
-              title: "Name",
-              info: "Rashidatul Kobra",
+    UserProfileController userProfileController =
+        Get.put(UserProfileController());
+    return Obx(
+      () {
+        return PaddedScreen(
+          padding: 15.w,
+          child: GlassmorphismCard(
+            boxHeight: 300.h,
+            verticalPadding: 15.h,
+            horizontalPadding: 10.w,
+            child: Column(
+              children: [
+                userImage(),
+                customDivider(),
+                infoRow(
+                  title: "Name",
+                  info: userProfileController.userData.value!.user!.name
+                      .toString(),
+                ),
+                customDivider(),
+                infoRow(
+                  title: "Blood Group",
+                  info: userProfileController.userData.value!.user!.bloodGroup
+                      .toString(),
+                ),
+                customDivider(),
+                infoRow(
+                  title: "Gender",
+                  info: userProfileController.userData.value!.user!.gender
+                      .toString(),
+                ),
+                customDivider(),
+                infoRow(
+                  title: "Mobile Number",
+                  info: userProfileController.userData.value!.user!.mobile
+                      .toString(),
+                ),
+              ],
             ),
-            customDivider(),
-            infoRow(
-              title: "Blood Group",
-              info: "O Positive",
-            ),
-            customDivider(),
-            infoRow(
-              title: "Gender",
-              info: "Female",
-            ),
-            customDivider(),
-            infoRow(
-              title: "Age",
-              info: "24",
-            ),
-            customDivider(),
-            infoRow(
-              title: "Mobile Number",
-              info: "+8801753227645",
-            ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 

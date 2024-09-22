@@ -1,5 +1,7 @@
+import 'package:earn_store/Controllers/Social%20Media%20Controllers/post_like_controller.dart';
 import 'package:earn_store/Controllers/Social%20Media%20Controllers/social_media_controller.dart';
 import 'package:earn_store/Statics/paths.dart';
+import 'package:earn_store/Utils/button_loading.dart';
 import 'package:earn_store/Utils/url_helpers.dart';
 import 'package:earn_store/Views/Pages/Feed%20Pages/all_comment_page.dart';
 import 'package:earn_store/Views/Styles/padding.dart';
@@ -15,27 +17,45 @@ class FeedBoxBottom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SocialMediaController controller = Get.put(SocialMediaController());
+    PostLikeController postLikeController = Get.put(PostLikeController());
     return PaddedScreen(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // Row(
-          //   crossAxisAlignment: CrossAxisAlignment.start,
-          //   children: [
-          //     Image.asset(
-          //       "${Paths.iconPath}like_icon.png",
-          //       height: 21.h,
-          //       width: 21.w,
-          //       fit: BoxFit.fill,
-          //     ),
-          //     SizedBox(width: 8.w),
-          //     TextStyles.customText(
-          //       title: "Like",
-          //       fontSize: 14.sp,
-          //       fontWeight: FontWeight.w500,
-          //     )
-          //   ],
-          // ),
+          Obx(
+            () {
+              return postLikeController.likeLoading.value
+                  ? ButtonLoading(
+                      loadingSize: 18.sp,
+                    )
+                  : GestureDetector(
+                      onTap: () {
+                        postLikeController.addLike(
+                          postID: controller
+                              .socialMedias.value!.posts![index].id
+                              .toString(),
+                        );
+                      },
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Image.asset(
+                            "${Paths.iconPath}like_icon.png",
+                            height: 21.h,
+                            width: 21.w,
+                            fit: BoxFit.fill,
+                          ),
+                          SizedBox(width: 8.w),
+                          TextStyles.customText(
+                            title: "Like",
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w500,
+                          )
+                        ],
+                      ),
+                    );
+            },
+          ),
           GestureDetector(
             onTap: () {
               Get.to(

@@ -4,23 +4,10 @@ import 'package:earn_store/Views/Widgets/Ecommerce%20Related%20Widgets/all_categ
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class AllCategoryPage extends StatefulWidget {
+class AllCategoryPage extends StatelessWidget {
   const AllCategoryPage({
     super.key,
   });
-
-  @override
-  State<AllCategoryPage> createState() => _AllCategoryPageState();
-}
-
-class _AllCategoryPageState extends State<AllCategoryPage> {
-  @override
-  void initState() {
-    super.initState();
-    getData();
-  }
-
-  void getData() async {}
 
   @override
   Widget build(BuildContext context) {

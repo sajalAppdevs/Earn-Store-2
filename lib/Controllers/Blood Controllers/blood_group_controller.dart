@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 
 class BloodGroupController extends GetxController {
   RxBool isBloodLoading = true.obs;
+  RxInt bloodGroupID = 0.obs;
+  RxString bloodText = "Choose".obs;
   final bloodGroups = Rxn<BloodGroupModel>();
   GetNetworks getNetworks = GetNetworks();
   Future<void> getAllBloodGroup() async {
@@ -26,5 +28,14 @@ class BloodGroupController extends GetxController {
         isBloodLoading.value = false;
       },
     );
+  }
+
+  void setBloodGroup({required int value}) {
+    bloodGroupID.value = value;
+    for (var element in bloodGroups.value!.bloodGroups!) {
+      if (element.id == bloodGroupID.value) {
+        bloodText.value = element.bloodGroup.toString();
+      }
+    }
   }
 }

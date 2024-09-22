@@ -1,6 +1,8 @@
 import 'dart:ui';
 
+import 'package:earn_store/Controllers/Ecommerce%20Related%20Controller/all_category_controller.dart';
 import 'package:earn_store/Statics/colors.dart';
+import 'package:earn_store/Utils/button_loading.dart';
 import 'package:earn_store/Utils/dummy_data.dart';
 import 'package:earn_store/Views/Pages/Ecommerce%20Related%20Pages/ecommerce_page.dart';
 import 'package:earn_store/Views/Styles/title_text.dart';
@@ -16,18 +18,29 @@ class HomeCategoriesList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(top: 20.h, bottom: 20.h),
-      child: Column(
-        children: [
-          const TitleText(
-            title: "Categories",
-            hideAll: true,
-          ),
-          SizedBox(height: 10.h),
-          categories(),
-        ],
-      ),
+    AllCategoryController controller = Get.put(
+      AllCategoryController(),
+    );
+    return Obx(
+      () {
+        return controller.categoryLoading.value
+            ? ButtonLoading(
+                verticalPadding: 50.h,
+              )
+            : Padding(
+                padding: EdgeInsets.only(top: 20.h, bottom: 20.h),
+                child: Column(
+                  children: [
+                    const TitleText(
+                      title: "Categories",
+                      hideAll: true,
+                    ),
+                    SizedBox(height: 10.h),
+                    categories(),
+                  ],
+                ),
+              );
+      },
     );
   }
 

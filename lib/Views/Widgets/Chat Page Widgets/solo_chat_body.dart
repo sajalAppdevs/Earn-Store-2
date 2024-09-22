@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:earn_store/Controllers/Social%20Media%20Controllers/conversation_controller.dart';
 import 'package:earn_store/Statics/paths.dart';
 import 'package:earn_store/Utils/button_loading.dart';
+import 'package:earn_store/Utils/local_storage.dart';
 import 'package:earn_store/Views/Common%20Widgets/glass_morphism_card.dart';
 import 'package:earn_store/Views/Pages/Chat%20Pages/solo_chat_details_page.dart';
 import 'package:earn_store/Views/Styles/textstyles.dart';
@@ -36,12 +37,27 @@ class SoloChatBody extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(bottom: 15.h),
       child: GlassmorphismCard(
-        onPressed: () {
+        onPressed: () async {
+          int userID = await LocalStorage.getUserID();
+          String otherID = "0";
+          if (conversationController
+                  .conversations.value!.member![index].member1!
+                  .toInt() ==
+              userID) {
+            otherID = conversationController
+                .conversations.value!.member![index].member2
+                .toString();
+          } else {
+            otherID = conversationController
+                .conversations.value!.member![index].member1
+                .toString();
+          }
           Get.to(
             SoloChatDetailsPage(
               convoID: conversationController
                   .conversations.value!.member![index].id
                   .toString(),
+              othersID: otherID,
             ),
           );
         },
@@ -144,8 +160,12 @@ class SoloChatBody extends StatelessWidget {
       () {
         return TextStyles.customText(
           title: conversationController
-              .conversations.value!.member![index].recentMessageTime
-              .toString(),
+                      .conversations.value!.member![index].recentMessageTime ==
+                  null
+              ? "Say Hi to start"
+              : conversationController
+                  .conversations.value!.member![index].recentMessageTime
+                  .toString(),
           fontSize: 9.sp,
           fontWeight: FontWeight.w400,
         );

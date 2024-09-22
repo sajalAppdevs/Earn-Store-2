@@ -40,9 +40,11 @@ class _PackageDetailsPageState extends State<PackageDetailsPage> {
             : RootDesign(
                 child: ListView(
                   physics: const BouncingScrollPhysics(),
-                  children: const [
-                    PackageDetailsTop(),
-                    PackageDetailsBody(),
+                  children: [
+                    const PackageDetailsTop(),
+                    PackageDetailsBody(
+                      packageID: widget.packageID,
+                    ),
                   ],
                 ),
               );

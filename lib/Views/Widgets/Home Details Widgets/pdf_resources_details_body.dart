@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:earn_store/Controllers/Home%20Controllers/pdf_and_resources_controller.dart';
 import 'package:earn_store/Statics/colors.dart';
-import 'package:earn_store/Statics/paths.dart';
+import 'package:earn_store/Utils/button_loading.dart';
 import 'package:earn_store/Utils/snackbars.dart';
 import 'package:earn_store/Utils/url_helpers.dart';
 import 'package:earn_store/Views/Pages/Home%20Pages/root_page.dart';
@@ -11,53 +13,80 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class PDFResourcesDetailsBody extends StatelessWidget {
-  const PDFResourcesDetailsBody({super.key});
+  final int index;
+  const PDFResourcesDetailsBody({super.key, required this.index});
 
   @override
   Widget build(BuildContext context) {
-    return PaddedScreen(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          pdfImage(),
-          SizedBox(height: 30.h),
-          TextStyles.customText(
-            title: "HSC 2024 Special Suggestion",
+    PDFAndResourcesController controller = Get.put(PDFAndResourcesController());
+    return Obx(
+      () {
+        return PaddedScreen(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              pdfImage(
+                  imagePath: controller
+                      .pdfAndResources.value!.pdfs![index].image
+                      .toString()),
+              SizedBox(height: 30.h),
+              TextStyles.customText(
+                title: controller.pdfAndResources.value!.pdfs![index].title
+                    .toString(),
+              ),
+              SizedBox(height: 5.h),
+              TextStyles.customText(
+                title:
+                    "${controller.pdfAndResources.value!.pdfs![index].price.toString()} Taka",
+                color: TextColors.textColor3,
+                fontWeight: FontWeight.w500,
+                fontSize: 15.sp,
+              ),
+              SizedBox(height: 20.h),
+              TextStyles.customText(
+                title: "Description",
+              ),
+              SizedBox(height: 10.h),
+              TextStyles.customText(
+                title: controller
+                    .pdfAndResources.value!.pdfs![index].description
+                    .toString(),
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w400,
+                isShowAll: true,
+                textAlign: TextAlign.left,
+              ),
+              SizedBox(height: 50.h),
+              buttonRow(),
+              SizedBox(height: 50.h),
+            ],
           ),
-          SizedBox(height: 5.h),
-          TextStyles.customText(
-            title: "200 Taka",
-            color: TextColors.textColor3,
-            fontWeight: FontWeight.w500,
-            fontSize: 15.sp,
-          ),
-          SizedBox(height: 20.h),
-          TextStyles.customText(
-            title: "Description",
-          ),
-          SizedBox(height: 10.h),
-          TextStyles.customText(
-            title:
-                "Figma design is for people to create, share, and test designs for websites, mobile apps, and other digital products and experiences.",
-            fontSize: 14.sp,
-            fontWeight: FontWeight.w400,
-            isShowAll: true,
-            textAlign: TextAlign.left,
-          ),
-          SizedBox(height: 50.h),
-          buttonRow(),
-          SizedBox(height: 50.h),
-        ],
-      ),
+        );
+      },
     );
   }
 
-  Widget pdfImage() {
-    return Image.asset(
-      "${Paths.iconPath}pdf_details.png",
-      height: 175.h,
-      width: Get.width,
-      fit: BoxFit.fill,
+  Widget pdfImage({required String imagePath}) {
+    return CachedNetworkImage(
+      imageUrl: imagePath,
+      imageBuilder: (context, imageProvider) => Container(
+        height: 175.h,
+        width: Get.width,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: imageProvider,
+            fit: BoxFit.fill,
+          ),
+        ),
+      ),
+      placeholder: (context, url) => const ButtonLoading(),
+      errorWidget: (context, url, error) => Container(
+        height: 175.h,
+        width: Get.width,
+        decoration: const BoxDecoration(
+          color: Colors.grey,
+        ),
+      ),
     );
   }
 

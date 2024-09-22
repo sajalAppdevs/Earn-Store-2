@@ -1,10 +1,13 @@
+import 'package:earn_store/Controllers/Home%20Controllers/quiz_controller.dart';
 import 'package:earn_store/Statics/colors.dart';
+import 'package:earn_store/Utils/button_loading.dart';
 import 'package:earn_store/Views/Common%20Widgets/glass_morphism_card.dart';
 import 'package:earn_store/Views/Styles/buttons.dart';
 import 'package:earn_store/Views/Styles/padding.dart';
 import 'package:earn_store/Views/Styles/textstyles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class QuizTestBody extends StatelessWidget {
   const QuizTestBody({super.key});
@@ -55,32 +58,60 @@ class QuizTestBody extends StatelessWidget {
   }
 
   Widget questionBox({required int index}) {
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: 20.w,
-        vertical: 10.h,
-      ),
-      child: GlassmorphismCard(
-        boxHeight: 55.h,
-        horizontalPadding: 20.w,
-        child: Row(
-          children: [
-            TextStyles.customText(title: "A.   Titanium"),
-          ],
-        ),
-      ),
+    QuizController controller = Get.put(QuizController());
+    return Obx(
+      () {
+        String question = "";
+        int number = index + 1;
+        if (index == 0) {
+          question = controller.quiz.value!.quiz!.option1.toString();
+        } else if (index == 1) {
+          question = controller.quiz.value!.quiz!.option2.toString();
+        } else if (index == 2) {
+          question = controller.quiz.value!.quiz!.option3.toString();
+        } else {
+          question = controller.quiz.value!.quiz!.option4.toString();
+        }
+        return Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 20.w,
+            vertical: 10.h,
+          ),
+          child: GlassmorphismCard(
+            boxHeight: 55.h,
+            horizontalPadding: 20.w,
+            child: Row(
+              children: [
+                TextStyles.customText(title: "$number.   $question"),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 
   Widget submitButton() {
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: 20.w,
-      ),
-      child: CustomButton(
-        onPressed: () {},
-        buttonText: "Submit",
-      ),
+    QuizController controller = Get.put(QuizController());
+    return Obx(
+      () {
+        return Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 20.w,
+          ),
+          child: controller.submitQuizLoading.value
+              ? const ButtonLoading()
+              : CustomButton(
+                  onPressed: () {
+                    controller.submitQuiz(
+                      quizID: controller.quiz.value!.quiz!.id.toString(),
+                      answer: controller.quiz.value!.quiz!.option1.toString(),
+                    );
+                  },
+                  buttonText: "Submit",
+                ),
+        );
+      },
     );
   }
 }

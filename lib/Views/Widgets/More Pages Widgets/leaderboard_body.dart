@@ -2,7 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:earn_store/Controllers/User%20Controllers/leaderboard_controller.dart';
 import 'package:earn_store/Statics/paths.dart';
 import 'package:earn_store/Utils/button_loading.dart';
+import 'package:earn_store/Utils/local_storage.dart';
 import 'package:earn_store/Views/Common%20Widgets/glass_morphism_card.dart';
+import 'package:earn_store/Views/Pages/Chat%20Pages/other_profile_page.dart';
+import 'package:earn_store/Views/Pages/More%20Pages/profile_page.dart';
 import 'package:earn_store/Views/Styles/textstyles.dart';
 import 'package:earn_store/Views/Widgets/More%20Pages%20Widgets/leaderboard_top_box.dart';
 import 'package:flutter/material.dart';
@@ -41,6 +44,22 @@ class LeaderboardBody extends StatelessWidget {
           child: GlassmorphismCard(
             boxHeight: 50.h,
             horizontalPadding: 15.w,
+            onPressed: () async {
+              int userID = await LocalStorage.getUserID();
+              controller.leaderboard.value!.leaderBoard![index].userid!
+                          .toInt() ==
+                      userID
+                  ? Get.to(
+                      const ProfilePage(),
+                    )
+                  : Get.to(
+                      OtherProfilePage(
+                        userID: controller
+                            .leaderboard.value!.leaderBoard![index].userid
+                            .toString(),
+                      ),
+                    );
+            },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

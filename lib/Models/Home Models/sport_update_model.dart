@@ -1,15 +1,17 @@
 class SportUpdateModel {
   bool? status;
-  List<Posts>? posts;
+  String? msg;
+  List<SportUpdates>? sportUpdates;
 
-  SportUpdateModel({this.status, this.posts});
+  SportUpdateModel({this.status, this.msg, this.sportUpdates});
 
   SportUpdateModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
-    if (json['posts'] != null) {
-      posts = <Posts>[];
-      json['posts'].forEach((v) {
-        posts!.add(Posts.fromJson(v));
+    msg = json['msg'];
+    if (json['sport_updates'] != null) {
+      sportUpdates = <SportUpdates>[];
+      json['sport_updates'].forEach((v) {
+        sportUpdates!.add(SportUpdates.fromJson(v));
       });
     }
   }
@@ -17,14 +19,15 @@ class SportUpdateModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['status'] = status;
-    if (posts != null) {
-      data['posts'] = posts!.map((v) => v.toJson()).toList();
+    data['msg'] = msg;
+    if (sportUpdates != null) {
+      data['sport_updates'] = sportUpdates!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
-class Posts {
+class SportUpdates {
   int? id;
   int? team1Id;
   int? team2Id;
@@ -38,7 +41,7 @@ class Posts {
   Team1? team1;
   Team1? team2;
 
-  Posts(
+  SportUpdates(
       {this.id,
       this.team1Id,
       this.team2Id,
@@ -52,7 +55,7 @@ class Posts {
       this.team1,
       this.team2});
 
-  Posts.fromJson(Map<String, dynamic> json) {
+  SportUpdates.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     team1Id = json['team1_id'];
     team2Id = json['team2_id'];
@@ -62,9 +65,8 @@ class Posts {
     description = json['description'];
     createdAt = json['created_at'];
     updated = json['updated'];
-    category = json['category'] != null
-        ? Category.fromJson(json['category'])
-        : null;
+    category =
+        json['category'] != null ? Category.fromJson(json['category']) : null;
     team1 = json['team1'] != null ? Team1.fromJson(json['team1']) : null;
     team2 = json['team2'] != null ? Team1.fromJson(json['team2']) : null;
   }
