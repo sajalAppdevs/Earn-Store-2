@@ -67,6 +67,9 @@ class _PackagePageState extends State<PackagePage> {
                                       title: controller.packages.value!
                                           .packages![index].packageName
                                           .toString(),
+                                      description: controller.packages.value!
+                                          .packages![index].description
+                                          .toString(),
                                       price: controller.packages.value!
                                                   .packages![index].price!
                                                   .toInt() ==
@@ -120,6 +123,7 @@ class _PackagePageState extends State<PackagePage> {
   Widget packageBox({
     required String title,
     required String price,
+    required String description,
     required VoidCallback onPressed,
   }) {
     return GlassmorphismCard(
@@ -135,8 +139,7 @@ class _PackagePageState extends State<PackagePage> {
           ),
           SizedBox(height: 20.h),
           TextStyles.customText(
-            title: '''In this plan you will only buy
-you can not earn. This is free basic Plan for you.''',
+            title: description,
             fontSize: 18.sp,
             isShowAll: true,
             fontWeight: FontWeight.w400,

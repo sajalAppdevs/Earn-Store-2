@@ -58,15 +58,6 @@ class OTPPage extends StatelessWidget {
           title: "Verification Code",
           fontSize: 20.sp,
         ),
-        SizedBox(height: 15.h),
-        TextStyles.customText(
-          title:
-              "We have to sent the code verification to\nEnter the OTP sent to +88018******66",
-          fontWeight: FontWeight.w500,
-          fontSize: 13.sp,
-          isShowAll: true,
-        ),
-        SizedBox(height: 20.h),
       ],
     );
   }

@@ -26,7 +26,7 @@ class HomeReferCode extends StatelessWidget {
           children: [
             SizedBox(width: 10.w),
             TextStyles.customText(
-              title: "123456",
+              title: referCode,
               fontSize: 14.sp,
               fontWeight: FontWeight.w600,
               color: TextColors.textColor2,
