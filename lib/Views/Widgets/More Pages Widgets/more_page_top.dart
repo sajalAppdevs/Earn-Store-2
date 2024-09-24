@@ -6,6 +6,7 @@ import 'package:earn_store/Utils/button_loading.dart';
 import 'package:earn_store/Views/Common%20Widgets/glass_morphism_card.dart';
 import 'package:earn_store/Views/Pages/Earning%20Pages/withdraw_page.dart';
 import 'package:earn_store/Views/Styles/textstyles.dart';
+import 'package:earn_store/Views/Widgets/More%20Pages%20Widgets/refer_code_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -39,7 +40,9 @@ class _MorePageTopState extends State<MorePageTop> {
       children: [
         SizedBox(height: 20.h),
         GlassmorphismCard(
-          boxHeight: 160.h,
+          boxHeight: profileController.userData.value!.user!.myReferCode == ""
+              ? 160.h
+              : 205.h,
           verticalPadding: 15.h,
           horizontalPadding: 15.w,
           child: Column(
@@ -53,7 +56,10 @@ class _MorePageTopState extends State<MorePageTop> {
                 title: todayDate,
                 fontSize: 14.sp,
                 fontWeight: FontWeight.w400,
-              )
+              ),
+              profileController.userData.value!.user!.myReferCode == ""
+                  ? const SizedBox()
+                  : const HomeReferCode(),
             ],
           ),
         ),

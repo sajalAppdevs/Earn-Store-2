@@ -5,9 +5,8 @@ import 'package:earn_store/Views/Pages/More%20Pages/leader_board_page.dart';
 import 'package:earn_store/Views/Pages/More%20Pages/level_page.dart';
 import 'package:earn_store/Views/Pages/More%20Pages/profile_page.dart';
 import 'package:earn_store/Views/Pages/More%20Pages/refer_list_page.dart';
-import 'package:earn_store/Views/Pages/More%20Pages/spin_page.dart';
 import 'package:earn_store/Views/Pages/More%20Pages/total_earning_page.dart';
-import 'package:earn_store/Views/Pages/Splash%20&%20Auth%20Pages/coming_soon.dart';
+import 'package:earn_store/Views/Pages/Splash%20&%20Auth%20Pages/package_page.dart';
 import 'package:earn_store/Views/Pages/Splash%20&%20Auth%20Pages/splash_page.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -32,36 +31,21 @@ class MoreController extends GetxController {
       );
     } else if (index == 3) {
       Get.to(
-        const SpinPage(),
+        const TotalEarningPage(),
       );
     } else if (index == 4) {
       Get.to(
-        const TotalEarningPage(),
+        const LevelPage(),
       );
     } else if (index == 5) {
       Get.to(
-        const LevelPage(),
+        const PackagePage(),
       );
     } else if (index == 6) {
-      // Get.to(
-      //   const UpdatePackagePage(),
-      // );
-      Get.to(
-        const ComingSoonPage(),
-      );
-    } else if (index == 7) {
-      // Get.to(
-      //   const RunAdsPage(),
-      // );
-      Get.to(
-        const ComingSoonPage(),
-      );
-    } else if (index == 8) {
       Get.to(
         const ChangePagePage(),
       );
-    } else if (index == 9) {
-    } else if (index == 10) {
+    } else if (index == 8) {
       logOut();
     }
   }

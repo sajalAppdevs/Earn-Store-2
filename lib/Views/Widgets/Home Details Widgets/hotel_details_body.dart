@@ -1,4 +1,5 @@
 import 'package:earn_store/Controllers/Home%20Controllers/all_hotel_controller.dart';
+import 'package:earn_store/Controllers/User%20Controllers/user_profile_controller.dart';
 import 'package:earn_store/Statics/colors.dart';
 import 'package:earn_store/Statics/paths.dart';
 import 'package:earn_store/Utils/snackbars.dart';
@@ -21,6 +22,8 @@ class HotelDetailsBody extends StatelessWidget {
     AllHotelController controller = Get.put(
       AllHotelController(),
     );
+    UserProfileController userProfileController =
+        Get.put(UserProfileController());
     return Obx(
       () {
         return PaddedScreen(
@@ -43,7 +46,20 @@ class HotelDetailsBody extends StatelessWidget {
                 },
               ),
               SizedBox(height: 30.h),
-              buttonRow(),
+              userProfileController.userData.value!.user!.isPaymentVerified == 0
+                  ? CustomButton(
+                      width: 350.w,
+                      onPressed: () {
+                        Snackbars.successSnackBar(
+                            title: "Booking Status",
+                            description: "Sended To Admin");
+                        Get.offAll(
+                          const RootScreen(),
+                        );
+                      },
+                      buttonText: "Book",
+                    )
+                  : buttonRow(),
               SizedBox(height: 40.h),
             ],
           ),

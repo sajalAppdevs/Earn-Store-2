@@ -21,12 +21,12 @@ class DummyData {
       imagePath: "${Paths.iconPath}referlist.png",
       name: "Refer List",
     ),
-    Methods(
-      height: 26.h,
-      width: 26.w,
-      imagePath: "${Paths.iconPath}spin.png",
-      name: "Spin",
-    ),
+    // Methods(
+    //   height: 26.h,
+    //   width: 26.w,
+    //   imagePath: "${Paths.iconPath}spin.png",
+    //   name: "Spin",
+    // ),
     Methods(
       height: 26.h,
       width: 26.w,
@@ -45,12 +45,12 @@ class DummyData {
       imagePath: "${Paths.iconPath}packages.png",
       name: "Packages",
     ),
-    Methods(
-      height: 26.h,
-      width: 26.w,
-      imagePath: "${Paths.iconPath}run_ads.png",
-      name: "Run Ads",
-    ),
+    // Methods(
+    //   height: 26.h,
+    //   width: 26.w,
+    //   imagePath: "${Paths.iconPath}run_ads.png",
+    //   name: "Run Ads",
+    // ),
     Methods(
       height: 26.h,
       width: 26.w,
@@ -159,12 +159,12 @@ class DummyData {
       imagePath: "${Paths.iconPath}parcel_delivery.png",
       name: "Parcel Delivery",
     ),
-    Methods(
-      height: 24.h,
-      width: 24.w,
-      imagePath: "${Paths.iconPath}quiz_test.png",
-      name: "Quiz Test",
-    ),
+    // Methods(
+    //   height: 24.h,
+    //   width: 24.w,
+    //   imagePath: "${Paths.iconPath}quiz_test.png",
+    //   name: "Quiz Test",
+    // ),
     Methods(
       height: 24.h,
       width: 24.w,

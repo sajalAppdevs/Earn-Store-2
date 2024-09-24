@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:earn_store/Controllers/Home%20Controllers/all_agency_controller.dart';
+import 'package:earn_store/Controllers/User%20Controllers/user_profile_controller.dart';
 import 'package:earn_store/Statics/colors.dart';
 import 'package:earn_store/Utils/button_loading.dart';
 import 'package:earn_store/Utils/snackbars.dart';
@@ -22,6 +23,8 @@ class AgencyDetailsBody extends StatelessWidget {
     AllAgencyController controller = Get.put(
       AllAgencyController(),
     );
+    UserProfileController userProfileController =
+        Get.put(UserProfileController());
     return Obx(
       () {
         return PaddedScreen(
@@ -48,7 +51,20 @@ class AgencyDetailsBody extends StatelessWidget {
               SizedBox(height: 5.h),
               packageWidget(index: index),
               SizedBox(height: 50.h),
-              buttonRow(),
+              userProfileController.userData.value!.user!.isPaymentVerified == 0
+                  ? CustomButton(
+                      width: 350.w,
+                      onPressed: () {
+                        Snackbars.successSnackBar(
+                            title: "Booking Status",
+                            description: "Sended To Admin");
+                        Get.offAll(
+                          const RootScreen(),
+                        );
+                      },
+                      buttonText: "Book",
+                    )
+                  : buttonRow(),
               SizedBox(height: 40.h),
             ],
           ),

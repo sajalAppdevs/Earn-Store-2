@@ -42,19 +42,19 @@ class ChatPageTop extends StatelessWidget {
                 },
                 buttonText: "ALL",
               ),
-              SizedBox(width: 10.w),
-              CustomButton(
-                height: 35.h,
-                width: 85.w,
-                textSize: 12.sp,
-                buttonColor: conversationController.isSoloConvo.value
-                    ? null
-                    : IconColors.iconColor1,
-                onPressed: () {
-                  conversationController.changeConvoType(value: false);
-                },
-                buttonText: "Group",
-              ),
+              // SizedBox(width: 10.w),
+              // CustomButton(
+              //   height: 35.h,
+              //   width: 85.w,
+              //   textSize: 12.sp,
+              //   buttonColor: conversationController.isSoloConvo.value
+              //       ? null
+              //       : IconColors.iconColor1,
+              //   onPressed: () {
+              //     conversationController.changeConvoType(value: false);
+              //   },
+              //   buttonText: "Group",
+              // ),
             ],
           ),
         );

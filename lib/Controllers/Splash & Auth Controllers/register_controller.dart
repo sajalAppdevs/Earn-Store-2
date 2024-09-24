@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 class RegisterController extends GetxController {
   CountryController countryController = Get.put(CountryController());
   RxBool registerLoading = false.obs;
+  final userRegister = Rxn<RegisterModel>();
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController mobileController = TextEditingController();
@@ -55,6 +56,7 @@ class RegisterController extends GetxController {
               description: registerData.message.toString(),
             );
           } else {
+            userRegister.value = registerData;
             await LocalStorage.setUserID(userID: registerData.userID!.toInt());
             Get.to(
               const OTPPage(),

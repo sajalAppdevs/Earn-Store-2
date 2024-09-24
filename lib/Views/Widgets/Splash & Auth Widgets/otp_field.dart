@@ -1,6 +1,8 @@
+import 'package:earn_store/Statics/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class OTPField extends StatelessWidget {
   const OTPField({super.key});
@@ -16,6 +18,9 @@ class OTPField extends StatelessWidget {
       enabledBorderColor: Colors.white.withOpacity(0.2),
       cursorColor: Colors.white,
       showFieldAsBox: true,
+      textStyle: GoogleFonts.poppins(
+        color: TextColors.textColor1,
+      ),
       onCodeChanged: (String code) {
         debugPrint(code);
       },

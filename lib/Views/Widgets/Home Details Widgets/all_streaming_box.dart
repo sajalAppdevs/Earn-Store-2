@@ -50,8 +50,8 @@ class AllStreamingBox extends StatelessWidget {
           child: NetworkImageWidget(
             imageUrl: controller.contents.value!.streamingHubs![index].image
                 .toString(),
-            height: 22.h,
-            width: 72.w,
+            height: 50.h,
+            width: 100.w,
           ),
         );
       },

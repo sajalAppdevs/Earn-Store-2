@@ -71,7 +71,7 @@ class _AllStreamDetailsState extends State<AllStreamDetails> {
       alignment: Alignment.centerLeft,
       child: NetworkImageWidget(
         imageUrl: widget.mainLogo,
-        height: 24.h,
+        height: 40.h,
         width: 80.w,
       ),
     );

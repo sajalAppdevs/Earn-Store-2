@@ -72,8 +72,8 @@ class HomeStreamingHub extends StatelessWidget {
                     imageUrl: controller
                         .contents.value!.streamingHubs![index].image
                         .toString(),
-                    height: 22.h,
-                    width: 73.w,
+                    height: 40.h,
+                    width: 80.w,
                   ),
                 ),
               ),

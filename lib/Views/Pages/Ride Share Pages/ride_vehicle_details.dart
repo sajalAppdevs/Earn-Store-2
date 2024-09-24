@@ -1,4 +1,5 @@
 import 'package:earn_store/Controllers/Car%20Controllers/car_details_controller.dart';
+import 'package:earn_store/Controllers/User%20Controllers/user_profile_controller.dart';
 import 'package:earn_store/Statics/colors.dart';
 import 'package:earn_store/Utils/screen_loading.dart';
 import 'package:earn_store/Utils/snackbars.dart';
@@ -25,6 +26,8 @@ class RideVehicleDetails extends StatefulWidget {
 
 class _RideVehicleDetailsState extends State<RideVehicleDetails> {
   CarDetailsController controller = Get.put(CarDetailsController());
+  UserProfileController userProfileController =
+      Get.put(UserProfileController());
 
   @override
   void initState() {
@@ -49,7 +52,23 @@ class _RideVehicleDetailsState extends State<RideVehicleDetails> {
                     const CustomTop(title: "Details"),
                     infoBox(),
                     SizedBox(height: 50.h),
-                    buttonRow(),
+                    userProfileController
+                                .userData.value!.user!.isPaymentVerified ==
+                            0
+                        ? CustomButton(
+                            horizontalMargin: 20.w,
+                            width: 150.w,
+                            onPressed: () {
+                              Snackbars.successSnackBar(
+                                  title: "Booking Status",
+                                  description: "Sended To Admin");
+                              Get.offAll(
+                                const RootScreen(),
+                              );
+                            },
+                            buttonText: "Book",
+                          )
+                        : buttonRow(),
                     SizedBox(height: 50.h),
                   ],
                 ),

@@ -32,12 +32,12 @@ class _MorePageBodyState extends State<MorePageBody> {
     MoreController controller = Get.put(MoreController());
     return Padding(
       padding: EdgeInsets.only(bottom: 15.h),
-      child: index == 9 && isLoading
+      child: index == 7 && isLoading
           ? const ButtonLoading()
           : GlassmorphismCard(
               boxHeight: 50.h,
               onPressed: () async {
-                if (index == 9) {
+                if (index == 7) {
                   setState(() {
                     isLoading = true;
                   });

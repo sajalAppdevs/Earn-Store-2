@@ -1,4 +1,5 @@
 import 'package:earn_store/Controllers/Home%20Controllers/tour_package_controller.dart';
+import 'package:earn_store/Controllers/User%20Controllers/user_profile_controller.dart';
 import 'package:earn_store/Statics/paths.dart';
 import 'package:earn_store/Utils/button_loading.dart';
 import 'package:earn_store/Utils/url_helpers.dart';
@@ -18,21 +19,46 @@ class PackageDetailsBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GlassmorphismCard(
-      boxHeight: Get.height * 0.95,
-      verticalPadding: 20.h,
-      horizontalPadding: 20.w,
-      child: Column(
-        children: [
-          locationWidget(),
-          SizedBox(height: 20.h),
-          titleAndDetails(),
-          SizedBox(height: 20.h),
-          packageContain(),
-          SizedBox(height: 50.h),
-          buttonRow(),
-        ],
-      ),
+    TourPackageController controller = Get.put(TourPackageController());
+    UserProfileController userProfileController =
+        Get.put(UserProfileController());
+    return Obx(
+      () {
+        return GlassmorphismCard(
+          boxHeight: Get.height * 0.95,
+          verticalPadding: 20.h,
+          horizontalPadding: 20.w,
+          child: Column(
+            children: [
+              locationWidget(),
+              SizedBox(height: 20.h),
+              titleAndDetails(),
+              SizedBox(height: 20.h),
+              packageContain(),
+              SizedBox(height: 50.h),
+              userProfileController.userData.value!.user!.isPaymentVerified == 0
+                  ? controller.bookPackageLoading.value
+                      ? Padding(
+                          padding: EdgeInsets.only(right: 40.w),
+                          child: const ButtonLoading(),
+                        )
+                      : CustomButton(
+                          width: 150.w,
+                          onPressed: () async {
+                            await controller.packageBook(
+                              agencyID: controller
+                                  .packageDetails.value!.packages![0].agencyId
+                                  .toString(),
+                              agencyPackageID: packageID,
+                            );
+                          },
+                          buttonText: "Book",
+                        )
+                  : buttonRow(),
+            ],
+          ),
+        );
+      },
     );
   }
 

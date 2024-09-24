@@ -46,7 +46,7 @@ class FeedBoxTop extends StatelessWidget {
             SizedBox(
               width: 175.w,
               child: TextStyles.customText(
-                title: "Pelf Earn Admin",
+                title: "Earn Store Admin",
                 fontSize: 14.sp,
                 textAlign: TextAlign.left,
               ),

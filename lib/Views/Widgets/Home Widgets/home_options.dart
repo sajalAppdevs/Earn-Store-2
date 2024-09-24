@@ -1,8 +1,11 @@
+import 'package:earn_store/Controllers/User%20Controllers/user_profile_controller.dart';
 import 'package:earn_store/Statics/paths.dart';
 import 'package:earn_store/Utils/dummy_data.dart';
+import 'package:earn_store/Utils/snackbars.dart';
 import 'package:earn_store/Views/Common%20Widgets/glass_morphism_card.dart';
 import 'package:earn_store/Views/Pages/Home%20Details%20Page/all_watch_video_page.dart';
 import 'package:earn_store/Views/Pages/Home%20Details%20Page/all_youtube_video_page.dart';
+import 'package:earn_store/Views/Pages/Splash%20&%20Auth%20Pages/package_page.dart';
 import 'package:earn_store/Views/Styles/textstyles.dart';
 import 'package:earn_store/Views/Styles/title_text.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +17,8 @@ class HomeOptions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    UserProfileController userProfileController =
+        Get.put(UserProfileController());
     return Padding(
       padding: EdgeInsets.only(top: 20.h),
       child: Column(
@@ -34,17 +39,29 @@ class HomeOptions extends StatelessWidget {
                 child: GlassmorphismCard(
                   boxHeight: 65.h,
                   horizontalPadding: 20.w,
-                  onPressed: () {
-                    if (index == 0) {
-                      Get.to(
-                        const AllWatchVideoPage(),
-                      );
-                    } else if (index == 1) {
-                      Get.to(
-                        const AllYoutubeVideoPage(),
-                      );
-                    }
-                  },
+                  onPressed: userProfileController
+                              .userData.value!.user!.isPaymentVerified ==
+                          0
+                      ? () {
+                          Snackbars.unSuccessSnackBar(
+                            title: "Package Status",
+                            description: "Please upgrade package",
+                          );
+                          Get.to(
+                            const PackagePage(),
+                          );
+                        }
+                      : () {
+                          if (index == 0) {
+                            Get.to(
+                              const AllWatchVideoPage(),
+                            );
+                          } else if (index == 1) {
+                            Get.to(
+                              const AllYoutubeVideoPage(),
+                            );
+                          }
+                        },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

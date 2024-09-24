@@ -2,7 +2,6 @@ import 'package:earn_store/Views/Pages/Blood%20Related%20Pages/blood_bank.dart';
 import 'package:earn_store/Views/Pages/Category%20Pages/live_tv_page.dart';
 import 'package:earn_store/Views/Pages/Category%20Pages/news_paper_page.dart';
 import 'package:earn_store/Views/Pages/Category%20Pages/parcel_page.dart';
-import 'package:earn_store/Views/Pages/Category%20Pages/quiz_test_page.dart';
 import 'package:earn_store/Views/Pages/Ecommerce%20Related%20Pages/ecommerce_page.dart';
 import 'package:earn_store/Views/Pages/Food%20Related%20Page/food_delivery_page.dart';
 import 'package:earn_store/Views/Pages/Ride%20Share%20Pages/ride_share_page.dart';
@@ -42,10 +41,6 @@ class HomeCategoriesController extends GetxController {
         const ParcelPage(),
       );
     } else if (index == 7) {
-      Get.to(
-        const QuizTestPage(),
-      );
-    } else if (index == 8) {
       Get.to(
         const TourPage(),
       );
